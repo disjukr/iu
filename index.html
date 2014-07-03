@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>gosim test</title>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="bin/gosim.js"></script>
+    <link rel="stylesheet" type="text/css" href="bin/gosim.css">
+</head>
+<body>
+
+    <input id="original-checkbox" type="checkbox" checked> <label for="original-checkbox">this is original checkbox</label>
+    <script type="text/javascript">
+        $('#original-checkbox').on('change', function () {
+            console.log($(this).is(':checked'));
+        });
+    </script>
+
+    <div id="gosim-checkbox" gosim-checkbox checked label="this is gosim checkbox"></div>
+    <script type="text/javascript">
+        $('#gosim-checkbox').gosim().on('change', function () {
+            console.log($(this).val());
+        });
+        $('#gosim-checkbox').gosim('label', 'foo');
+        $('#gosim-checkbox').gosim('check', ['bar']);
+        $('#gosim-checkbox').gosim('available', ['baa', 'baz']);
+        $('#gosim-checkbox').gosim({
+            label: 'foo',
+            check: ['bar'],
+            available: ['baa', 'baz']
+        });
+    </script>
+</body>
+</html>
