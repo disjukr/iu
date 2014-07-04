@@ -20,14 +20,14 @@
         $('#gosim-checkbox').gosim().on('change', function () {
             console.log($(this).val());
         });
-        $('#gosim-checkbox').gosim('label', 'foo');
-        $('#gosim-checkbox').gosim('check', ['bar']);
-        $('#gosim-checkbox').gosim('available', ['baa', 'baz']);
-        $('#gosim-checkbox').gosim({
+        console.log($('#gosim-checkbox').gosim('label', 'foo'));
+        console.log($('#gosim-checkbox').gosim('check', ['bar']));
+        console.log($('#gosim-checkbox').gosim('available', ['baa', 'baz']));
+        console.log($('#gosim-checkbox').gosim({
             label: 'foo',
             check: ['bar'],
             available: ['baa', 'baz']
-        });
+        }));
     </script>
 </body>
 </html>

@@ -14,14 +14,17 @@ gosim.components.checkbox = function (el) {
     $.gosim.checkbox = {
         label: function () {
             console.log('label:', arguments);
+            return 'label';
             // TODO
         },
         check: function () {
             console.log('check:', arguments);
+            return 'check';
             // TODO
         },
         available: function () {
             console.log('available:', arguments);
+            return 'available';
             // TODO
         }
     };
