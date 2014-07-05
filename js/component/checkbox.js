@@ -1,4 +1,4 @@
-gosim.components.checkbox = function (el) {
+iu.components.checkbox = function (el) {
     var $el = $(el);
     $.valHooks[el.type] = {
         get: function () {
@@ -11,7 +11,7 @@ gosim.components.checkbox = function (el) {
                 $el.removeAttr('checked');
         }
     };
-    $.gosim.checkbox = {
+    $.iu.checkbox = {
         checked: function (value) {
             if (value !== undefined)
                 $el.val(value);
@@ -28,7 +28,7 @@ gosim.components.checkbox = function (el) {
         }
     };
     $el.on('click', function () {
-        if ($el.gosim('disabled'))
+        if ($el.iu('disabled'))
             return;
         $el.val(!$el.val());
         $el.trigger('change');

@@ -1,9 +1,9 @@
 
-// 모든 gosim 컴포넌트에는 이 prefix가 들어가야 한다.
-var gosimPrefix = 'gosim-';
-function withPrefix(type) { return gosimPrefix + type; }
-function checkPrefix(type) { return type.substr(0, gosimPrefix.length) == gosimPrefix; }
-function cutPrefix(type) { return type.substr(gosimPrefix.length); }
+// 모든 iu 컴포넌트에는 이 prefix가 들어가야 한다.
+var prefix = 'iu-';
+function withPrefix(type) { return prefix + type; }
+function checkPrefix(type) { return type.substr(0, prefix.length) == prefix; }
+function cutPrefix(type) { return type.substr(prefix.length); }
 
 function componentType(el) {
     var type = undefined;
@@ -23,27 +23,27 @@ function initializable(el, type) {
 
 function initialize(el, type) {
     type = type || componentType(el);
-    var initializer = type ? gosim.components[type] : null;
+    var initializer = type ? iu.components[type] : null;
     if (initializable(el) && initializer) {
         el.type = withPrefix(type);
         initializer(el);
     }
 }
 
-function gosim() {
+function iu() {
     var first = arguments[0];
     var second = arguments[1];
     /*
      *  apply method all of selections
      *  return first selection's method call result
      *
-     *  $(selector).gosim('prop', value);
+     *  $(selector).iu('prop', value);
      */
     if (typeof first == 'string' || first instanceof String) {
         var result;
         this.each(function (index) {
             var type = componentType(this);
-            var componentMethods = $.gosim[type];
+            var componentMethods = $.iu[type];
             var method = componentMethods ? componentMethods[first] : null;
             initialize(this, type);
             if (typeof method == 'function') {
@@ -58,14 +58,14 @@ function gosim() {
     /*
      *  returns jQuery chain
      *
-     *  $(selector).gosim();
-     *  $(selector).gosim({
+     *  $(selector).iu();
+     *  $(selector).iu({
      *      prop: value
      *  });
      */
     this.each(function () {
         var type = componentType(this);
-        var componentMethods = $.gosim[type];
+        var componentMethods = $.iu[type];
         initialize(this, type);
         if (!componentMethods)
             return;
@@ -77,6 +77,6 @@ function gosim() {
     });
     return this;
 }
-gosim.components = {};
-$.gosim = {};
-$.fn.gosim = gosim;
+iu.components = {};
+$.iu = {};
+$.fn.iu = iu;

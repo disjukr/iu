@@ -1,4 +1,4 @@
-gosim.components.label = function (el) {
+iu.components.label = function (el) {
     var $el = $(el);
     $.valHooks[el.type] = {
         get: function () {
@@ -8,7 +8,7 @@ gosim.components.label = function (el) {
             $el.text(value);
         }
     };
-    $.gosim.label = {
+    $.iu.label = {
         target: function (value) {
             if (value !== undefined)
                 $el.attr('for', value);
@@ -21,7 +21,7 @@ gosim.components.label = function (el) {
         }
     };
     $el.on('click', function () {
-        var $target = $($el.gosim('target'));
+        var $target = $($el.iu('target'));
         $target.trigger('click');
     });
 };

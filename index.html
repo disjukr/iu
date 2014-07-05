@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>gosim test</title>
+    <title>iu test</title>
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="bin/gosim.js"></script>
-    <link rel="stylesheet" type="text/css" href="bin/gosim.css">
+    <script type="text/javascript" src="bin/iu.js"></script>
+    <link rel="stylesheet" type="text/css" href="bin/iu.css">
 </head>
 <body>
 
@@ -19,24 +19,24 @@
         });
     </script>
 
-    <div id="gosim-checkbox" gosim-checkbox checked></div>
-    <div gosim-label for="gosim-checkbox">this is gosim checkbox</div>
+    <div id="iu-checkbox" iu-checkbox checked></div>
+    <div iu-label for="iu-checkbox">this is iu checkbox</div>
     <script type="text/javascript">
-        $('[gosim-label]').gosim();
-        $('#gosim-checkbox').gosim({
+        $('[iu-label]').iu();
+        $('#iu-checkbox').iu({
             checked: true,
             disabled: false
         }).on('change', function () {
             console.log(
-                'gosim checkbox value:',
+                'iu checkbox value:',
                 $(this).val()
             );
         });
         console.log(
-            'checked:', $('#gosim-checkbox').gosim('checked')
+            'checked:', $('#iu-checkbox').iu('checked')
         );
         console.log(
-            'disabled:', $('#gosim-checkbox').gosim('disabled')
+            'disabled:', $('#iu-checkbox').iu('disabled')
         );
     </script>
 </body>

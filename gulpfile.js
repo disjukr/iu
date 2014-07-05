@@ -9,12 +9,12 @@ gulp.task('clean', function (callback) {
 
 gulp.task('script', function () {
     gulp.src(['js/head.js', 'js/core.js', 'js/component/**', 'js/tail.js'])
-        .pipe(concat('gosim.js'))
+        .pipe(concat('iu.js'))
         .pipe(gulp.dest('bin'))
 });
 
 gulp.task('style', function () {
-    gulp.src('styl/gosim.styl')
+    gulp.src('styl/iu.styl')
         .pipe(stylus({ errors: true }))
         .pipe(gulp.dest('bin'));
 });
