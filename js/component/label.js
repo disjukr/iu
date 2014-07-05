@@ -21,7 +21,6 @@ iu.components.label = function (el) {
         }
     };
     $el.on('click', function () {
-        var $target = $($el.iu('target'));
-        $target.trigger('click');
+        $($el.iu('target')).trigger('click');
     });
 };
