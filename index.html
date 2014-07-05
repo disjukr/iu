@@ -11,23 +11,30 @@
     <input id="original-checkbox" type="checkbox" checked> <label for="original-checkbox">this is original checkbox</label>
     <script type="text/javascript">
         $('#original-checkbox').on('change', function () {
-            console.log($(this).is(':checked'));
+            console.log(
+                'original checkbox value:',
+                $(this).is(':checked')
+            );
         });
     </script>
 
     <div id="gosim-checkbox" gosim-checkbox checked label="this is gosim checkbox"></div>
     <script type="text/javascript">
-        $('#gosim-checkbox').gosim().on('change', function () {
-            console.log($(this).val());
+        $('#gosim-checkbox').gosim({
+            checked: true,
+            disabled: false
+        }).on('change', function () {
+            console.log(
+                'gosim checkbox value:',
+                $(this).val()
+            );
         });
-        console.log($('#gosim-checkbox').gosim('label', 'foo'));
-        console.log($('#gosim-checkbox').gosim('check', ['bar']));
-        console.log($('#gosim-checkbox').gosim('available', ['baa', 'baz']));
-        console.log($('#gosim-checkbox').gosim({
-            label: 'foo',
-            check: ['bar'],
-            available: ['baa', 'baz']
-        }));
+        console.log(
+            'checked:', $('#gosim-checkbox').gosim('checked')
+        );
+        console.log(
+            'disabled:', $('#gosim-checkbox').gosim('disabled')
+        );
     </script>
 </body>
 </html>

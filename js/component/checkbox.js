@@ -12,23 +12,24 @@ gosim.components.checkbox = function (el) {
         }
     };
     $.gosim.checkbox = {
-        label: function () {
-            console.log('label:', arguments);
-            return 'label';
-            // TODO
+        checked: function (value) {
+            if (value !== undefined)
+                $el.val(value);
+            return $el.val();
         },
-        check: function () {
-            console.log('check:', arguments);
-            return 'check';
-            // TODO
-        },
-        available: function () {
-            console.log('available:', arguments);
-            return 'available';
-            // TODO
+        disabled: function (value) {
+            if (value !== undefined) {
+                if (value)
+                    $el.attr('disabled', 'disabled');
+                else
+                    $el.removeAttr('disabled');
+            }
+            return $el.attr('disabled') !== undefined;
         }
     };
     $el.on('click', function () {
+        if ($el.gosim('disabled'))
+            return;
         $el.val(!$el.val());
         $el.trigger('change');
     });

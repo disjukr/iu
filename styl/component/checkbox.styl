@@ -1,0 +1,29 @@
+@require '../mixin/vendor'
+
+gosim-checkbox-width = 13px
+gosim-checkbox-height = 13px
+
+gosim-checkbox-background(checked, disabled)
+    if checked
+        $y = -(gosim-checkbox-height)
+    else
+        $y = 0
+    if disabled
+        $x = gosim-checkbox-width
+    else
+        $x = 0
+    background-image url('img/checkbox.png')
+    background-repeat no-repeat
+    background-position $x $y
+
+*[gosim-checkbox]
+    user-select none
+    width 13px
+    height 13px
+    gosim-checkbox-background(false, false)
+    &[checked]
+        gosim-checkbox-background(true, false)
+    &[disabled]
+        gosim-checkbox-background(false, true)
+    &[checked][disabled]
+        gosim-checkbox-background(true, true)
