@@ -17,9 +17,11 @@ gosim-checkbox-background(checked, disabled)
     background-position $x $y
 
 *[gosim-checkbox]
+    display inline-block
     user-select none
     width 13px
     height 13px
+    vertical-align middle
     gosim-checkbox-background(false, false)
     &[checked]
         gosim-checkbox-background(true, false)

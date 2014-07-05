@@ -8,7 +8,8 @@
 </head>
 <body>
 
-    <input id="original-checkbox" type="checkbox" checked> <label for="original-checkbox">this is original checkbox</label>
+    <input id="original-checkbox" type="checkbox" checked>
+    <label for="original-checkbox">this is original checkbox</label>
     <script type="text/javascript">
         $('#original-checkbox').on('change', function () {
             console.log(
@@ -18,8 +19,10 @@
         });
     </script>
 
-    <div id="gosim-checkbox" gosim-checkbox checked label="this is gosim checkbox"></div>
+    <div id="gosim-checkbox" gosim-checkbox checked></div>
+    <div gosim-label for="gosim-checkbox">this is gosim checkbox</div>
     <script type="text/javascript">
+        $('[gosim-label]').gosim();
         $('#gosim-checkbox').gosim({
             checked: true,
             disabled: false

@@ -1,5 +1,5 @@
 gosim.components.checkbox = function (el) {
-    $el = $(el);
+    var $el = $(el);
     $.valHooks[el.type] = {
         get: function () {
             return $el.attr('checked') === 'checked';
