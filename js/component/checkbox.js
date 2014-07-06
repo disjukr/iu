@@ -1,36 +1,37 @@
-iu.components.checkbox = function (el) {
+iu.init.checkbox = function (el) {
     var $el = $(el);
-    $.valHooks[el.type] = {
-        get: function () {
-            return $el.attr('checked') === 'checked';
-        },
-        set: function (el, value) {
-            if (value)
-                $el.attr('checked', 'checked');
-            else
-                $el.removeAttr('checked');
-        }
-    };
-    $.iu.checkbox = {
-        checked: function (value) {
-            if (value !== undefined)
-                $el.val(value);
-            return $el.val();
-        },
-        disabled: function (value) {
-            if (value !== undefined) {
-                if (value)
-                    $el.attr('disabled', 'disabled');
-                else
-                    $el.removeAttr('disabled');
-            }
-            return $el.attr('disabled') !== undefined;
-        }
-    };
     $el.on('click', function () {
         if ($el.iu('disabled'))
             return;
         $el.val(!$el.val());
         $el.trigger('change');
     });
+};
+
+$.iu.checkbox = {
+    val: function (value) {
+        var $this = $(this);
+        if (value === undefined)
+            return $this.attr('checked') === 'checked';
+        if (value)
+            $this.attr('checked', 'checked');
+        else
+            $this.removeAttr('checked');
+    },
+    checked: function (value) {
+        var $this = $(this);
+        if (value !== undefined)
+            $this.val(value);
+        return $this.val();
+    },
+    disabled: function (value) {
+        var $this = $(this);
+        if (value !== undefined) {
+            if (value)
+                $this.attr('disabled', 'disabled');
+            else
+                $this.removeAttr('disabled');
+        }
+        return $this.attr('disabled') !== undefined;
+    }
 };

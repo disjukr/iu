@@ -6,7 +6,7 @@ function checkPrefix(type) { return type.substr(0, prefix.length) == prefix; }
 function cutPrefix(type) { return type.substr(prefix.length); }
 
 function componentType(el) {
-    var type = undefined;
+    var type;
     $.each(el.attributes, function (index, attribute) {
         if (checkPrefix(attribute.name)) {
             type = cutPrefix(attribute.name);
@@ -18,19 +18,26 @@ function componentType(el) {
 
 function initializable(el, type) {
     return (type || componentType(el)) !== undefined &&
-           el.type                     === undefined;
+           el.type                     !== 'iu';
 }
 
 function initialize(el, type) {
     type = type || componentType(el);
-    var initializer = type ? iu.components[type] : null;
+    var initializer = type ? iu.init[type] : null;
     if (initializable(el) && initializer) {
-        el.type = withPrefix(type);
+        el.type = 'iu';
         initializer(el);
     }
 }
 
 function iu() {
+    // $(selector).iu();
+    if (arguments.length === 0) {
+        this.each(function () {
+            initialize(this);
+        });
+        return this;
+    }
     var first = arguments[0];
     var second = arguments[1];
     /*
@@ -58,7 +65,6 @@ function iu() {
     /*
      *  returns jQuery chain
      *
-     *  $(selector).iu();
      *  $(selector).iu({
      *      prop: value
      *  });
@@ -69,14 +75,23 @@ function iu() {
         initialize(this, type);
         if (!componentMethods)
             return;
+        var self = this;
         $.each(first, function (key, value) {
             var method = componentMethods[key];
             if (typeof method == 'function')
-                method.apply(this, [].concat(value));
+                method.apply(self, [].concat(value));
         });
     });
     return this;
 }
-iu.components = {};
+iu.init = {};
 $.iu = {};
 $.fn.iu = iu;
+$.valHooks['iu'] = {
+    get: function (el) {
+        return $(el).iu('val');
+    },
+    set: function (el, value) {
+        $(el).iu('val', value);
+    }
+}
