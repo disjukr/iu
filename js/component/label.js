@@ -1,7 +1,8 @@
 iu.init.label = function (el) {
     var $el = $(el);
+    $el.children().iu();
     $el.on('click', function () {
-        $($el.iu('target')).trigger('click');
+        $($el.iu('target') || $el.children()).triggerHandler('click');
     });
 };
 

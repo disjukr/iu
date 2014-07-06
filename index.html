@@ -8,6 +8,16 @@
 </head>
 <body>
 
+    <label>
+        original checkbox <input type="checkbox"> in label
+    </label>
+    <br>
+
+    <div iu-label>
+        iu checkbox <div iu-checkbox></div> in label
+    </div>
+    <br>
+
     <input id="original-checkbox" type="checkbox" checked>
     <label for="original-checkbox">this is original checkbox</label>
     <script type="text/javascript">
@@ -18,26 +28,22 @@
             );
         });
     </script>
+    <br>
 
     <div id="iu-checkbox" iu-checkbox checked></div>
     <div iu-label for="iu-checkbox">this is iu checkbox</div>
     <script type="text/javascript">
-        $('[iu-label]').iu();
-        $('#iu-checkbox').iu({
-            checked: true,
-            disabled: false
-        }).on('change', function () {
+        $('#iu-checkbox').on('change', function () {
             console.log(
                 'iu checkbox value:',
                 $(this).val()
             );
         });
-        console.log(
-            'checked:', $('#iu-checkbox').iu('checked')
-        );
-        console.log(
-            'disabled:', $('#iu-checkbox').iu('disabled')
-        );
+    </script>
+    <br>
+
+    <script type="text/javascript">
+        $('[iu-label], [iu-checkbox]').iu();
     </script>
 </body>
 </html>

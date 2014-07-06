@@ -1,10 +1,11 @@
 iu.init.checkbox = function (el) {
     var $el = $(el);
-    $el.on('click', function () {
+    $el.on('click', function (e) {
         if ($el.iu('disabled'))
             return;
         $el.val(!$el.val());
         $el.trigger('change');
+        e.stopPropagation();
     });
 };
 
