@@ -9,7 +9,7 @@ iu-checkbox-background(checked, disabled)
     else
         $y = 0
     if disabled
-        $x = iu-checkbox-width
+        $x = -(iu-checkbox-width)
     else
         $x = 0
     background-image url('img/checkbox.png')
@@ -19,8 +19,8 @@ iu-checkbox-background(checked, disabled)
 *[iu-checkbox]
     display inline-block
     user-select none
-    width 13px
-    height 13px
+    width iu-checkbox-width
+    height iu-checkbox-height
     vertical-align middle
     iu-checkbox-background(false, false)
     &[checked]
