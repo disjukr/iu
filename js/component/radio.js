@@ -17,7 +17,7 @@ $.iu.radio = {
         if (value === undefined)
             return $this.attr('checked') === 'checked';
         if (value) {
-            $('[iu-radio]', $this.iu('group')).val(false);
+            $this.iu('group').iu('members').val(false);
             $this.attr('checked', 'checked');
         }
         else {
@@ -48,19 +48,17 @@ $.iu.radio = {
     },
     group: function (value) {
         var $this = $(this);
-        if (value === undefined) {
-            if (this.__iu_radio_group__ == null)
-                return null;
-            return this.__iu_radio_group__;
-        }
-        var oldGroup = $this.iu('group');
-        if (oldGroup !== null)
-            $(oldGroup).iu('remove', this);
-        var $group = $(value);
-        if ($group.is('[iu-radio-group]')) {
-            if (!$group.iu('has', this))
-                $group.iu('add', this);
-            this.__iu_radio_group__ = $group[0];
+        var $group = $(this.__iu_radio_group__);
+        if (value === undefined)
+            return $group;
+        var $oldGroup = $this.iu('group');
+        if ($oldGroup.length > 0)
+            $oldGroup.iu('remove', this);
+        var $newGroup = $(value);
+        if ($newGroup.is('[iu-radio-group]')) {
+            if (!$newGroup.iu('has', this))
+                $newGroup.iu('add', this);
+            this.__iu_radio_group__ = $newGroup[0];
         }
     }
 };

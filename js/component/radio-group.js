@@ -7,20 +7,34 @@ iu.init['radio-group'] = function (el) {
 $.iu['radio-group'] = {
     val: function (value) {
         var $this = $(this);
-        var $selected
+        if (value !== undefined) {
+            $(this.__iu_radio_group_members__).each(function (index, member) {
+                var $member = $(member);
+                if ($member.iu('value') === value) {
+                    $member.val(true);
+                    return false;
+                }
+            });
+        }
         return $($this.iu('selected')).iu('value');
     },
     selected: function () {
-        return $('[iu-radio][checked]', this)[0];
+        var selected;
+        $(this.__iu_radio_group_members__).each(function (index, member) {
+            if ($(member).is('[checked]')) {
+                selected = member;
+                return false;
+            }
+        });
+        return selected;
     },
     members: function () {
-        return this.__iu_radio_group_members__.concat();
+        return $(this.__iu_radio_group_members__);
     },
     has: function (value) {
         var member = $(value)[0];
         var members = this.__iu_radio_group_members__;
-        members.indexOf(member);
-        return value != -1;
+        return members.indexOf(member) != -1;
     },
     add: function (value) {
         var $this = $(this);
