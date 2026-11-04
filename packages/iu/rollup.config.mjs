@@ -6,5 +6,5 @@ export default {
   input: 'src/index.ts',
   external: ['solid-js', '@solidjs/web'],
   output: { file: 'dist/index.js', format: 'es', sourcemap: true, assetFileNames: '[name][extname]' },
-  plugins: [nodeResolve(), json(), vanillaExtractPlugin({ extract: { name: 'styles.css' } }), typescript({ noEmit: false, declaration: false })],
+  plugins: [nodeResolve(), json(), vanillaExtractPlugin({ extract: { name: 'styles.css' } }), typescript({ noEmit: false, declaration: true, declarationDir: 'dist', rootDir: 'src' })],
 };

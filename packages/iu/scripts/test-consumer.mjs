@@ -1,22 +1,27 @@
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, cpSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { chromium } from '@playwright/test';
 import { preview } from 'vite';
 const root = process.cwd();
 const dir = mkdtempSync(join(tmpdir(), 'iu-consumer-'));
+// Windows cannot exec npm.cmd directly. Invoke the npm CLI through Node.
+const npm = process.platform === 'win32'
+  ? [process.execPath, [join(dirname(process.execPath), 'node_modules/npm/bin/npm-cli.js')]]
+  : ['npm', []];
+const runNpm = (args, cwd = dir, options = {}) => execFileSync(npm[0], [...npm[1], ...args], { cwd, stdio: 'inherit', ...options });
 const run = (cmd, args, cwd = dir) => execFileSync(cmd, args, { cwd, stdio: 'inherit' });
 try {
-  const [pack] = JSON.parse(execFileSync('npm', ['pack', '--json', '--pack-destination', dir], { cwd: root, encoding: 'utf8' }));
+  const [pack] = JSON.parse(runNpm(['pack', '--json', '--pack-destination', dir], root, { stdio: 'pipe', encoding: 'utf8' }));
   cpSync(resolve('tests/consumer'), dir, { recursive: true });
   writeFileSync(join(dir, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: {
     iu: `file:./${pack.filename}`, 'solid-js': '2.0.0-rc.20', '@solidjs/web': '2.0.0-rc.20',
     '@solidjs/vite-plugin': '3.0.0-next.54', vite: '8.3.5', typescript: '5.9.3'
   }}));
-  run('npm', ['install', '--ignore-scripts', '--no-audit', '--no-fund']);
-  run('node', ['node_modules/typescript/bin/tsc', '--noEmit']);
-  run('node', ['node_modules/vite/bin/vite.js', 'build']);
+  runNpm(['install', '--ignore-scripts', '--no-audit', '--no-fund']);
+  run(process.execPath, ['node_modules/typescript/bin/tsc', '--noEmit']);
+  run(process.execPath, ['node_modules/vite/bin/vite.js', 'build']);
   const server = await preview({ configFile: false, root: dir, preview: { host: '127.0.0.1', port: 0 } });
   let browser;
   try {
