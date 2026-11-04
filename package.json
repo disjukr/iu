@@ -1,20 +1,55 @@
 {
   "name": "iu",
   "version": "0.0.0",
-  "description": "ui library",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "private": true,
+  "description": "Solid 2 UI foundations for rieul.app",
+  "type": "module",
   "author": "JongChan Choi",
   "license": "BSD",
-  "devDependencies": {
-    "del": "^0.1.1",
-    "gulp": "^3.8.5",
-    "gulp-concat": "^2.2.0",
-    "gulp-minify-css": "^0.3.6",
-    "gulp-rename": "^1.2.0",
-    "gulp-stylus": "^1.0.2",
-    "gulp-uglify": "^0.3.1"
+  "files": [
+    "dist",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
   },
-  "private": true
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
+    "build": "npm run clean && rollup -c && tsc -p tsconfig.build.json",
+    "check": "tsc --noEmit",
+    "test": "npm run build && node --test tests/package.test.mjs && node scripts/test-consumer.mjs"
+  },
+  "peerDependencies": {
+    "@solidjs/web": "^2.0.0-rc.20",
+    "solid-js": "^2.0.0-rc.20"
+  },
+  "dependencies": {
+    "open-color": "1.9.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@rollup/plugin-json": "6.1.0",
+    "@rollup/plugin-node-resolve": "16.0.3",
+    "@rollup/plugin-typescript": "12.3.1",
+    "@solidjs/vite-plugin": "3.0.0-next.54",
+    "@solidjs/web": "2.0.0-rc.21",
+    "@vanilla-extract/css": "1.21.3",
+    "@vanilla-extract/rollup-plugin": "1.5.4",
+    "rollup": "4.67.4",
+    "solid-js": "2.0.0-rc.21",
+    "tslib": "2.8.1",
+    "typescript": "5.9.3",
+    "vite": "8.3.5"
+  }
 }
