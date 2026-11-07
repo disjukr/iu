@@ -1,22 +1,25 @@
 import { createSignal } from 'solid-js';
 import { render } from '@solidjs/web';
-import { colors, element, focusRing, foundation, typography, vars } from 'iu';
+import { Button, colors, root, glass, typography, vars } from 'iu';
 import 'iu/styles.css';
 import './styles.css';
 
 const setup = `import 'iu/styles.css';
-import { foundation, element, focusRing } from 'iu';
+import { Button, root, unroot } from 'iu';
 
-<section class={foundation}>
-  <p class={element}>Hello, iu.</p>
-  <button class={\`\${element} \${focusRing}\`}>Continue</button>
+<section class={root}>
+  <p>Hello, iu.</p>
+  <Button variant="primary">Continue</Button>
+  <div class={unroot}>
+    <p>Browser defaults.</p>
+    <div class={root}>iu styles resume here.</div>
+  </div>
 </section>`;
 
 function App() {
   const [count, setCount] = createSignal(0);
   const [dark, setDark] = createSignal(false);
   const palette = Object.entries(colors).filter((entry): entry is [string, string[]] => Array.isArray(entry[1]));
-  const themeProperty = (reference: string) => reference.slice(4, -1);
 
   return <div class="site">
     <header class="header">
@@ -51,7 +54,7 @@ pnpm --filter iu pack
 pnpm add /path/to/iu-0.0.0.tgz`}</code></pre>
           <p>Requires Solid 2: <code>solid-js</code> and <code>@solidjs/web</code>. Set <code>jsxImportSource: "@solidjs/web"</code> and import the CSS once.</p>
           <pre><code>{setup}</code></pre>
-          <p>Examples use native elements with iu styles.</p>
+          <p><code>root</code> sets tokens, typography, and a subtree reset. <code>unroot</code> clears those defaults; a nested <code>root</code> resumes them. Requires CSS <code>@scope</code> support.</p>
         </section>
 
         <section id="colors">
@@ -75,20 +78,19 @@ pnpm add /path/to/iu-0.0.0.tgz`}</code></pre>
         </section>
 
         <section id="examples">
-          <p class="eyebrow">04 / PLAYGROUND</p>
+          <p class="eyebrow">04 / EXPERIMENT</p>
           <h2>Try it yourself</h2>
           <p>Change the theme or press Tab to check keyboard focus.</p>
-          <div class={`${foundation} demo`} style={{
-            [themeProperty(vars.color.surface)]: dark() ? colors.gray[9] : colors.gray[0],
-            [themeProperty(vars.color.text)]: dark() ? colors.gray[0] : colors.gray[9],
-            [themeProperty(vars.color.focus)]: dark() ? colors.blue[3] : colors.blue[7],
-          }}>
-            <span class={`${element} demo-label`}>LIVE EXAMPLE</span>
-            <h3 class={`${element} demo-title`}>Counter</h3>
-            <p class={element}>Click to increment.</p>
+          <div class={`${root} ${glass} demo`} data-theme={dark() ? 'dark' : 'light'}>
+            <span class="demo-label">LIVE EXAMPLE</span>
+            <h3 class="demo-title">Counter</h3>
+            <p>Click to increment.</p>
             <div class="demo-actions">
-              <button class={`${element} ${focusRing} demo-button`} onClick={() => setCount(value => value + 1)}>Clicks <output aria-live="polite">{count()}</output></button>
-              <button class={`${element} ${focusRing} theme-button`} aria-pressed={dark() ? 'true' : 'false'} onClick={() => setDark(value => !value)}>Dark theme {dark() ? 'on' : 'off'}</button>
+              <Button variant="primary" onClick={() => setCount(value => value + 1)}>Clicks <output aria-live="polite">{count()}</output></Button>
+              <Button aria-pressed={dark() ? 'true' : 'false'} onClick={() => setDark(value => !value)}>Dark theme {dark() ? 'on' : 'off'}</Button>
+              <Button variant="warning">Warning</Button>
+              <Button variant="danger">Danger</Button>
+              <Button variant="primary" color={colors.violet[6]}>Custom color</Button>
             </div>
           </div>
           <pre><code>{`import { vars } from 'iu';
@@ -102,12 +104,14 @@ pnpm add /path/to/iu-0.0.0.tgz`}</code></pre>
           <p class="eyebrow">05 / REFERENCE</p>
           <h2>API</h2>
           <div class="table-scroll"><table><thead><tr><th>Export</th><th>Purpose</th></tr></thead><tbody>{[
+            ['root / unroot', 'Start or stop the scoped reset and inherited defaults'],
+            ['Button', 'Native button with variant and size options'],
+            ['glass', 'Translucent surface with blur, border, and shadow'],
             ['colors', 'The original Open Color palette'], ['typography', 'Font stack, size, weight, and line height'],
-            ['theme / vars', 'Theme class and typed CSS variables'], ['element', 'Base styles applied to individual elements'],
-            ['foundation', 'A subtree boundary with theme, base styles, and background'], ['focusRing', ':focus-visible styles for keyboard focus'],
+            ['vars', 'Typed CSS variables for theme overrides'], ['focusRing', ':focus-visible styles for keyboard focus'],
             ['JSX', 'Type re-export from @solidjs/web'],
           ].map(([name, description]) => <tr><td><code>{name}</code></td><td>{description}</td></tr>)}</tbody></table></div>
-          <p>Apply <code>element</code> to each styled element. Portals outside the theme boundary need their own theme class.</p>
+          <p>Portals outside the root need their own <code>root</code> class. <code>unroot</code> does not disable explicit component classes or application styles.</p>
         </section>
         <footer>iu</footer>
       </main>

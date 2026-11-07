@@ -16,6 +16,7 @@
     "@solidjs/web": "2.0.0-rc.21"
   },
   "devDependencies": {
+    "@vanilla-extract/vite-plugin": "5.2.6",
     "@solidjs/vite-plugin": "3.0.0-next.54",
     "typescript": "5.9.3",
     "vite": "8.3.5",

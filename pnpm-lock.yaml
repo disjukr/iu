@@ -184,6 +184,37 @@ importers:
       '@solidjs/vite-plugin':
         specifier: 3.0.0-next.54
         version: 3.0.0-next.54(@solidjs/web@2.0.0-rc.21(solid-js@2.0.0-rc.21))(solid-js@2.0.0-rc.21)(vite@8.3.5(@types/node@26.6.6)(esbuild@0.28.2))
+      '@vanilla-extract/vite-plugin':
+        specifier: 5.2.6
+        version: 5.2.6(@types/node@26.6.6)(esbuild@0.28.2)(vite@8.3.5(@types/node@26.6.6)(esbuild@0.28.2))
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+      vite:
+        specifier: 8.3.5
+        version: 8.3.5(@types/node@26.6.6)(esbuild@0.28.2)
+
+  apps/lab:
+    dependencies:
+      '@solidjs/web':
+        specifier: 2.0.0-rc.21
+        version: 2.0.0-rc.21(solid-js@2.0.0-rc.21)
+      iu:
+        specifier: workspace:*
+        version: link:../../packages/iu
+      solid-js:
+        specifier: 2.0.0-rc.21
+        version: 2.0.0-rc.21
+    devDependencies:
+      '@playwright/test':
+        specifier: 1.64.1
+        version: 1.64.1
+      '@solidjs/vite-plugin':
+        specifier: 3.0.0-next.54
+        version: 3.0.0-next.54(@solidjs/web@2.0.0-rc.21(solid-js@2.0.0-rc.21))(solid-js@2.0.0-rc.21)(vite@8.3.5(@types/node@26.6.6)(esbuild@0.28.2))
+      '@vanilla-extract/vite-plugin':
+        specifier: 5.2.6
+        version: 5.2.6(@types/node@26.6.6)(esbuild@0.28.2)(vite@8.3.5(@types/node@26.6.6)(esbuild@0.28.2))
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -197,6 +228,9 @@ importers:
         specifier: 1.9.1
         version: 1.9.1
     devDependencies:
+      '@babel/core':
+        specifier: 7.29.7
+        version: 7.29.7
       '@playwright/test':
         specifier: 1.64.1
         version: 1.64.1
@@ -209,6 +243,9 @@ importers:
       '@rollup/plugin-typescript':
         specifier: 12.3.1
         version: 12.3.1(rollup@4.67.4)(tslib@2.8.1)(typescript@5.9.3)
+      '@solidjs/babel-plugin':
+        specifier: 2.0.0-rc.20
+        version: 2.0.0-rc.20(@babel/core@7.29.7)
       '@solidjs/vite-plugin':
         specifier: 3.0.0-next.54
         version: 3.0.0-next.54(@solidjs/web@2.0.0-rc.21(solid-js@2.0.0-rc.21))(solid-js@2.0.0-rc.21)(vite@8.3.5(@types/node@26.6.6)(esbuild@0.28.2))
@@ -917,6 +954,9 @@ packages:
   '@vanilla-extract/babel-plugin-debug-ids@1.2.2':
     resolution: {integrity: sha512-MeDWGICAF9zA/OZLOKwhoRlsUW+fiMwnfuOAqFVohL31Agj7Q/RBWAYweqjHLgFBCsdnr6XIfwjJnmb2znEWxw==}
 
+  '@vanilla-extract/compiler@0.7.2':
+    resolution: {integrity: sha512-VslwMJ01taDhJmMo0+A0SWn2dloMnYi0+BbvLuXXlqK4ufVRwXsq/U/Fp8ANkw3jevmQXy+JL7VtIQdjEtylDQ==}
+
   '@vanilla-extract/css@1.21.3':
     resolution: {integrity: sha512-h7wXxEowNLjhGfTHqReoSBWjAzxDADM8yUuUL/enDWXQVwy50JnY8xFNaie04XHTmrBPKJjwcwRNuTGlFIJLSA==}
 
@@ -930,6 +970,11 @@ packages:
     resolution: {integrity: sha512-MFcpJ4ri+a76RPl2co8n1PPMcYwRo7nq95UPdNThBT9gG2QvOiXsDd+ussHIwcTrQd8LGjoRb5bjIKUnoWnw0g==}
     peerDependencies:
       rollup: ^2.0.0 || ^3.0.0 || ^4.0.0
+
+  '@vanilla-extract/vite-plugin@5.2.6':
+    resolution: {integrity: sha512-mGk0YEan+NyeoxEO51LfxOdtw2JBI+Yb840FGg+zvG6tVU3YfDgKGPiGuk5oT8jqzfsm7H89DyjOVCpl6Bnn0w==}
+    peerDependencies:
+      vite: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
 
   acorn@8.19.0:
     resolution: {integrity: sha512-oJlA3XiRm7Cyk6qFD2Jn8ak9B7jSy0qy00ADO3+8dpT0LSjFihQYv4C02LFCSYJV3Q37xYwwRy5m+IpIiUzqWw==}
@@ -945,6 +990,10 @@ packages:
     resolution: {integrity: sha512-khTmKu5NGYTotqcYo8Bew2k4RAE9PuXRSFRXG2lQBrCEQHyeQ/vX6gKMxfokwywBsLiXZMnHsmWMG1pnO8J7uQ==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
+
+  cac@7.1.0:
+    resolution: {integrity: sha512-LMDU/U2yA4IPIY8KT0NsNPWEYZvAMkbgyspxJ6btJaYV+WMDOHAZCmB0lsTObiHaRS1V/ztKAl7+TSkTqXyeoA==}
+    engines: {node: '>=20.19.0'}
 
   caniuse-lite@1.0.30001820:
     resolution: {integrity: sha512-gfWD6MxqVCqAOwmODfZf7DchWvlrA+SRdNX7ceLfg3xRqe5ssjjpF7EgslC/0tiLiNTajdaNN/q8c/5u/7Gz8w==}
@@ -1004,6 +1053,9 @@ packages:
   es-errors@1.3.0:
     resolution: {integrity: sha512-Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==}
     engines: {node: '>= 0.4'}
+
+  es-module-lexer@2.3.2:
+    resolution: {integrity: sha512-poHGpORABojJJucnV9KbOavETW8lBVnphkW77ER5/BQ5Fz7oXSoCNek7IH3vR5nRjdsEz926ibFYX8KtLQmdyw==}
 
   esbuild@0.28.2:
     resolution: {integrity: sha512-HKVLS8dvII+xoKW9kmqxbRKrnWEXfJJr/FZhhJmiqIB0e053QNYFqOBouTMO/k5sID4MvCiUCvv8b9M4h32wIA==}
@@ -1192,6 +1244,10 @@ packages:
     resolution: {integrity: sha512-6li2QanLsAXpIH2R6j77MzRyvOyrvdTqlKtO4CgBdHGNvN99ZZfyxszHc5o5+IZBWD5u6Hzwg83JoGXmqZNG9Q==}
     engines: {node: '>=18'}
 
+  obug@2.2.1:
+    resolution: {integrity: sha512-XrsrhT5sybtKI6wakr2SPOlGZWWYbUXZ7a0jT8/QOeAPau+1X/bSegNe5YR75oJmEZQbKningirmGOEJCIk61Q==}
+    engines: {node: '>=12.20.0'}
+
   open-color@1.9.1:
     resolution: {integrity: sha512-vCseG/EQ6/RcvxhUcGJiHViOgrtz4x0XbZepXvKik66TMGkvbmjeJrKFyBEx6daG5rNyyd14zYXhz0hZVwQFOw==}
 
@@ -1307,6 +1363,11 @@ packages:
     hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
+
+  vite-node@6.0.0:
+    resolution: {integrity: sha512-oj4PVrT+pDh6GYf5wfUXkcZyekYS8kKPfLPXVl8qe324Ec6l4K2DUKNadRbZ3LQl0qGcDz+PyOo7ZAh00Y+JjQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    hasBin: true
 
   vite@8.3.5:
     resolution: {integrity: sha512-z1YpjieJ9g0ebTmQpLBv/oq9E3F9EIlOe+7LahW8SrE3LTiG3udBRUXQOlYXP9b+IC2q2phHeVxj9xGlw34OEQ==}
@@ -1885,6 +1946,28 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@vanilla-extract/compiler@0.7.2(@types/node@26.6.6)(esbuild@0.28.2)':
+    dependencies:
+      '@vanilla-extract/css': 1.21.3
+      '@vanilla-extract/integration': 8.0.11
+      vite: 8.3.5(@types/node@26.6.6)(esbuild@0.28.2)
+      vite-node: 6.0.0(@types/node@26.6.6)(esbuild@0.28.2)
+    transitivePeerDependencies:
+      - '@types/node'
+      - '@vitejs/devtools'
+      - babel-plugin-macros
+      - esbuild
+      - jiti
+      - less
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - yaml
+
   '@vanilla-extract/css@1.21.3':
     dependencies:
       '@emotion/hash': 0.9.2
@@ -1928,6 +2011,27 @@ snapshots:
       - babel-plugin-macros
       - supports-color
 
+  '@vanilla-extract/vite-plugin@5.2.6(@types/node@26.6.6)(esbuild@0.28.2)(vite@8.3.5(@types/node@26.6.6)(esbuild@0.28.2))':
+    dependencies:
+      '@vanilla-extract/compiler': 0.7.2(@types/node@26.6.6)(esbuild@0.28.2)
+      '@vanilla-extract/integration': 8.0.11
+      vite: 8.3.5(@types/node@26.6.6)(esbuild@0.28.2)
+    transitivePeerDependencies:
+      - '@types/node'
+      - '@vitejs/devtools'
+      - babel-plugin-macros
+      - esbuild
+      - jiti
+      - less
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - yaml
+
   acorn@8.19.0: {}
 
   baseline-browser-mapping@2.11.35: {}
@@ -1939,6 +2043,8 @@ snapshots:
       electron-to-chromium: 1.5.473
       node-releases: 2.0.63
       update-browserslist-db: 1.3.4(browserslist@4.29.5)
+
+  cac@7.1.0: {}
 
   caniuse-lite@1.0.30001820: {}
 
@@ -1969,6 +2075,8 @@ snapshots:
   entities@6.0.1: {}
 
   es-errors@1.3.0: {}
+
+  es-module-lexer@2.3.2: {}
 
   esbuild@0.28.2:
     optionalDependencies:
@@ -2132,6 +2240,8 @@ snapshots:
 
   node-releases@2.0.63: {}
 
+  obug@2.2.1: {}
+
   open-color@1.9.1: {}
 
   p-limit@3.1.0:
@@ -2274,6 +2384,27 @@ snapshots:
       browserslist: 4.29.5
       escalade: 3.2.0
       picocolors: 1.1.1
+
+  vite-node@6.0.0(@types/node@26.6.6)(esbuild@0.28.2):
+    dependencies:
+      cac: 7.1.0
+      es-module-lexer: 2.3.2
+      obug: 2.2.1
+      pathe: 2.0.3
+      vite: 8.3.5(@types/node@26.6.6)(esbuild@0.28.2)
+    transitivePeerDependencies:
+      - '@types/node'
+      - '@vitejs/devtools'
+      - esbuild
+      - jiti
+      - less
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - terser
+      - tsx
+      - yaml
 
   vite@8.3.5(@types/node@26.6.6)(esbuild@0.28.2):
     dependencies:

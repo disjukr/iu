@@ -1,1 +1,3 @@
-* { box-sizing: content-box; } p, button { margin: 31px; padding: 29px; font: italic 32px serif; color: red; border: 9px solid red; text-transform: uppercase; }
+.app-style { margin: 31px; padding: 29px; font: italic 32px serif; color: red; border: 9px solid red; text-transform: uppercase; }
+.custom-size { min-height: 4em; padding: 1.25em 2em; }
+#scoped::before, #native::before, #nested::before { content: ''; }

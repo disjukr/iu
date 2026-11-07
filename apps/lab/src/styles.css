@@ -1,0 +1,21 @@
+:root { font-family: system-ui, sans-serif; color: #171a20; background: #eef1f5; }
+body { margin: 0; min-height: 100vh; background: radial-gradient(ellipse at 20% 10%, rgba(173, 197, 228, .32), transparent 48%), radial-gradient(ellipse at 85% 65%, rgba(191, 208, 231, .38), transparent 48%), linear-gradient(145deg, #fafbfc, #e7ebf0); }
+.lab { max-width: 960px; margin: 0 auto; padding: 64px 24px; }
+.lab-header { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 32px; margin-bottom: 32px; }
+.lab-header h1 { margin: 0; font-size: 24px; }
+.lab-header h1 span { color: #6f7b8c; font-weight: 400; }
+.lab-header p { margin: 0; font-size: 13px; color: #636d7b; }
+.lab-header code { font-size: 12px; }
+.experiment { padding: 36px; min-height: 240px; }
+.experiment-title { font-size: 24px; font-weight: 600; letter-spacing: -.6px; margin-bottom: 12px; }
+.experiment-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.button-samples { margin-top: 32px; }
+.inline-experiment { margin-top: 24px; }
+.color-control { display: inline-flex; align-items: center; gap: .5em; }
+.color-control input { width: 2em; height: 2em; padding: .125em; cursor: pointer; background: transparent; }
+.scope-samples { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 32px; }
+.scope-card { border-top: 1px solid rgba(132, 151, 179, .24); padding-top: 24px; }
+.scope-card > p { opacity: .72; }
+.native-sample { padding: 24px; border-radius: 10px; background: rgba(250, 252, 255, .82); }
+.nested-surface { padding: 20px; margin-top: 20px; }
+@media (max-width: 540px) { .lab { padding: 32px 16px; } .experiment { padding: 24px; } }

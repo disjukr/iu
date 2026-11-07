@@ -7,7 +7,8 @@
     "node": ">=24"
   },
   "scripts": {
-    "dev": "pnpm --filter iu build && pnpm --parallel -r dev",
+    "dev": "pnpm --parallel --filter './apps/*' dev",
+    "dev:lab": "pnpm --filter @iu/lab dev",
     "build": "pnpm -r build",
     "check": "pnpm --filter iu build && pnpm -r check",
     "test": "pnpm build && pnpm -r test",

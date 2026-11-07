@@ -19,7 +19,7 @@ test('built docs use iu styles and interactive Solid examples on desktop and mob
     const theme = page.getByRole('button', { name: /Dark theme/ });
     await theme.click();
     await page.locator('button[aria-pressed="true"]').waitFor();
-    await expect.poll(() => page.locator('.demo').evaluate(el => getComputedStyle(el).backgroundColor)).toBe('rgb(33, 37, 41)');
+    await expect.poll(() => page.locator('.demo').evaluate(el => getComputedStyle(el).backgroundColor)).toBe('rgba(33, 37, 41, 0.78)');
     await counter.focus();
     await page.keyboard.press('Tab');
     assert.equal(await theme.evaluate(el => getComputedStyle(el).outlineStyle), 'solid');

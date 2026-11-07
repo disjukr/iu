@@ -15,6 +15,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "browser": "./dist/index.browser.js",
       "import": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
@@ -38,6 +39,8 @@
     "open-color": "1.9.1"
   },
   "devDependencies": {
+    "@babel/core": "7.29.7",
+    "@solidjs/babel-plugin": "2.0.0-rc.20",
     "@playwright/test": "1.64.1",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "16.0.3",

@@ -4,6 +4,7 @@ SolidJS UI library and documentation site.
 
 - [`packages/iu`](packages/iu): Library
 - [`apps/docs`](apps/docs): Documentation and examples
+- [`apps/lab`](apps/lab): Local experiments
 
 ## Development
 
@@ -14,10 +15,16 @@ pnpm install
 pnpm dev
 ```
 
-Runs the documentation site and watches the library for changes.
+Runs the documentation site and lab.
+Use `pnpm dev:lab` for just the lab.
+Edit `apps/lab/src/Experiment.tsx` to try out changes.
+Development uses iu source directly; no library build is needed.
+Style edits update live. Library TS/TSX edits reload the page, including after errors.
+Production builds use the packaged library.
 
 | Command | Description |
 | --- | --- |
+| `pnpm dev:lab` | Run the lab at localhost:5174 |
 | `pnpm build` | Build all packages |
 | `pnpm check` | Type-check all packages |
 | `pnpm test` | Build and run all tests |
