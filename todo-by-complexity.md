@@ -1,6 +1,6 @@
 # Component TODO by implementation complexity
 
-A second view of all 121 candidates in [todo.md](todo.md), assessed on
+A second view of all 126 candidates in [todo.md](todo.md), assessed on
 2026-11-04 and updated on 2026-11-08. The alphabetical inventory remains the source for component scope
 and research references. Keep names, scope and checkbox status synchronized
 when either checklist changes.
@@ -31,6 +31,13 @@ Astryx reconciliation adds Timer to tier 2, Citation and Timestamp to tier 3,
 and Markdown and PowerSearch to tier 5. Card moves to tier 3 for interactive
 variants, and Avatar moves to tier 3 for group overflow. These are iu estimates;
 adding a reference alone does not mark an implementation complete.
+
+The chat follow-up adds ChatSystemMessage to tier 2, ChatMessage to tier 3,
+ChatLayout and ChatToolCalls to tier 4, and ChatComposer to tier 5. Composer
+complexity includes IME, attachments and triggered suggestions; layout includes
+streaming scroll coordination but not virtualization. Tool-call UI estimates
+state presentation and accessible disclosures, not an execution/agent engine.
+See [the chat scope and lab scenarios](todo.md#chat-and-ai-interaction-scope-2026-11-08).
 
 ## 1 — Low: presentation and native semantics
 
@@ -68,11 +75,12 @@ Mostly semantic markup and explicit styles, with little persistent state. Still 
 
 Small state machines or native inputs, labels and validation associations. Loading, media failure, platform APIs or measurement add tests without a large composite interaction model.
 
-22 candidates.
+23 candidates.
 
 - [ ] **Alert** — Inline status or warning; includes Banner. [K][K], [M][M], [S][S], [AX][AX].
 - [ ] **BottomNavigation** — Compact navigation among top-level destinations on small screens. [MU][MU].
 - [x] **Button** — Actions, including icon-only, close and loading variants. [K][K], [M][M], [S][S], [AX][AX].
+- [ ] **ChatSystemMessage** — In-transcript event/status notices and date/unread separators with wrapping and appropriate announcement behavior; distinct from participant messages and transient Toast. [AX][AX], [AXC][AXC].
 - [ ] **Checkbox** — Boolean and indeterminate input, including groups. [R][R], [K][K], [RA][RA], [AX][AX].
 - [x] **Clipboard** — Copy action and success/failure feedback; includes CopyButton. [A][A], [M][M].
 - [ ] **Collapsible** — Single disclosure; includes Collapse and Disclosure. [R][R], [K][K], [RA][RA], [AX][AX].
@@ -97,12 +105,13 @@ Small state machines or native inputs, labels and validation associations. Loadi
 
 Coordinated focus/selection, keyboard navigation, pointer input, responsive measurement or multiple controlled parts. Assumes tested lower-level primitives can be reused.
 
-27 candidates.
+28 candidates.
 
 - [ ] **Accordion** — Expandable sections; includes DisclosureGroup. [R][R], [K][K], [A][A].
 - [ ] **AppShell** — Application header, navigation and content layout. [M][M], [AX][AX].
 - [ ] **Avatar** — User image with initials fallback; includes grouped avatars and overflow count. [R][R], [A][A], [M][M], [AX][AX].
 - [ ] **Card** — Grouped content surface; includes Paper and clickable/selectable variants with native action/selection semantics. [M][M], [S][S], [AX][AX].
+- [ ] **ChatMessage** — Participant message presentation with body slots, author/avatar, timestamp and delivery metadata, attachments and copy/retry/feedback actions; reuse Markdown, Citation and existing controls; includes ChatMessageMetadata. [AX][AX], [AXC][AXC].
 - [ ] **Citation** — Source-reference link/marker with an optional accessible detail preview; compose Link and Popover rather than a chat-only block. [AX][AX].
 - [ ] **ColorField** — Editable color value and channel fields. [K][K], [RA][RA].
 - [ ] **ColorSlider** — Color channel adjustment, including hue and alpha. [K][K], [M][M], [RA][RA].
@@ -131,10 +140,12 @@ Coordinated focus/selection, keyboard navigation, pointer input, responsive meas
 
 Nested focus/dismissal, asynchronous or multi-selection state, gestures, input-method behavior, positioning or browser differences interact. Composed UI still needs end-to-end behavior tests.
 
-28 candidates.
+30 candidates.
 
 - [ ] **AlertDialog** — Confirmation requiring an explicit decision. [R][R], [K][K], [S][S].
 - [ ] **Carousel** — Navigable sequence of slides. [A][A], [S][S], [AX][AX].
+- [ ] **ChatLayout** — Conversation viewport and composer dock with transcript semantics, history loading, new-message affordance and streaming scroll-follow that preserves manual reading position; virtualization remains a separate integration. [AX][AX], [AXC][AXC].
+- [ ] **ChatToolCalls** — Expandable individual/grouped AI tool-call presentation with pending/running/success/error/cancelled states, input/output slots and optional approval/retry/cancel controls; execution, authorization and sensitive-data filtering remain app-owned. [AX][AX], [AXC][AXC].
 - [ ] **ColorArea** — Two-dimensional color adjustment. [K][K], [RA][RA].
 - [ ] **ColorWheel** — Hue selection on a wheel. [K][K], [RA][RA].
 - [ ] **CommandPalette** — Searchable commands and keyboard actions. [S][S], [AX][AX].
@@ -166,11 +177,12 @@ Nested focus/dismissal, asynchronous or multi-selection state, gestures, input-m
 
 Complex text/date/color models, hierarchical selection, virtualization, editing or external engines. Range inputs, localization/timezones, IME, accessibility and dependency compatibility can substantially change the effort.
 
-19 candidates.
+20 candidates.
 
 - [ ] **Calendar** — Date selection surface; includes range selection. [RA][RA], [S][S], [AX][AX].
 - [ ] **Cascader** — Selection through dependent hierarchical options. [M][M].
 - [ ] **Chart** — Optional visualization adapters; assess bundle cost first. [S][S].
+- [ ] **ChatComposer** — Message draft input with IME-safe submit/newline behavior, send/stop states, attachments and optional mention/command suggestions; compose Textarea, FileUpload and Mentions; transport and model selection remain app-owned. [AX][AX], [AXC][AXC].
 - [ ] **ColorPicker** — Composed color selection, including swatch selection. [A][A], [M][M], [RA][RA].
 - [ ] **Combobox** — Editable suggestions; includes Autocomplete, Typeahead and multi-selection. [K][K], [A][A], [RA][RA], [AX][AX].
 - [ ] **DataGrid** — Cell navigation/editing, column resizing and virtualized data; beyond a sortable DataTable. [MXG][MXG].
@@ -213,3 +225,4 @@ are repeated so each checklist entry remains clickable in this view.
 [MXG]: https://mui.com/x/react-data-grid/
 [MXP]: https://mui.com/x/react-date-pickers/
 [MRT]: https://mantine.dev/x/tiptap/
+

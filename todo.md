@@ -15,10 +15,11 @@ Dialog/AlertDialog, and Table/DataTable/DataGrid are not interchangeable.
 
 Prioritize rieul.app's settings, navigation, overlays, commands and collections
 when choosing the first implementation batch. Charts, image editing, signatures
-and tours should wait for concrete application needs. Product-specific chat/AI
-blocks, editor engines, marketing animation and backend upload logic are outside
-this generic inventory. Rich text is an optional integration surface, not a new
-editor engine; range selection is scoped within the matching date/time entry.
+and tours should wait for concrete application needs. Reusable chat/AI presentation
+and interaction patterns are included; product-specific agent orchestration,
+model/network integration, editor engines, marketing animation and backend upload
+logic remain outside this inventory. Rich text is an optional integration surface,
+not a new editor engine; range selection is scoped within the matching date/time entry.
 Layout and accessibility utilities are included where
 they help compose components; low-level subparts are not separate tasks.
 
@@ -48,6 +49,11 @@ libraries are design references, not verified compatible dependencies.
 - [ ] **Carousel** — Navigable sequence of slides. [A][A], [S][S], [AX][AX].
 - [ ] **Cascader** — Selection through dependent hierarchical options. [M][M].
 - [ ] **Chart** — Optional visualization adapters; assess bundle cost first. [S][S].
+- [ ] **ChatComposer** — Message draft input with IME-safe submit/newline behavior, send/stop states, attachments and optional mention/command suggestions; compose Textarea, FileUpload and Mentions; transport and model selection remain app-owned. [AX][AX], [AXC][AXC].
+- [ ] **ChatLayout** — Conversation viewport and composer dock with transcript semantics, history loading, new-message affordance and streaming scroll-follow that preserves manual reading position; virtualization remains a separate integration. [AX][AX], [AXC][AXC].
+- [ ] **ChatMessage** — Participant message presentation with body slots, author/avatar, timestamp and delivery metadata, attachments and copy/retry/feedback actions; reuse Markdown, Citation and existing controls; includes ChatMessageMetadata. [AX][AX], [AXC][AXC].
+- [ ] **ChatSystemMessage** — In-transcript event/status notices and date/unread separators with wrapping and appropriate announcement behavior; distinct from participant messages and transient Toast. [AX][AX], [AXC][AXC].
+- [ ] **ChatToolCalls** — Expandable individual/grouped AI tool-call presentation with pending/running/success/error/cancelled states, input/output slots and optional approval/retry/cancel controls; execution, authorization and sensitive-data filtering remain app-owned. [AX][AX], [AXC][AXC].
 - [ ] **Checkbox** — Boolean and indeterminate input, including groups. [R][R], [K][K], [RA][RA], [AX][AX].
 - [ ] **Citation** — Source-reference link/marker with an optional accessible detail preview; compose Link and Popover rather than a chat-only block. [AX][AX].
 - [x] **Clipboard** — Copy action and success/failure feedback; includes CopyButton. [A][A], [M][M].
@@ -208,9 +214,48 @@ The additions above are proposed iu scopes, not promised Astryx API parity.
 - Treat ComplexSelector as a composition of Select/Combobox and custom option
   content, pending a concrete use case rather than another overlapping API.
   Overlay infrastructure belongs with Portal, FocusTrap and the overlay family.
-- Keep chat-specific blocks, deprecated BottomSheetSwitcher and implementation
-  subparts out of the inventory. Do not import the advertised component count.
+- Include reusable chat patterns following the expanded scope below; keep
+  deprecated BottomSheetSwitcher and implementation subparts out of the inventory.
+  Do not import the advertised component count.
 
 The catalog and linked release/reference pages were inspected. Several detailed
 component pages returned only a heading or were unavailable to the reader, so
 this update does not claim a full API or accessibility audit of Astryx.
+
+## Chat and AI interaction scope (2026-11-08)
+
+The follow-up expands the inventory to include reusable chat UI, using Astryx's
+[chat catalog][AX] and [change log][AXC] as references. These are proposed iu
+contracts, not an Astryx port or a commitment to every advertised API.
+
+- Keep five component families: ChatComposer, ChatLayout, ChatMessage,
+  ChatSystemMessage and ChatToolCalls. Fold message metadata, send/stop buttons,
+  typing indicators and scroll controls into their owning family instead of
+  tracking every slot as a separate component.
+- Reuse Avatar, Timestamp, Markdown, Code, Citation, FileUpload and existing
+  action/disclosure primitives. Suggested prompts can start as ButtonGroup
+  compositions; rich-text and speech/dictation engines are not required for the
+  first composer. Long-history virtualization is optional and must be evaluated
+  with Virtualizer rather than silently included in ChatLayout's estimate.
+- Keep controlled transcript/draft/tool state and application callbacks explicit.
+  UI does not execute tools or grant permissions. Applications own persistence,
+  streaming protocols, model providers, tool approval policy and redaction of
+  private arguments/results. Render supplied content through safe text/Markdown
+  boundaries; never execute code or HTML received from a model or tool.
+
+Before stabilizing APIs, use `apps/lab` for a deterministic mock conversation:
+
+- Exercise empty, loading, populated and failed conversations; preserve a draft
+  through send failure, reject duplicate sends, and test stop/retry with stale
+  stream events so cancelled work cannot update a newer response.
+- Test multiline input and Korean IME composition, keyboard-only attachments
+  and suggestions, and mobile viewport/composer resizing.
+- Stream text while following the bottom and while reading older messages;
+  prepend history without jumping, resume via a visible control, and keep hidden
+  controls and collapsed details out of the tab order.
+- Show grouped parallel tool calls, an approval request, rejected/cancelled and
+  failed calls, and large outputs. Verify focus after expansion/collapse and
+  announce meaningful status changes without reading every streamed token.
+- Cover long code/Markdown, citations, attachment failure, RTL, reduced motion,
+  narrow layouts and reset-CSS consumers. Move stable examples into `apps/docs`
+  and automated consumer tests; lab demos alone do not complete checklist items.
