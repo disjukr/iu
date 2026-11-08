@@ -117,7 +117,7 @@ Coordinated focus/selection, keyboard navigation, pointer input, responsive meas
 - [ ] **Tag** — Removable/selectable tokens; includes Chip, Pill and TagGroup. [M][M], [RA][RA].
 - [ ] **ToggleGroup** — Related toggle actions with single/multiple selection. [R][R], [K][K], [RA][RA].
 - [ ] **Toolbar** — Grouped actions with keyboard navigation. [R][R], [M][M], [RA][RA].
-- [ ] **Tooltip** — Non-interactive supplementary label/help. [R][R], [K][K], [A][A].
+- [x] **Tooltip** — Non-interactive supplementary label/help. [R][R], [K][K], [A][A].
 
 ## 4 — High: overlays, collections and platform edge cases
 

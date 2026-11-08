@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js';
-import { Button, ButtonGroup, CodeBlock, colors, root, unroot, glass } from 'iu';
+import { Button, ButtonGroup, CodeBlock, Tooltip, colors, root, unroot, glass } from 'iu';
 
 export function Experiment() {
   const [count, setCount] = createSignal(0);
@@ -41,6 +41,13 @@ export function Experiment() {
     <div class="button-samples">
       <h3>Code blocks</h3>
       <CodeBlock code={'const greeting = "Hello, iu.";\nconsole.log(greeting);'} language="typescript" />
+    </div>
+    <div class="button-samples">
+      <h3>Tooltips</h3>
+      <div class="experiment-actions">
+        <Tooltip content="Save your changes">{trigger => <Button {...trigger}>Save</Button>}</Tooltip>
+        <Tooltip content="Aligned with the start of the trigger" placement="bottom-start">{trigger => <Button {...trigger}>Bottom start</Button>}</Tooltip>
+      </div>
     </div>
     <div class="scope-samples">
       <div class="scope-card"><h3>Inside root</h3><p>iu typography and reset.</p></div>

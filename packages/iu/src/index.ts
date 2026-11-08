@@ -1,3 +1,5 @@
+export { Tooltip } from './Tooltip.js';
+export type { TooltipProps, TooltipTriggerProps } from './Tooltip.js';
 export { CodeBlock } from './CodeBlock.js';
 export type { CodeBlockProps, CodeBlockLanguage } from './CodeBlock.js';
 export { ButtonGroup } from './ButtonGroup.js';

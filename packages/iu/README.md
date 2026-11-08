@@ -42,6 +42,7 @@ character fallback. Load fonts with these CSS family names in your app.
 
 | Export | Description |
 | --- | --- |
+| `Tooltip` / `TooltipProps` / `TooltipTriggerProps` | Hover and focus descriptions with automatic positioning |
 | `CodeBlock` / `CodeBlockProps` / `CodeBlockLanguage` | Source code with Shiki syntax highlighting |
 | `ButtonGroup` / `ButtonGroupProps` | Joined related actions, horizontal or vertical |
 | `Button` / `ButtonProps` | Native button component and its props |
@@ -124,6 +125,30 @@ import { CodeBlock } from 'iu';
 - Source remains left to right in RTL layouts. No editing or selection state is managed.
 - Import `iu/styles.css` once. Can be used outside `root`; an enclosing root supplies theme and focus color overrides.
 - Shiki initializes on first render. Unused CodeBlock code can be removed by bundlers; the Shiki dependency is external in the library build.
+
+## Tooltip
+
+```tsx
+import { Button, Tooltip } from 'iu';
+
+<Tooltip content="Save your changes" placement="top">
+  {trigger => <Button {...trigger} onClick={save}>Save</Button>}
+</Tooltip>
+```
+
+- `content`: Required plain text. Empty content suppresses display.
+- `children`: A render function. Spread its trigger props onto one focusable element, preserving its ref, description, and handlers.
+- `color`: Any CSS color, including Open Color values and CSS variables. Uses Button’s filled neutral tint approach in both themes; the arrow inherits the background and border colors.
+- `placement`: `top` (default), `bottom`, `left`, `right`, with optional `-start` / `-end` alignment. Alignment follows RTL. The decorative arrow points toward the trigger and follows placement changes. Floating UI flips/shifts to fit the viewport and updates on scroll/resize.
+- `delay` / `closeDelay`: Hover opening delay (500ms) and closing delay (100ms). Focus opens immediately. Pointer movement onto the tooltip keeps it visible.
+- `disabled`: Suppresses display and removes the tooltip description reference; does not disable the trigger.
+- `open`, `defaultOpen`, `onOpenChange`: Controlled or uncontrolled visibility, closed by default. Pair `open` with `onOpenChange` to handle dismissal requests.
+- `describedBy`: Additional description IDs to retain on the trigger.
+- `id`, `class`, `style`: Customize the tooltip surface. Default IDs survive SSR/hydration.
+- Uses `role="tooltip"` and `aria-describedby`. Escape dismisses without moving focus. Keep an accessible name on the trigger, independently of the description.
+- Use plain text, with no interactive content. Essential instructions should remain visible; native disabled buttons cannot receive keyboard focus.
+- Requires the browser Popover API. The top layer avoids ancestor clipping and preserves inherited typography and theme without portaling outside the root.
+- Import `iu/styles.css` once; use within `root` for iu typography and themes.
 
 ## Build
 

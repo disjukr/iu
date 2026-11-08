@@ -7,6 +7,7 @@ export function Api() {
           <div class="table-scroll"><table><thead><tr><th>Export</th><th>Purpose</th></tr></thead><tbody>{[
             ['root / unroot', 'Start or stop the scoped reset and inherited defaults'],
             ['Button', 'Native button with variant and padding options'],
+            ['Tooltip', 'Supplementary descriptions on hover and focus'],
             ['CodeBlock', 'Source code with Shiki syntax highlighting'],
             ['ButtonGroup', 'Joined related actions in horizontal or vertical layout'],
             ['glass', 'Translucent surface with blur, border, and shadow'],

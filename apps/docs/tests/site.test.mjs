@@ -59,7 +59,7 @@ test('docs support independent pages, search, history, and mobile navigation', a
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('ButtonGroup');
     await page.goForward();
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Button');
-    for (const route of ['/colors', '/typography', '/api', '/components', '/components/button', '/components/button-group', '/components/code-block']) {
+    for (const route of ['/colors', '/typography', '/api', '/components', '/components/button', '/components/button-group', '/components/code-block', '/components/tooltip']) {
       await page.goto(`${url}#${route}`);
       await page.locator('main h1').waitFor();
       for (const width of [1280, 375]) {
@@ -67,6 +67,13 @@ test('docs support independent pages, search, history, and mobile navigation', a
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `${route} overflows at ${width}`);
       }
     }
+    await page.goto(`${url}#/components/tooltip`);
+    const tooltipSave = page.getByRole('button', { name: 'Save', exact: true });
+    await tooltipSave.focus();
+    await expect(page.getByRole('tooltip', { name: 'Save your changes' })).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('tooltip', { name: 'Save your changes' })).toBeHidden();
+    await expect(tooltipSave).toBeFocused();
     await page.goto(`${url}#/components/code-block`);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('CodeBlock');
     const copy = page.getByRole('button', { name: 'Copy command', exact: true });

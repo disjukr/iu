@@ -138,7 +138,7 @@ libraries are design references, not verified compatible dependencies.
 - [ ] **ToggleButton** — Pressed/unpressed action; includes Toggle. [R][R], [K][K], [RA][RA].
 - [ ] **ToggleGroup** — Related toggle actions with single/multiple selection. [R][R], [K][K], [RA][RA].
 - [ ] **Toolbar** — Grouped actions with keyboard navigation. [R][R], [M][M], [RA][RA].
-- [ ] **Tooltip** — Non-interactive supplementary label/help. [R][R], [K][K], [A][A].
+- [x] **Tooltip** — Non-interactive supplementary label/help. [R][R], [K][K], [A][A].
 - [ ] **Tour** — Optional guided feature walkthrough. [A][A], [M][M].
 - [ ] **TransferList** — Move selected options between available/chosen lists; includes Transfer. [MU][MU], [AD][AD].
 - [ ] **TreeSelect** — Searchable hierarchical picker in a popup, including multiple/checkable selection. [ADT][ADT].

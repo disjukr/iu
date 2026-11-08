@@ -5,7 +5,7 @@ import { colors, typography, root } from '../dist/index.js';
 import openColor from 'open-color' with { type: 'json' };
 import { renderToString } from '@solidjs/web';
 import { createComponent } from 'solid-js';
-import { Button, ButtonGroup, CodeBlock } from '../dist/index.js';
+import { Button, ButtonGroup, CodeBlock, Tooltip } from '../dist/index.js';
 test('palette is exactly Open Color; fonts remain app-owned', () => {
   assert.deepEqual(colors, openColor);
   assert.equal(typography.fontFamily, '"Inter Variable", "Noto Sans KR", "Noto Sans", sans-serif');
@@ -68,4 +68,19 @@ test('CodeBlock renders escaped highlighted code and native pre attributes on th
   for (const language of ['text', 'tsx', 'javascript', 'typescript', 'json', 'css', 'html', 'shellscript']) {
     assert.doesNotThrow(() => renderToString(() => createComponent(CodeBlock, { code: '', language })));
   }
+});
+
+test('Tooltip has an SSR-stable description relationship and escaped content', () => {
+  const html = renderToString(() => createComponent(Tooltip, {
+    content: '<Save changes>', describedBy: 'existing', color: 'var(--brand)', style: 'letter-spacing:0px',
+    children: trigger => createComponent(Button, { ...trigger, children: 'Save' }),
+  }));
+  assert.match(html, /role="tooltip"/);
+  assert.match(html, /popover="manual"/);
+  assert.match(html, /&lt;Save changes(?:>|&gt;)/);
+  const id = html.match(/id="(iu-tooltip-[^"]+)"/)[1];
+  assert.ok(html.includes(`aria-describedby="existing ${id}"`));
+  assert.match(html, /var\(--brand\)/);
+  assert.match(html, /letter-spacing:0px/);
+  assert.doesNotMatch(html, /\s(?:delay|placement|content|color)=/);
 });
