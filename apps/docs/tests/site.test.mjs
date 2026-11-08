@@ -8,7 +8,7 @@ test('docs support independent pages, search, history, and mobile navigation', a
   let browser;
   try {
     browser = await chromium.launch();
-    const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+    const page = await browser.newPage({ permissions: ['clipboard-read', 'clipboard-write'], viewport: { width: 1280, height: 800 } });
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     const url = server.resolvedUrls.local[0];
@@ -69,6 +69,13 @@ test('docs support independent pages, search, history, and mobile navigation', a
     }
     await page.goto(`${url}#/components/code-block`);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('CodeBlock');
+    const copy = page.getByRole('button', { name: 'Copy command', exact: true });
+    await expect(copy.locator('svg')).toHaveAttribute('aria-hidden', 'true');
+    await copy.focus();
+    await page.keyboard.press('Enter');
+    await expect(copy).toHaveText('Copied');
+    await expect(page.getByRole('status')).toHaveText('Command copied.');
+    assert.equal(await page.evaluate(() => navigator.clipboard.readText()), 'pnpm install');
     const source = page.getByLabel('Button source code');
     const lightColor = await source.evaluate(el => getComputedStyle(el).backgroundColor);
     await page.getByRole('button', { name: /Dark theme/ }).click();
