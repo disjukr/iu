@@ -34,3 +34,10 @@ setup in Getting started. Font loading remains the application's responsibility.
 pnpm --filter @iu/docs build
 pnpm --filter @iu/docs test
 ```
+
+## Vercel deployment
+
+Use `apps/docs` as the Vercel project root. Its `vercel.json` builds the docs
+and their workspace dependencies in dependency order with
+`pnpm --filter @iu/docs... build`, then serves `dist`. This builds iu's JavaScript,
+declarations, and CSS before Vite resolves the package exports on a fresh checkout.
