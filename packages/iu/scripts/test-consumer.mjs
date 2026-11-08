@@ -118,6 +118,40 @@ try {
         assert.ok(height <= reference, `Fit button exceeded line height at ${fontSize}px`);
       }
     }
+    const group = page.getByRole('group', { name: 'Grouped actions' });
+    const grouped = group.getByRole('button');
+    await expect(group).toHaveCSS('flex-direction', 'row');
+    const bounds = () => grouped.evaluateAll(elements => elements.map(el => {
+      const r = el.getBoundingClientRect();
+      const s = getComputedStyle(el);
+      return { x: r.x, y: r.y, right: r.right, bottom: r.bottom, start: s.borderStartStartRadius, end: s.borderEndEndRadius };
+    }));
+    let edges = await bounds();
+    assert.equal(edges[0].right - edges[1].x, 1);
+    assert.equal(edges[1].start, '0px');
+    assert.equal(edges[1].end, '0px');
+    assert.notEqual(edges[0].start, '0px');
+    assert.notEqual(edges[2].end, '0px');
+    await grouped.first().focus();
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Shift+Tab');
+    await expect(grouped.first()).toHaveCSS('outline-style', 'solid');
+    await expect(grouped.first()).toHaveCSS('z-index', '1');
+    await page.keyboard.press('Tab');
+    await expect(grouped.last()).toBeFocused();
+    await grouped.first().focus();
+    await page.keyboard.press('Enter');
+    await expect(group).toHaveCSS('flex-direction', 'column');
+    edges = await bounds();
+    assert.equal(edges[0].bottom - edges[1].y, 1);
+    assert.equal(edges[0].x, edges[2].x);
+    await page.keyboard.press('Space');
+    await expect(group).toHaveCSS('flex-direction', 'row');
+    const rtl = await page.locator('#rtl-group button').evaluateAll(elements => elements.map(el => {
+      const r = el.getBoundingClientRect(); return { x: r.x, right: r.right };
+    }));
+    assert.equal(rtl[1].right - rtl[0].x, 1);
+    await expect(page.locator('#single-group button')).toHaveCSS('border-radius', '8px');
     const customButton = page.locator('#custom-color');
     const originalBackground = await customButton.evaluate(el => getComputedStyle(el).backgroundImage);
     const originalSecondary = await page.locator('#custom-object').evaluate(el => getComputedStyle(el).backgroundColor);

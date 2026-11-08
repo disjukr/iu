@@ -39,8 +39,8 @@ libraries are design references, not verified compatible dependencies.
 - [ ] **Badge** — Compact status or count. [K][K], [M][M], [S][S].
 - [ ] **BottomNavigation** — Compact navigation among top-level destinations on small screens. [MU][MU].
 - [ ] **Breadcrumbs** — Hierarchical navigation trail. [K][K], [M][M], [S][S].
-- [ ] **Button** — Actions, including icon-only, close and loading variants. [K][K], [M][M], [S][S].
-- [ ] **ButtonGroup** — Related actions sharing a visual boundary. [S][S].
+- [x] **Button** — Actions, including icon-only, close and loading variants. [K][K], [M][M], [S][S].
+- [x] **ButtonGroup** — Related actions sharing a visual boundary. [S][S].
 - [ ] **Calendar** — Date selection surface; includes range selection. [RA][RA], [S][S].
 - [ ] **Card** — Grouped content surface; includes Paper. [M][M], [S][S].
 - [ ] **Carousel** — Navigable sequence of slides. [A][A], [S][S].

@@ -1,7 +1,8 @@
 import { createSignal } from 'solid-js';
-import { Button, root } from 'iu';
+import { Button, ButtonGroup, root } from 'iu';
 
 export function ButtonExamples() {
+  const [vertical, setVertical] = createSignal(false);
   const [active, setActive] = createSignal(false);
   const [disabled, setDisabled] = createSignal(true);
   const [submits, setSubmits] = createSignal(0);
@@ -32,6 +33,13 @@ export function ButtonExamples() {
       <Button id="set-color" onClick={() => setCustomColor('#ff00ff')}>Set color</Button>
       <Button id="clear-color" onClick={() => setCustomColor(undefined)}>Clear color</Button>
     </div>
+    <ButtonGroup id="button-group" aria-label="Grouped actions" orientation={vertical() ? 'vertical' : 'horizontal'}>
+      <Button onClick={() => setVertical(value => !value)}>First</Button>
+      <Button disabled>Unavailable</Button>
+      <Button>Last</Button>
+    </ButtonGroup>
+    <ButtonGroup id="rtl-group" dir="rtl" aria-label="RTL actions"><Button>First</Button><Button>Last</Button></ButtonGroup>
+    <ButtonGroup id="single-group" aria-label="Single action"><Button>Only</Button></ButtonGroup>
     <form onSubmit={event => { event.preventDefault(); setSubmits(value => value + 1); }}>
       <Button id="default-action">Default action</Button>
       <Button id="submit-action" type="submit" name="action" value="save">Submit action</Button>

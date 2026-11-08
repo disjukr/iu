@@ -1,3 +1,5 @@
+export { ButtonGroup } from './ButtonGroup.js';
+export type { ButtonGroupProps } from './ButtonGroup.js';
 export { Button } from './Button.js';
 export type { ButtonProps } from './Button.js';
 export { colors, typography } from './tokens.js';

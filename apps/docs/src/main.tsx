@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js';
 import { render } from '@solidjs/web';
-import { Button, colors, root, glass, typography, vars } from 'iu';
+import { Button, ButtonGroup, colors, root, glass, typography, vars } from 'iu';
 import 'iu/styles.css';
 import './styles.css';
 
@@ -93,6 +93,14 @@ pnpm add /path/to/iu-0.0.0.tgz`}</code></pre>
               <Button variant="primary" color={colors.violet[6]}>Custom color</Button>
             </div>
           </div>
+          <div class={`${root} demo-actions`}>
+            <ButtonGroup aria-label="History"><Button>Undo</Button><Button>Redo</Button><Button disabled>Restore</Button></ButtonGroup>
+            <ButtonGroup orientation="vertical" aria-label="File actions"><Button>Save</Button><Button>Save as</Button></ButtonGroup>
+          </div>
+          <pre><code>{`<ButtonGroup aria-label="History">
+  <Button>Undo</Button>
+  <Button>Redo</Button>
+</ButtonGroup>`}</code></pre>
           <pre><code>{`import { vars } from 'iu';
 
 // Override variables in your app's CSS or vanilla-extract styles
@@ -106,6 +114,7 @@ pnpm add /path/to/iu-0.0.0.tgz`}</code></pre>
           <div class="table-scroll"><table><thead><tr><th>Export</th><th>Purpose</th></tr></thead><tbody>{[
             ['root / unroot', 'Start or stop the scoped reset and inherited defaults'],
             ['Button', 'Native button with variant and size options'],
+            ['ButtonGroup', 'Joined related actions in horizontal or vertical layout'],
             ['glass', 'Translucent surface with blur, border, and shadow'],
             ['colors', 'The original Open Color palette'], ['typography', 'Font stack, size, weight, and line height'],
             ['vars', 'Typed CSS variables for theme overrides'], ['focusRing', ':focus-visible styles for keyboard focus'],

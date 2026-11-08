@@ -5,7 +5,7 @@ import { colors, typography, root } from '../dist/index.js';
 import openColor from 'open-color' with { type: 'json' };
 import { renderToString } from '@solidjs/web';
 import { createComponent } from 'solid-js';
-import { Button } from '../dist/index.js';
+import { Button, ButtonGroup } from '../dist/index.js';
 test('palette is exactly Open Color; fonts remain app-owned', () => {
   assert.deepEqual(colors, openColor);
   assert.equal(typography.fontFamily, '"Inter Variable", "Noto Sans Variable", sans-serif');
@@ -36,4 +36,17 @@ test('Button renders on the server with native attributes and escaped children',
   assert.match(html, /padding-left:19px/);
   assert.match(html, /&lt;Save(?:>|&gt;)/);
   assert.doesNotMatch(html, /\s(?:variant|size|color)=/);
+});
+
+test('ButtonGroup renders labeled native groups without leaking layout props', () => {
+  const html = renderToString(() => createComponent(ButtonGroup, {
+    'aria-label': 'History', orientation: 'vertical', dir: 'rtl', class: { custom: true },
+    children: createComponent(Button, { children: 'Undo' }),
+  }));
+  assert.match(html, /role="group"/);
+  assert.match(html, /aria-label="History"/);
+  assert.match(html, /dir="rtl"/);
+  assert.match(html, /custom/);
+  assert.match(html, /<button/);
+  assert.doesNotMatch(html, / orientation=/);
 });

@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js';
-import { Button, colors, root, unroot, glass } from 'iu';
+import { Button, ButtonGroup, colors, root, unroot, glass } from 'iu';
 
 export function Experiment() {
   const [count, setCount] = createSignal(0);
@@ -29,6 +29,13 @@ export function Experiment() {
         <Button color={buttonColor()}>Custom secondary</Button>
         <Button variant="ghost" color={buttonColor()}>Custom ghost</Button>
         <Button variant="ghost" onClick={() => setButtonColor(undefined)}>Clear color</Button>
+      </div>
+    </div>
+    <div class="button-samples">
+      <h3>Button groups</h3>
+      <div class="experiment-actions">
+        <ButtonGroup aria-label="History"><Button>Undo</Button><Button>Redo</Button><Button disabled>Restore</Button></ButtonGroup>
+        <ButtonGroup orientation="vertical" aria-label="File actions"><Button variant="primary">Save</Button><Button>Save as</Button><Button variant="danger">Delete</Button></ButtonGroup>
       </div>
     </div>
     <div class="scope-samples">

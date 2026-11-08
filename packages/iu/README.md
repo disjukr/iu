@@ -34,6 +34,7 @@ or use the system fallback.
 
 | Export | Description |
 | --- | --- |
+| `ButtonGroup` / `ButtonGroupProps` | Joined related actions, horizontal or vertical |
 | `Button` / `ButtonProps` | Native button component and its props |
 | `root` | Tokens, typography, and scoped reset |
 | `unroot` | Exit the root scope and clear inherited defaults |
@@ -72,6 +73,23 @@ Set `data-theme="dark"` on a root for the dark theme (`light` by default).
 - Defaults to `type="button"`. Set `type="submit"` for form submission.
 
 Use inside `root` and import `iu/styles.css` once.
+
+## ButtonGroup
+
+```tsx
+import { Button, ButtonGroup } from 'iu';
+
+<ButtonGroup aria-label="History">
+  <Button>Undo</Button>
+  <Button>Redo</Button>
+</ButtonGroup>
+```
+
+- `orientation`: `horizontal` (default) or `vertical`. Horizontal layout follows `dir` for RTL.
+- Joins direct `Button` children. Set variant, size, color, and disabled on each button.
+- Uses `role="group"`; provide `aria-label` or `aria-labelledby` to name the related actions.
+- Each button keeps native Tab, Enter, and Space behavior. No selection state or arrow-key navigation.
+- Native div attributes, events, `ref`, `class`, and `style` are forwarded.
 
 ## Build
 

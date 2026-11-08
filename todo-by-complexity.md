@@ -36,7 +36,7 @@ Mostly semantic markup and explicit styles, with little persistent state. Still 
 - [ ] **AspectRatio** — Content constrained to a ratio. [R][R], [M][M], [S][S].
 - [ ] **Badge** — Compact status or count. [K][K], [M][M], [S][S].
 - [ ] **Breadcrumbs** — Hierarchical navigation trail. [K][K], [M][M], [S][S].
-- [ ] **ButtonGroup** — Related actions sharing a visual boundary. [S][S].
+- [x] **ButtonGroup** — Related actions sharing a visual boundary. [S][S].
 - [ ] **Card** — Grouped content surface; includes Paper. [M][M], [S][S].
 - [ ] **Code** — Inline code and block presentation. [M][M], [S][S].
 - [ ] **ColorSwatch** — Color sample with accessible labeling. [K][K], [M][M], [RA][RA].
@@ -69,7 +69,7 @@ Small state machines or native inputs, labels and validation associations. Loadi
 - [ ] **Alert** — Inline status or warning. [K][K], [M][M], [S][S].
 - [ ] **Avatar** — User image with initials fallback. [R][R], [A][A], [M][M].
 - [ ] **BottomNavigation** — Compact navigation among top-level destinations on small screens. [MU][MU].
-- [ ] **Button** — Actions, including icon-only, close and loading variants. [K][K], [M][M], [S][S].
+- [x] **Button** — Actions, including icon-only, close and loading variants. [K][K], [M][M], [S][S].
 - [ ] **Checkbox** — Boolean and indeterminate input, including groups. [R][R], [K][K], [RA][RA].
 - [ ] **Clipboard** — Copy action and success/failure feedback; includes CopyButton. [A][A], [M][M].
 - [ ] **Collapsible** — Single disclosure; includes Collapse and Disclosure. [R][R], [K][K], [RA][RA].
