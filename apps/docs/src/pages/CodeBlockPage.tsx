@@ -1,7 +1,5 @@
-import contentCopy from '@iconify-icons/material-symbols/content-copy';
-import { Icon } from '../components/Icon';
 import { createSignal } from 'solid-js';
-import { Button, CodeBlock, root, glass } from 'iu';
+import { Button, CodeBlock, CopyButton, root, glass } from 'iu';
 
 const command = 'pnpm install';
 
@@ -13,16 +11,6 @@ const sample = `import { Button } from 'iu';
 
 export function CodeBlockPage() {
   const [dark, setDark] = createSignal(false);
-  const [copyState, setCopyState] = createSignal<'idle' | 'copying' | 'copied' | 'failed'>('idle');
-  async function copyCommand() {
-    setCopyState('copying');
-    try {
-      await navigator.clipboard.writeText(command);
-      setCopyState('copied');
-    } catch {
-      setCopyState('failed');
-    }
-  }
   return <section id="code-block">
     <p class="eyebrow">CONTENT</p>
     <h1>CodeBlock</h1>
@@ -36,10 +24,7 @@ export function CodeBlockPage() {
     <p>A single line matches the height of a normal Button while keeping the surrounding typography.</p>
     <div class={`${root} code-action-row`}>
       <CodeBlock code={command} language="shellscript" />
-      <Button variant="primary" aria-label="Copy command" disabled={copyState() === 'copying'} onClick={copyCommand}>
-        <Icon icon={contentCopy} />{copyState() === 'copied' ? 'Copied' : 'Copy'}
-      </Button>
-      <span role="status">{copyState() === 'copied' ? 'Command copied.' : copyState() === 'failed' ? 'Could not copy. Select and copy the command manually.' : ''}</span>
+      <CopyButton text={() => command} variant="primary" aria-label="Copy command">Copy</CopyButton>
     </div>
     <h3>Padding</h3>
     <div class={`${root} code-action-row`}>

@@ -5,7 +5,7 @@ import { colors, typography, root } from '../dist/index.js';
 import openColor from 'open-color' with { type: 'json' };
 import { renderToString } from '@solidjs/web';
 import { createComponent } from 'solid-js';
-import { Button, ButtonGroup, CodeBlock, Tooltip } from '../dist/index.js';
+import { Button, ButtonGroup, CodeBlock, Tooltip, CopyButton } from '../dist/index.js';
 test('palette is exactly Open Color; fonts remain app-owned', () => {
   assert.deepEqual(colors, openColor);
   assert.equal(typography.fontFamily, '"Inter Variable", "Noto Sans KR", "Noto Sans", sans-serif');
@@ -83,4 +83,20 @@ test('Tooltip has an SSR-stable description relationship and escaped content', (
   assert.match(html, /var\(--brand\)/);
   assert.match(html, /letter-spacing:0px/);
   assert.doesNotMatch(html, /\s(?:delay|placement|content|color)=/);
+});
+
+test('CopyButton renders safely on the server and forwards Button props', () => {
+  const html = renderToString(() => createComponent(CopyButton, {
+    text: () => { throw new Error('Do not resolve during SSR'); }, padding: 'fit', variant: 'primary',
+    'aria-label': 'Copy snippet', disabled: true, class: 'copy-test',
+  }));
+  assert.match(html, /type="button"/);
+  assert.match(html, /aria-label="Copy snippet"/);
+  assert.match(html, /disabled/);
+  assert.match(html, /copy-test/);
+  assert.match(html, /<svg/);
+  assert.match(html, /aria-hidden="true"/);
+  assert.match(html, /role="status"/);
+  assert.doesNotMatch(html, /secret/);
+  assert.doesNotMatch(html, /\s(?:text|padding|variant|resetAfter|messages)=/);
 });

@@ -1,6 +1,6 @@
 import { createComponent, createSignal } from 'solid-js';
 import { hydrate } from '@solidjs/web';
-import { Button, CodeBlock, Tooltip, root } from 'iu';
+import { Button, CodeBlock, Tooltip, CopyButton, root } from 'iu';
 import 'iu/styles.css';
 
 document.getElementById('app')!.className = root;
@@ -14,6 +14,6 @@ hydrate(() => {
     id: 'hydrated-code', language: 'typescript', get code() { return `const count = ${count()};`; },
   }), createComponent(Tooltip, {
     content: 'Hydrated tooltip', children: trigger => createComponent(Button, { ...trigger, id: 'hydrated-tooltip-trigger', children: 'Help' }),
-  })];
+  }), createComponent(CopyButton, { id: 'hydrated-copy', text: () => 'Hydrated copy', children: 'Copy hydrated source' })];
 }, document.getElementById('app')!);
 document.documentElement.dataset.hydrated = 'true';

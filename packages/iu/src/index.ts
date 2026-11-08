@@ -1,3 +1,5 @@
+export { CopyButton } from './CopyButton.js';
+export type { CopyButtonProps, CopyButtonState, CopyButtonMessages } from './CopyButton.js';
 export { Tooltip } from './Tooltip.js';
 export type { TooltipProps, TooltipTriggerProps } from './Tooltip.js';
 export { CodeBlock } from './CodeBlock.js';

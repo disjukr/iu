@@ -168,9 +168,6 @@ importers:
 
   apps/docs:
     dependencies:
-      '@iconify-icons/material-symbols':
-        specifier: 2.0.9
-        version: 2.0.9
       '@solidjs/web':
         specifier: 2.0.0-rc.21
         version: 2.0.0-rc.21(solid-js@2.0.0-rc.21)
@@ -230,6 +227,9 @@ importers:
       '@floating-ui/dom':
         specifier: 1.8.0
         version: 1.8.0
+      '@iconify-icons/material-symbols':
+        specifier: 2.0.9
+        version: 2.0.9
       open-color:
         specifier: 1.9.1
         version: 1.9.1

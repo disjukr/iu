@@ -47,7 +47,7 @@ libraries are design references, not verified compatible dependencies.
 - [ ] **Cascader** — Selection through dependent hierarchical options. [M][M].
 - [ ] **Chart** — Optional visualization adapters; assess bundle cost first. [S][S].
 - [ ] **Checkbox** — Boolean and indeterminate input, including groups. [R][R], [K][K], [RA][RA].
-- [ ] **Clipboard** — Copy action and success/failure feedback; includes CopyButton. [A][A], [M][M].
+- [x] **Clipboard** — Copy action and success/failure feedback; includes CopyButton. [A][A], [M][M].
 - [ ] **Code** — Inline code and block presentation. CodeBlock implemented; inline code pending. [M][M], [S][S].
 - [ ] **Collapsible** — Single disclosure; includes Collapse and Disclosure. [R][R], [K][K], [RA][RA].
 - [ ] **ColorArea** — Two-dimensional color adjustment. [K][K], [RA][RA].

@@ -4,6 +4,7 @@ import { root, unroot, focusRing, colors, vars } from 'iu';
 import 'iu/styles.css';
 // Application styles loaded after iu.
 import './reset.css';
+import { CopyButtonExamples } from './CopyButtonExamples';
 import { TooltipExamples } from './TooltipExamples';
 import { CodeBlockExamples } from './CodeBlockExamples';
 import { ButtonExamples } from './ButtonExamples';
@@ -24,5 +25,5 @@ const content: JSX.Element = <><section class={root}>
     </div>
   </div>
 </section>
-<h2 id="outside">Outside iu</h2><ButtonExamples /><CodeBlockExamples /><TooltipExamples /></>;
+<h2 id="outside">Outside iu</h2><ButtonExamples /><CodeBlockExamples /><TooltipExamples /><CopyButtonExamples /></>;
 render(() => content, document.getElementById('app')!);

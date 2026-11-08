@@ -12,6 +12,8 @@ const CodeBlockPage = lazy(() => import('./pages/CodeBlockPage'), { export: 'Cod
 
 const TooltipPage = lazy(() => import('./pages/TooltipPage'), { export: 'TooltipPage' });
 
+const CopyButtonPage = lazy(() => import('./pages/CopyButtonPage'), { export: 'CopyButtonPage' });
+
 export type DocPage = {
   path: string;
   title: string;
@@ -32,6 +34,7 @@ export const pages: DocPage[] = [
   { path: '/api', title: 'API reference', description: 'Shared exports, tokens, and styling utilities.', group: 'Foundations', kind: 'guide', render: Api },
   { path: '/components/tooltip', title: 'Tooltip', description: 'Supplementary descriptions on hover and keyboard focus.', group: 'Overlays', kind: 'component', keywords: 'help hint description 툴팁', render: TooltipPage },
   { path: '/components/code-block', title: 'CodeBlock', description: 'Display source code with syntax highlighting.', group: 'Content', kind: 'component', keywords: 'shiki syntax code snippet shell', render: CodeBlockPage },
+  { path: '/components/copy-button', title: 'CopyButton', description: 'Copy text with progress, success, and error feedback.', group: 'Actions', kind: 'component', keywords: 'clipboard copy 복사', render: CopyButtonPage },
   { path: '/components/button', title: 'Button', description: 'Trigger an action with a native button.', group: 'Actions', kind: 'component', keywords: 'click submit action 버튼', render: ButtonPage },
   { path: '/components/button-group', title: 'ButtonGroup', description: 'Join related actions horizontally or vertically.', group: 'Actions', kind: 'component', keywords: 'group horizontal vertical 버튼 그룹', render: ButtonGroupPage },
 ];

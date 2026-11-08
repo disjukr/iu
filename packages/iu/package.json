@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@floating-ui/dom": "1.8.0",
+    "@iconify-icons/material-symbols": "2.0.9",
     "open-color": "1.9.1",
     "shiki": "4.6.0"
   },

@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js';
-import { Button, ButtonGroup, CodeBlock, Tooltip, colors, root, unroot, glass } from 'iu';
+import { Button, ButtonGroup, CodeBlock, Tooltip, CopyButton, colors, root, unroot, glass } from 'iu';
 
 export function Experiment() {
   const [count, setCount] = createSignal(0);
@@ -47,6 +47,13 @@ export function Experiment() {
       <div class="experiment-actions">
         <Tooltip content="Save your changes">{trigger => <Button {...trigger}>Save</Button>}</Tooltip>
         <Tooltip content="Aligned with the start of the trigger" placement="bottom-start">{trigger => <Button {...trigger}>Bottom start</Button>}</Tooltip>
+      </div>
+    </div>
+    <div class="button-samples">
+      <h3>Copy buttons</h3>
+      <div class="experiment-actions">
+        <CopyButton text={() => 'Hello, iu.'}>Copy greeting</CopyButton>
+        <CopyButton text="Hello, iu." aria-label="Copy greeting" color={buttonColor()} />
       </div>
     </div>
     <div class="scope-samples">

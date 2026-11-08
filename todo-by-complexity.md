@@ -71,7 +71,7 @@ Small state machines or native inputs, labels and validation associations. Loadi
 - [ ] **BottomNavigation** — Compact navigation among top-level destinations on small screens. [MU][MU].
 - [x] **Button** — Actions, including icon-only, close and loading variants. [K][K], [M][M], [S][S].
 - [ ] **Checkbox** — Boolean and indeterminate input, including groups. [R][R], [K][K], [RA][RA].
-- [ ] **Clipboard** — Copy action and success/failure feedback; includes CopyButton. [A][A], [M][M].
+- [x] **Clipboard** — Copy action and success/failure feedback; includes CopyButton. [A][A], [M][M].
 - [ ] **Collapsible** — Single disclosure; includes Collapse and Disclosure. [R][R], [K][K], [RA][RA].
 - [ ] **Editable** — Inline text editing with commit/cancel. [A][A].
 - [ ] **Field** — Label, description and validation message composition. [A][A], [S][S].

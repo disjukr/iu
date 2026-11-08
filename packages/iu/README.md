@@ -42,6 +42,7 @@ character fallback. Load fonts with these CSS family names in your app.
 
 | Export | Description |
 | --- | --- |
+| `CopyButton` / `CopyButtonProps` / `CopyButtonState` / `CopyButtonMessages` | Copy text with progress, success, and error feedback |
 | `Tooltip` / `TooltipProps` / `TooltipTriggerProps` | Hover and focus descriptions with automatic positioning |
 | `CodeBlock` / `CodeBlockProps` / `CodeBlockLanguage` | Source code with Shiki syntax highlighting |
 | `ButtonGroup` / `ButtonGroupProps` | Joined related actions, horizontal or vertical |
@@ -149,6 +150,33 @@ import { Button, Tooltip } from 'iu';
 - Use plain text, with no interactive content. Essential instructions should remain visible; native disabled buttons cannot receive keyboard focus.
 - Requires the browser Popover API. The top layer avoids ancestor clipping and preserves inherited typography and theme without portaling outside the root.
 - Import `iu/styles.css` once; use within `root` for iu typography and themes.
+
+## CopyButton
+
+```tsx
+import { CopyButton } from 'iu';
+
+<CopyButton text="pnpm install" variant="primary">Copy</CopyButton>
+<CopyButton text={source} padding="fit">Copy source</CopyButton>
+<CopyButton text={source} aria-label="Copy source" />
+<CopyButton text={async () => await loadSource()}>
+  {state => state === 'copied' ? 'Copied' : 'Copy'}
+</CopyButton>
+```
+
+- `text`: A source string or a function returning a string / Promise of a string. The function runs only on activation, never during render, SSR, or hydration. Supports empty text. Resolver errors follow the same failure path as clipboard errors.
+- Omit children for an icon-only button. Set `aria-label` to identify what is copied; the fallback accessible name is Copy.
+- `resetAfter`: Feedback duration in milliseconds (2000). Zero retains feedback until the next action or a change to the text prop / resolver identity. Lazy resolvers are not evaluated to watch their underlying source.
+- `tooltip` / `tooltipPlacement`: Built-in Tooltip shows idle action text and current feedback. Customize the idle text with `tooltip` (defaults to aria-label, string children, or Copy), or set it to `false` to disable. Placement defaults to top. Existing description IDs, refs, and trigger event handlers are preserved.
+- `messages`: Override the live announcements for `copying`, `copied`, `error` (defaults: Copying, Copied, Copy failed). These are independent of visible children.
+- `children`: Visible content for every state, with no default label or automatic replacement. A render function receives `idle`, `copying`, `copied`, or `error` for custom feedback content.
+- `onCopy(text)` / `onCopyError(error)`: Successful/failed write callbacks. `onCopy` replaces the native copy event prop.
+- All other Button props are forwarded. `onClick` runs first and can cancel copying with `preventDefault()`.
+- Uses Material Symbols package data. No icon SVG paths are vendored.
+- Pending writes block duplicate activation with `aria-busy` and `aria-disabled` while retaining focus. Native disabled buttons do not copy.
+- A visually hidden status announces feedback. Icon-only buttons retain an accessible name. Timers and pending feedback are cleaned up on unmount.
+- Requires Clipboard API support, a secure context (HTTPS/localhost), and browser permission. Writes only on activation, never reads clipboard contents. Failed writes display feedback and may be retried.
+- Defaults to `type="button"`; uses Button's inherited typography, variants, color, padding, and focus styles. Import `iu/styles.css` and use within `root`.
 
 ## Build
 

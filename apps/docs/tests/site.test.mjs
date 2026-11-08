@@ -59,7 +59,7 @@ test('docs support independent pages, search, history, and mobile navigation', a
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('ButtonGroup');
     await page.goForward();
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Button');
-    for (const route of ['/colors', '/typography', '/api', '/components', '/components/button', '/components/button-group', '/components/code-block', '/components/tooltip']) {
+    for (const route of ['/colors', '/typography', '/api', '/components', '/components/button', '/components/button-group', '/components/code-block', '/components/tooltip', '/components/copy-button']) {
       await page.goto(`${url}#${route}`);
       await page.locator('main h1').waitFor();
       for (const width of [1280, 375]) {
@@ -67,6 +67,12 @@ test('docs support independent pages, search, history, and mobile navigation', a
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `${route} overflows at ${width}`);
       }
     }
+    await page.goto(`${url}#/components/copy-button`);
+    await page.getByLabel('Text to copy').fill('A new value');
+    const iconCopy = page.getByRole('button', { name: 'Copy current text', exact: true });
+    await iconCopy.click();
+    assert.equal(await page.evaluate(() => navigator.clipboard.readText()), 'A new value');
+    await expect(iconCopy).toHaveAttribute('aria-label', 'Copy current text');
     await page.goto(`${url}#/components/tooltip`);
     const tooltipSave = page.getByRole('button', { name: 'Save', exact: true });
     await tooltipSave.focus();
@@ -80,8 +86,8 @@ test('docs support independent pages, search, history, and mobile navigation', a
     await expect(copy.locator('svg')).toHaveAttribute('aria-hidden', 'true');
     await copy.focus();
     await page.keyboard.press('Enter');
-    await expect(copy).toHaveText('Copied');
-    await expect(page.getByRole('status')).toHaveText('Command copied.');
+    await expect(copy).toHaveText('Copy');
+    await expect(page.getByRole('status')).toHaveText('Copied');
     assert.equal(await page.evaluate(() => navigator.clipboard.readText()), 'pnpm install');
     const source = page.getByLabel('Button source code');
     const lightColor = await source.evaluate(el => getComputedStyle(el).backgroundColor);
