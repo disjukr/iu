@@ -6,7 +6,7 @@ export type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'class' | 'color
   class?: JSX.ClassValue;
   color?: string;
   variant?: 'primary' | 'secondary' | 'ghost' | 'warning' | 'danger';
-  size?: 'fit' | 'normal' | 'custom';
+  padding?: 'fit' | 'normal' | 'custom';
 };
 
 const tintProperty = styles.tint.slice(4, -1);
@@ -18,7 +18,7 @@ function buttonStyle(color: ButtonProps['color'], style: ButtonProps['style']) {
 }
 
 export function Button(props: ButtonProps) {
-  const rest = omit(props, 'class', 'type', 'variant', 'size', 'color', 'style');
+  const rest = omit(props, 'class', 'type', 'variant', 'padding', 'color', 'style');
   return <button
     {...rest}
     type={props.type ?? 'button'}
@@ -27,7 +27,7 @@ export function Button(props: ButtonProps) {
       styles.button,
       styles.variants[props.variant ?? 'secondary'],
       props.color && (props.variant === 'ghost' ? styles.customGhost : (props.variant ?? 'secondary') === 'secondary' ? styles.customSecondary : styles.customFilled),
-      styles.sizes[props.size ?? 'normal'],
+      styles.paddings[props.padding ?? 'normal'],
       props.class,
     ]}
   />;

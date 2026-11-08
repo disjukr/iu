@@ -8,6 +8,8 @@ const Api = lazy(() => import('./pages/Api'), { export: 'Api' });
 const ButtonPage = lazy(() => import('./pages/ButtonPage'), { export: 'ButtonPage' });
 const ButtonGroupPage = lazy(() => import('./pages/ButtonGroupPage'), { export: 'ButtonGroupPage' });
 
+const CodeBlockPage = lazy(() => import('./pages/CodeBlockPage'), { export: 'CodeBlockPage' });
+
 export type DocPage = {
   path: string;
   title: string;
@@ -26,6 +28,7 @@ export const pages: DocPage[] = [
   { path: '/colors', title: 'Colors', description: 'Open Color palette and shades.', group: 'Foundations', kind: 'guide', render: Colors },
   { path: '/typography', title: 'Typography', description: 'Fonts, sizes, and line height.', group: 'Foundations', kind: 'guide', render: Typography },
   { path: '/api', title: 'API reference', description: 'Shared exports, tokens, and styling utilities.', group: 'Foundations', kind: 'guide', render: Api },
+  { path: '/components/code-block', title: 'CodeBlock', description: 'Display source code with syntax highlighting.', group: 'Content', kind: 'component', keywords: 'shiki syntax code snippet shell', render: CodeBlockPage },
   { path: '/components/button', title: 'Button', description: 'Trigger an action with a native button.', group: 'Actions', kind: 'component', keywords: 'click submit action 버튼', render: ButtonPage },
   { path: '/components/button-group', title: 'ButtonGroup', description: 'Join related actions horizontally or vertically.', group: 'Actions', kind: 'component', keywords: 'group horizontal vertical 버튼 그룹', render: ButtonGroupPage },
 ];

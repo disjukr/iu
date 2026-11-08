@@ -6,7 +6,8 @@ export function Api() {
           <h1>API reference</h1>
           <div class="table-scroll"><table><thead><tr><th>Export</th><th>Purpose</th></tr></thead><tbody>{[
             ['root / unroot', 'Start or stop the scoped reset and inherited defaults'],
-            ['Button', 'Native button with variant and size options'],
+            ['Button', 'Native button with variant and padding options'],
+            ['CodeBlock', 'Source code with Shiki syntax highlighting'],
             ['ButtonGroup', 'Joined related actions in horizontal or vertical layout'],
             ['glass', 'Translucent surface with blur, border, and shadow'],
             ['colors', 'The original Open Color palette'], ['typography', 'Font stack, size, weight, and line height'],

@@ -18,6 +18,13 @@ test('docs support independent pages, search, history, and mobile navigation', a
     await expect(page.locator('#content')).toContainText('pnpm add');
     await expect(page.locator('#content')).not.toContainText('pnpm --filter');
     await expect(page.locator('#content')).toBeFocused();
+    const shell = page.getByRole('code').first();
+    await expect(shell).toHaveText('pnpm add /path/to/iu-0.0.0.tgz');
+    await expect(page.locator('pre.shiki')).toHaveCount(2);
+    assert.ok(await shell.locator('span[style*="color"]').count() > 0);
+    await expect(page.locator('pre.shiki').nth(1)).toContainText('<Button variant="primary">Continue</Button>');
+    const tokenColors = await page.locator('pre.shiki').nth(1).locator('span[style*="color"]').evaluateAll(tokens => [...new Set(tokens.map(token => getComputedStyle(token).color))]);
+    assert.ok(tokenColors.length > 1, 'TSX tokens should use syntax colors');
     await page.getByRole('link', { name: /All components/ }).click();
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Components');
     await page.getByLabel('Find a component').fill('vertical');
@@ -38,6 +45,8 @@ test('docs support independent pages, search, history, and mobile navigation', a
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Button');
     await expect(page.locator('nav a[aria-current="page"]')).toHaveText('Button');
     await expect(page).toHaveTitle('Button — iu');
+    await expect(page.locator('pre.shiki')).toHaveCount(2);
+    await expect(page.locator('pre.shiki').first()).toContainText('<Button padding="fit" onClick={save}>Save draft</Button>');
     const counter = page.getByRole('button', { name: /Clicks/ });
     await counter.click();
     await expect(page.locator('output')).toHaveText('1');
@@ -50,7 +59,7 @@ test('docs support independent pages, search, history, and mobile navigation', a
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('ButtonGroup');
     await page.goForward();
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Button');
-    for (const route of ['/colors', '/typography', '/api', '/components', '/components/button', '/components/button-group']) {
+    for (const route of ['/colors', '/typography', '/api', '/components', '/components/button', '/components/button-group', '/components/code-block']) {
       await page.goto(`${url}#${route}`);
       await page.locator('main h1').waitFor();
       for (const width of [1280, 375]) {
@@ -58,6 +67,12 @@ test('docs support independent pages, search, history, and mobile navigation', a
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `${route} overflows at ${width}`);
       }
     }
+    await page.goto(`${url}#/components/code-block`);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('CodeBlock');
+    const source = page.getByLabel('Button source code');
+    const lightColor = await source.evaluate(el => getComputedStyle(el).backgroundColor);
+    await page.getByRole('button', { name: /Dark theme/ }).click();
+    await expect.poll(() => source.evaluate(el => getComputedStyle(el).backgroundColor)).not.toBe(lightColor);
     const menu = page.getByRole('button', { name: 'Documentation', exact: true });
     await expect(page.getByRole('navigation')).toBeHidden();
     await menu.click();

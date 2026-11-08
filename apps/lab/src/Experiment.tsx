@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js';
-import { Button, ButtonGroup, colors, root, unroot, glass } from 'iu';
+import { Button, ButtonGroup, CodeBlock, colors, root, unroot, glass } from 'iu';
 
 export function Experiment() {
   const [count, setCount] = createSignal(0);
@@ -21,8 +21,8 @@ export function Experiment() {
     <div class="button-samples">
       <h3>Buttons</h3>
       <div class="experiment-actions"><Button variant="primary">Primary</Button><Button>Secondary</Button><Button variant="ghost">Ghost</Button><Button variant="warning">Warning</Button><Button variant="danger">Danger</Button><Button disabled>Disabled</Button></div>
-      <div class="experiment-actions"><Button size="fit">Fit</Button><Button>Normal</Button><Button size="custom" style={{ 'min-height': '4em', padding: '1.25em 2em' }}>Custom</Button></div>
-      <p class="inline-experiment">An inline <Button size="fit">fit button</Button> fits the surrounding text.</p>
+      <div class="experiment-actions"><Button padding="fit">Fit</Button><Button>Normal</Button><Button padding="custom" style={{ 'min-height': '4em', padding: '1.25em 2em' }}>Custom</Button></div>
+      <p class="inline-experiment">An inline <Button padding="fit">fit button</Button> fits the surrounding text.</p>
       <div class="experiment-actions">
         <label class="color-control">Button color <input type="color" aria-label="Button color" value={buttonColor() ?? colors.violet[6]} onInput={event => setButtonColor(event.currentTarget.value)} /></label>
         <Button variant="primary" color={buttonColor()}>Custom primary</Button>
@@ -37,6 +37,10 @@ export function Experiment() {
         <ButtonGroup aria-label="History"><Button>Undo</Button><Button>Redo</Button><Button disabled>Restore</Button></ButtonGroup>
         <ButtonGroup orientation="vertical" aria-label="File actions"><Button variant="primary">Save</Button><Button>Save as</Button><Button variant="danger">Delete</Button></ButtonGroup>
       </div>
+    </div>
+    <div class="button-samples">
+      <h3>Code blocks</h3>
+      <CodeBlock code={'const greeting = "Hello, iu.";\nconsole.log(greeting);'} language="typescript" />
     </div>
     <div class="scope-samples">
       <div class="scope-card"><h3>Inside root</h3><p>iu typography and reset.</p></div>

@@ -92,7 +92,7 @@ export const customGhost = style({
   selectors: { '&:hover:not(:disabled)': { backgroundColor: `color-mix(in srgb, ${tint} 14%, transparent)` } },
 });
 
-export const sizes = styleVariants({
+export const paddings = styleVariants({
   fit: {
     minHeight: '1.5em',
     lineHeight: 1,

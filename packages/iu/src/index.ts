@@ -1,3 +1,5 @@
+export { CodeBlock } from './CodeBlock.js';
+export type { CodeBlockProps, CodeBlockLanguage } from './CodeBlock.js';
 export { ButtonGroup } from './ButtonGroup.js';
 export type { ButtonGroupProps } from './ButtonGroup.js';
 export { Button } from './Button.js';

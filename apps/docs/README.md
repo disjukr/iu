@@ -17,6 +17,11 @@ under `src/pages` and loads on demand.
    tiers belong in planning, not user navigation.
 4. Add behavior checks to `tests/site.test.mjs` as appropriate.
 
+Use `CodeBlock` from `iu` for code examples. Pass
+`code` as a string; the default language is `tsx`, with `shellscript` available
+for installation commands. See the CodeBlock page for all supported languages
+and theme options.
+
 The registry drives navigation, search, the component index, and adjacent-page
 links. Components are listed alphabetically within their semantic group.
 Only published component documentation belongs in this catalog; `todo.md`

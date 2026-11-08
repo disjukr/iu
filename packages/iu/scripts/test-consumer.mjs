@@ -97,7 +97,7 @@ try {
     await expect(page.locator('#submits')).toHaveText('1');
     assert.equal(await page.locator('#submit-action').getAttribute('name'), 'action');
     assert.equal(await button.getAttribute('variant'), null);
-    assert.equal(await button.getAttribute('size'), null);
+    assert.equal(await button.getAttribute('padding'), null);
     const measureButtons = () => page.locator('#button-sizing button').evaluateAll(buttons => buttons.map(button => {
       const s = getComputedStyle(button);
       return [s.fontSize, s.minHeight, s.paddingLeft, s.borderRadius].map(parseFloat);
@@ -169,12 +169,59 @@ try {
     await expect.poll(() => customButton.evaluate(el => getComputedStyle(el).backgroundImage)).toBe(originalBackground);
     await expect.poll(() => page.locator('#custom-object').evaluate(el => getComputedStyle(el).backgroundColor)).toBe(originalSecondary);
     await expect(customButton).toHaveCSS('padding-left', '19px');
+    for (const size of [12, 16, 24, 32]) {
+      for (const lineHeight of [1.25, 1.5, 1.65]) {
+        const heights = await page.locator('#code-button-row').evaluate((row, { size, lineHeight }) => {
+          row.style.fontSize = `${size}px`;
+          row.style.lineHeight = String(lineHeight);
+          return [...row.children].map(el => el.getBoundingClientRect().height);
+        }, { size, lineHeight });
+        assert.ok(Math.abs(heights[0] - heights[1]) < 0.1, `CodeBlock/Button heights differ at ${size}px / ${lineHeight}: ${heights}`);
+      }
+    }
+    const fitHeights = await page.locator('#fit-code-button-row').evaluate(row => [...row.children].map(el => el.getBoundingClientRect().height));
+    assert.deepEqual(fitHeights, [24, 24]);
+    await expect(page.locator('#custom-code')).toHaveCSS('min-height', '0px');
+    await expect(page.locator('#custom-code')).toHaveCSS('padding-top', '3px');
+    await expect(page.locator('#custom-code')).toHaveCSS('padding-left', '5px');
+    assert.equal(await page.locator('#custom-code').getAttribute('padding'), null);
+    const code = page.locator('#reactive-code');
+    await expect(code).toHaveAttribute('data-ref', 'ready');
+    await expect(code).toHaveText('const element = <script>alert("<&")</script>;\n\n  // next line\n');
+    await expect(code.locator('script')).toHaveCount(0);
+    await expect(code).toHaveCSS('direction', 'ltr');
+    await expect(code).toHaveCSS('white-space', 'pre');
+    await expect(code).toHaveCSS('font-size', '16px');
+    await expect(code).toHaveCSS('line-height', '24px');
+    await expect(code.locator('code')).toHaveCSS('font-size', '16px');
+    await expect(code.locator('code')).toHaveCSS('line-height', '24px');
+    await expect(code).toHaveCSS('max-width', '240px');
+    const colorsBefore = await code.locator('code span[style]').first().evaluate(el => getComputedStyle(el).color);
+    await page.locator('#code-theme').click();
+    await expect.poll(() => code.locator('code span[style]').first().evaluate(el => getComputedStyle(el).color)).not.toBe(colorsBefore);
+    await expect(page.locator('#plain-code')).toHaveCSS('color-scheme', 'dark');
+    await expect(page.locator('#plain-code')).toHaveText('<img src=x onerror=alert(1)>\n  second\n');
+    await expect(page.locator('#plain-code img')).toHaveCount(0);
+    await expect(page.locator('#empty-code')).toHaveText('');
+    await code.focus();
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Shift+Tab');
+    await expect(code).toBeFocused();
+    await expect(code).toHaveCSS('outline-style', 'solid');
+    assert.ok(await page.locator('#long-code').evaluate(el => el.scrollWidth > el.clientWidth));
+    await page.locator('#change-code').click();
+    await expect(code).toHaveText('printf "updated"\n');
+    await expect(code).toHaveClass(/custom/);
+    await expect(code).toHaveAttribute('aria-label', 'Example source');
+    assert.equal(await code.getAttribute('language'), null);
     await page.goto(new URL('hydration.html', server.resolvedUrls.local[0]).href);
     assert.deepEqual(errors, []);
     await expect(page.locator('html')).toHaveAttribute('data-hydrated', 'true');
     await page.locator('#hydrated').click();
     await expect(page.locator('#hydrated')).toHaveText('Hydrate 1');
     assert.equal(await page.locator('#hydrated').evaluate(el => el === window.serverButton), true);
+    await expect(page.locator('#hydrated-code')).toHaveText('const count = 1;');
+    assert.equal(await page.locator('#hydrated-code').evaluate(el => el === window.serverCode), true);
     assert.deepEqual(errors, []);
     console.log('Packed consumer: root boundaries, Button props, keyboard, forms, SSR and hydration passed.');
   } finally { await browser?.close(); await new Promise(resolve => server.httpServer.close(resolve)); }

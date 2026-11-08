@@ -5,7 +5,7 @@ import { colors, typography, root } from '../dist/index.js';
 import openColor from 'open-color' with { type: 'json' };
 import { renderToString } from '@solidjs/web';
 import { createComponent } from 'solid-js';
-import { Button, ButtonGroup } from '../dist/index.js';
+import { Button, ButtonGroup, CodeBlock } from '../dist/index.js';
 test('palette is exactly Open Color; fonts remain app-owned', () => {
   assert.deepEqual(colors, openColor);
   assert.equal(typography.fontFamily, '"Inter Variable", "Noto Sans KR", "Noto Sans", sans-serif');
@@ -24,7 +24,7 @@ test('public package has only ESM and CSS exports', () => {
 test('Button renders on the server with native attributes and escaped children', () => {
   const html = renderToString(() => createComponent(Button, {
     children: '<Save>', disabled: true, name: 'action', value: 'save',
-    variant: 'primary', size: 'custom', class: { custom: true }, color: 'var(--brand)', style: 'padding-left:19px',
+    variant: 'primary', padding: 'custom', class: { custom: true }, color: 'var(--brand)', style: 'padding-left:19px',
   }));
   assert.match(html, /<button/);
   assert.match(html, /type="button"/);
@@ -35,7 +35,7 @@ test('Button renders on the server with native attributes and escaped children',
   assert.match(html, /var\(--brand\)/);
   assert.match(html, /padding-left:19px/);
   assert.match(html, /&lt;Save(?:>|&gt;)/);
-  assert.doesNotMatch(html, /\s(?:variant|size|color)=/);
+  assert.doesNotMatch(html, /\s(?:variant|padding|color)=/);
 });
 
 test('ButtonGroup renders labeled native groups without leaking layout props', () => {
@@ -49,4 +49,23 @@ test('ButtonGroup renders labeled native groups without leaking layout props', (
   assert.match(html, /custom/);
   assert.match(html, /<button/);
   assert.doesNotMatch(html, / orientation=/);
+});
+
+test('CodeBlock renders escaped highlighted code and native pre attributes on the server', () => {
+  const html = renderToString(() => createComponent(CodeBlock, {
+    code: '<script>alert("<&")</script>\n  const value = 1;\n', language: 'tsx', theme: 'dark',
+    id: 'source', 'aria-label': 'Source code', tabindex: -1, class: { custom: true }, style: 'max-width:240px',
+  }));
+  assert.match(html, /<pre/);
+  assert.match(html, /<code/);
+  assert.match(html, /custom/);
+  assert.match(html, /tabindex="-1"/);
+  assert.match(html, /aria-label="Source code"/);
+  assert.match(html, /max-width:240px/);
+  assert.match(html, /light-dark/);
+  assert.doesNotMatch(html, /<script[ >]/);
+  assert.doesNotMatch(html, /\s(?:language|theme|code)=/);
+  for (const language of ['text', 'tsx', 'javascript', 'typescript', 'json', 'css', 'html', 'shellscript']) {
+    assert.doesNotThrow(() => renderToString(() => createComponent(CodeBlock, { code: '', language })));
+  }
 });

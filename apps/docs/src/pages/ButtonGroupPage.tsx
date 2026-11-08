@@ -1,3 +1,4 @@
+import { CodeBlock } from 'iu';
 import { Button, ButtonGroup, root, glass } from 'iu';
 
 export function ButtonGroupPage() {
@@ -11,7 +12,7 @@ export function ButtonGroupPage() {
             <ButtonGroup orientation="vertical" aria-label="File actions"><Button>Save</Button><Button>Save as</Button></ButtonGroup>
           </div>
           <h2>Usage</h2>
-          <pre><code>{`import { Button, ButtonGroup } from 'iu';
+          <CodeBlock code={`import { Button, ButtonGroup } from 'iu';
 
 <ButtonGroup aria-label="History">
   <Button>Undo</Button>
@@ -21,9 +22,9 @@ export function ButtonGroupPage() {
 <ButtonGroup orientation="vertical" aria-label="File actions">
   <Button>Save</Button>
   <Button>Save as</Button>
-</ButtonGroup>`}</code></pre>
+</ButtonGroup>`} />
           <h2>Props</h2>
-          <p><code>orientation</code> is <code>horizontal</code> by default. Horizontal groups follow <code>dir</code> for RTL layouts. Place Buttons directly inside the group and set variant, size, color, and disabled on each button.</p>
+          <p><code>orientation</code> is <code>horizontal</code> by default. Horizontal groups follow <code>dir</code> for RTL layouts. Place Buttons directly inside the group and set variant, padding, color, and disabled on each button.</p>
           <h2>Accessibility and behavior</h2>
           <p>Give the group an accessible name with <code>aria-label</code> or <code>aria-labelledby</code>. Buttons keep their native Tab, Enter, and Space behavior; the group has no selection state or arrow-key navigation.</p>
         </section>;

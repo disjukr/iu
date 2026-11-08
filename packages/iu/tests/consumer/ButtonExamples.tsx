@@ -8,7 +8,7 @@ export function ButtonExamples() {
   const [submits, setSubmits] = createSignal(0);
   const [customColor, setCustomColor] = createSignal<string | undefined>();
   return <div class={root}>
-    <Button id="reactive-button" variant={active() ? 'primary' : 'ghost'} size={active() ? 'normal' : 'fit'}
+    <Button id="reactive-button" variant={active() ? 'primary' : 'ghost'} padding={active() ? 'normal' : 'fit'}
       class={{ custom: active() }} style={{ 'padding-left': '23px' }}
       ref={el => { el.dataset.ref = 'ready'; }} onClick={() => setActive(value => !value)}>
       {active() ? 'Active' : 'Inactive'}
@@ -16,15 +16,15 @@ export function ButtonExamples() {
     <Button id="disabled-button" disabled={disabled()} onClick={() => setActive(true)}>Disabled action</Button>
     <Button id="toggle-disabled" onClick={() => setDisabled(value => !value)}>Toggle disabled</Button>
     <div id="button-sizing">
-      <Button size="fit">Fit</Button><Button size="normal">Normal</Button><Button size="custom" class="custom-size">Custom</Button>
+      <Button padding="fit">Fit</Button><Button padding="normal">Normal</Button><Button padding="custom" class="custom-size">Custom</Button>
     </div>
     <div id="inline-buttons">
       <p id="inline-reference">Text before a button after.</p>
-      <p class="inline-sample">Text before <Button size="fit" variant="primary">a button</Button> after.</p>
-      <p class="inline-sample">Text before <Button size="fit">a button</Button> after.</p>
-      <p class="inline-sample">Text before <Button size="fit" variant="ghost">a button</Button> after.</p>
-      <p class="inline-sample">Text before <Button size="fit" variant="warning">a button</Button> after.</p>
-      <p class="inline-sample">Text before <Button size="fit" variant="danger">a button</Button> after.</p>
+      <p class="inline-sample">Text before <Button padding="fit" variant="primary">a button</Button> after.</p>
+      <p class="inline-sample">Text before <Button padding="fit">a button</Button> after.</p>
+      <p class="inline-sample">Text before <Button padding="fit" variant="ghost">a button</Button> after.</p>
+      <p class="inline-sample">Text before <Button padding="fit" variant="warning">a button</Button> after.</p>
+      <p class="inline-sample">Text before <Button padding="fit" variant="danger">a button</Button> after.</p>
     </div>
     <div id="custom-buttons" style={{ '--brand': '#00ff00' }}>
       <Button id="custom-color" variant="primary" color={customColor()} style="padding-left:19px">Custom color</Button>

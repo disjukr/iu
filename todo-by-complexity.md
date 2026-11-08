@@ -38,7 +38,7 @@ Mostly semantic markup and explicit styles, with little persistent state. Still 
 - [ ] **Breadcrumbs** — Hierarchical navigation trail. [K][K], [M][M], [S][S].
 - [x] **ButtonGroup** — Related actions sharing a visual boundary. [S][S].
 - [ ] **Card** — Grouped content surface; includes Paper. [M][M], [S][S].
-- [ ] **Code** — Inline code and block presentation. [M][M], [S][S].
+- [ ] **Code** — Inline code and block presentation. CodeBlock implemented; inline code pending. [M][M], [S][S].
 - [ ] **ColorSwatch** — Color sample with accessible labeling. [K][K], [M][M], [RA][RA].
 - [ ] **DataList** — Label/value details. [M][M].
 - [ ] **EmptyState** — Empty results and recovery action; includes Empty. [M][M], [S][S].

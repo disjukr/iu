@@ -26,7 +26,6 @@ p { font-size: 14px; color: #6c757d; }
 .hero-meta { display: flex; flex-wrap: wrap; gap: 24px; color: #868e96; font: 11px ui-monospace, monospace; }
 code { font: 12px/1.8 ui-monospace, SFMono-Regular, Consolas, monospace; }
 p code { color: #465b79; background: rgba(192, 208, 231, .24); padding: 2px 5px; border-radius: 3px; }
-pre { margin: 24px 0; background: rgba(250, 252, 255, .58); border: 1px solid rgba(255, 255, 255, .8); border-radius: 10px; box-shadow: 0 8px 24px rgba(23, 35, 56, .04), inset 0 1px 0 rgba(255, 255, 255, .6); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); padding: 24px; overflow-x: auto; }
 .note { border-left: 2px solid #74c0fc; padding: 12px 18px; font-size: 13px; color: #6c757d; background: #f1f8fd; }
 .palette { margin-top: 30px; }
 .palette-row { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
@@ -83,3 +82,9 @@ main h1 { font-size: clamp(32px, 4vw, 48px); letter-spacing: -1.5px; }
   .sidebar a { padding: 9px 10px; font-size: 14px; }
   main section { padding-top: 36px; }
 }
+
+
+pre.shiki { margin: 24px 0; }
+
+.code-action-row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin: 24px 0; }
+.code-action-row pre.shiki { margin: 0; }

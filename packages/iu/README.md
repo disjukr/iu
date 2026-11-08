@@ -42,6 +42,7 @@ character fallback. Load fonts with these CSS family names in your app.
 
 | Export | Description |
 | --- | --- |
+| `CodeBlock` / `CodeBlockProps` / `CodeBlockLanguage` | Source code with Shiki syntax highlighting |
 | `ButtonGroup` / `ButtonGroupProps` | Joined related actions, horizontal or vertical |
 | `Button` / `ButtonProps` | Native button component and its props |
 | `root` | Tokens, typography, and scoped reset |
@@ -63,8 +64,8 @@ Set `data-theme="dark"` on a root for the dark theme (`light` by default).
 
 ```tsx
 <Button variant="primary" onClick={save}>Save</Button>
-<Button size="fit">Cancel</Button>
-<Button size="custom" style={{ padding: '1em 2em' }}>Custom size</Button>
+<Button padding="fit">Cancel</Button>
+<Button padding="custom" style={{ padding: '1em 2em' }}>Custom padding</Button>
 <Button variant="warning">Proceed with caution</Button>
 <Button variant="danger">Delete</Button>
 <Button variant="primary" color={colors.violet[6]}>Custom</Button>
@@ -73,10 +74,11 @@ Set `data-theme="dark"` on a root for the dark theme (`light` by default).
 
 - `variant`: `primary`, `secondary` (default), `ghost`, `warning`, or `danger`
 - `color`: Any CSS color, including Open Color values and CSS variables. Overrides the variant's tint while keeping filled surfaces distinct in either theme.
-- `size`: `fit`, `normal` (default), or `custom`
+- `padding`: `fit`, `normal` (default), or `custom`
 - Font size is inherited; built-in dimensions use `em`.
-- `fit` fits a `1.5` line height and aligns with surrounding text.
-- `custom` leaves height and padding to your `class` or `style`.
+- `fit` has a `1.5em` minimum height, fits a `1.5` line height and aligns with surrounding text.
+- `normal` has a `2.5em` minimum height.
+- `custom` leaves minimum height and padding to your `class` or `style`.
 - Native button attributes, events, `ref`, `class`, and `style` are forwarded.
 - Defaults to `type="button"`. Set `type="submit"` for form submission.
 
@@ -94,10 +96,34 @@ import { Button, ButtonGroup } from 'iu';
 ```
 
 - `orientation`: `horizontal` (default) or `vertical`. Horizontal layout follows `dir` for RTL.
-- Joins direct `Button` children. Set variant, size, color, and disabled on each button.
+- Joins direct `Button` children. Set variant, padding, color, and disabled on each button.
 - Uses `role="group"`; provide `aria-label` or `aria-labelledby` to name the related actions.
 - Each button keeps native Tab, Enter, and Space behavior. No selection state or arrow-key navigation.
 - Native div attributes, events, `ref`, `class`, and `style` are forwarded.
+
+## CodeBlock
+
+```tsx
+import { CodeBlock } from 'iu';
+
+<CodeBlock code={'const answer = 42;'} language="typescript" />
+<CodeBlock code={'pnpm install'} language="shellscript" />
+<CodeBlock code={'Plain text'} language="text" theme="dark" />
+```
+
+- `code`: Required source string. HTML and JSX are displayed as text.
+- `language`: `tsx` (default), `javascript`, `typescript`, `json`, `css`, `html`, `shellscript`, or `text`.
+- `padding`: `fit`, `normal` (default), or `custom`. Fit uses compact spacing and a `1.5em` minimum height; normal matches a normal Button with a `2.5em` minimum height. Custom leaves padding and minimum height to your class or style.
+- `theme`: `auto` (default), `light`, or `dark`. Auto follows the inherited CSS color scheme, including iu roots with `data-theme`.
+- Uses Shiki with GitHub light/dark colors and a JavaScript regex engine.
+- Uses a monospace font while inheriting surrounding font size, weight, line height, and letter spacing.
+- A single line matches the normal Button height at the same font size.
+- Preserves indentation and line breaks. Long lines scroll horizontally.
+- Uses native `pre` / `code` elements; focusable by default for keyboard scrolling.
+- Native pre attributes, events, `ref`, `class`, and `style` are forwarded. Customize the accessible name with `aria-label`, or focusability with `tabindex`.
+- Source remains left to right in RTL layouts. No editing or selection state is managed.
+- Import `iu/styles.css` once. Can be used outside `root`; an enclosing root supplies theme and focus color overrides.
+- Shiki initializes on first render. Unused CodeBlock code can be removed by bundlers; the Shiki dependency is external in the library build.
 
 ## Build
 

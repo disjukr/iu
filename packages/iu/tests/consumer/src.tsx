@@ -4,6 +4,7 @@ import { root, unroot, focusRing, colors, vars } from 'iu';
 import 'iu/styles.css';
 // Application styles loaded after iu.
 import './reset.css';
+import { CodeBlockExamples } from './CodeBlockExamples';
 import { ButtonExamples } from './ButtonExamples';
 const content: JSX.Element = <><section class={root}>
   <p id="text">Inter / Noto Sans KR / Noto Sans fallback</p>
@@ -22,5 +23,5 @@ const content: JSX.Element = <><section class={root}>
     </div>
   </div>
 </section>
-<h2 id="outside">Outside iu</h2><ButtonExamples /></>;
+<h2 id="outside">Outside iu</h2><ButtonExamples /><CodeBlockExamples /></>;
 render(() => content, document.getElementById('app')!);
