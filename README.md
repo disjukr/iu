@@ -1,6 +1,6 @@
 # iu
 
-SolidJS UI library and documentation site.
+UI component library and documentation site.
 
 - [`packages/iu`](packages/iu): Library
 - [`apps/docs`](apps/docs): Documentation and examples

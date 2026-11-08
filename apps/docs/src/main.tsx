@@ -1,128 +1,81 @@
-import { createSignal } from 'solid-js';
+import { createSignal, onCleanup, Loading } from 'solid-js';
 import { render } from '@solidjs/web';
-import { Button, ButtonGroup, colors, root, glass, typography, vars } from 'iu';
+import { components, matchesSearch, pages } from './catalog';
 import 'iu/styles.css';
 import './styles.css';
 
-const setup = `import 'iu/styles.css';
-import { Button, root, unroot } from 'iu';
+function route() {
+  const hash = location.hash.slice(1);
+  if (!hash) return '/introduction';
+  // Preserve links from the original single-page documentation.
+  if (!hash.startsWith('/')) return hash === 'examples' ? '/components' : ['button', 'button-group'].includes(hash) ? `/components/${hash}` : `/${hash}`;
+  return hash;
+}
 
-<section class={root}>
-  <p>Hello, iu.</p>
-  <Button variant="primary">Continue</Button>
-  <div class={unroot}>
-    <p>Browser defaults.</p>
-    <div class={root}>iu styles resume here.</div>
-  </div>
-</section>`;
+function ComponentIndex() {
+  const [query, setQuery] = createSignal('');
+  const filtered = () => components.filter(page => matchesSearch(page, query()));
+  return <section>
+    <p class="eyebrow">COMPONENTS</p>
+    <h1>Components</h1>
+    <p>Find a component, explore its examples, and learn how to use it.</p>
+    <label class="search-label" for="component-search">Find a component</label>
+    <input id="component-search" class="search" type="search" placeholder="Name, purpose, or keyword…" value={query()} onInput={event => setQuery(event.currentTarget.value)} />
+    <p role="status">{filtered().length} components</p>
+    <div class="component-grid">{filtered().map(page => <a class="component-card" href={`#${page.path}`}>
+      <span class="eyebrow">{page.group}</span><h2>{page.title}</h2><p>{page.description}</p>
+    </a>)}</div>
+    {filtered().length === 0 && <p>No matching components. Try another name or keyword.</p>}
+  </section>;
+}
 
 function App() {
-  const [count, setCount] = createSignal(0);
-  const [dark, setDark] = createSignal(false);
-  const palette = Object.entries(colors).filter((entry): entry is [string, string[]] => Array.isArray(entry[1]));
+  const [path, setPath] = createSignal(route());
+  const [query, setQuery] = createSignal('');
+  const [menuOpen, setMenuOpen] = createSignal(false);
+  let main: HTMLElement | undefined;
+  const current = () => pages.find(page => page.path === path());
+  const neighbors = () => {
+    const index = components.findIndex(page => page.path === path());
+    return [components[index - 1], components[index + 1]].filter(Boolean);
+  };
+  const title = () => path() === '/components' ? 'Components' : current()?.title ?? 'Page not found';
+  document.title = `${title()} — iu`;
+  function navigate() {
+    const next = route();
+    setPath(next);
+    setMenuOpen(false);
+    setQuery('');
+    document.title = `${next === '/components' ? 'Components' : pages.find(page => page.path === next)?.title ?? 'Page not found'} — iu`;
+    requestAnimationFrame(() => { window.scrollTo(0, 0); main?.focus({ preventScroll: true }); });
+  }
+  window.addEventListener('hashchange', navigate);
+  onCleanup(() => window.removeEventListener('hashchange', navigate));
+  const groups = () => [...new Set(pages.map(page => page.group))];
+  const results = () => pages.filter(page => matchesSearch(page, query()));
 
   return <div class="site">
+    <a class="skip-link" href="#content" onClick={event => { event.preventDefault(); main?.focus(); }}>Skip to content</a>
     <header class="header">
-      <a href="#" class="wordmark" aria-label="iu home">iu<span> / SolidJS UI</span></a>
-      <span class="version">0.0.0 · Solid 2</span>
+      <a href="#/introduction" class="wordmark" aria-label="iu home">iu<span> / UI components</span></a>
+      <span class="version">0.0.0</span>
+      <button class="menu-toggle" type="button" aria-expanded={menuOpen() ? 'true' : 'false'} aria-controls="docs-navigation" onClick={() => setMenuOpen(value => !value)}>Documentation</button>
     </header>
     <div class="layout">
-      <nav class="sidebar" aria-label="Documentation navigation">
-        <p class="nav-label">DOCUMENTATION</p>
-        <a href="#introduction">Introduction <span>01</span></a>
-        <a href="#getting-started">Getting started <span>02</span></a>
-        <a href="#colors">Colors <span>03</span></a>
-        <a href="#typography">Typography <span>04</span></a>
-        <a href="#examples">Examples <span>05</span></a>
-        <a href="#api">API <span>06</span></a>
+      <nav id="docs-navigation" class={['sidebar', menuOpen() && 'menu-open']} aria-label="Documentation navigation">
+        <label class="search-label" for="docs-search">Search documentation</label>
+        <input id="docs-search" class="search" type="search" placeholder="Search documentation…" value={query()} onInput={event => setQuery(event.currentTarget.value)} />
+        <a href="#/components" aria-current={path() === '/components' ? 'page' : undefined}>All components <span>{components.length}</span></a>
+        {groups().map(group => <div class="nav-group" hidden={!results().some(page => page.group === group)}>
+          <h2 class="nav-label">{group}</h2>
+          {results().filter(page => page.group === group).sort((a, b) => a.kind === 'component' && b.kind === 'component' ? a.title.localeCompare(b.title) : 0).map(page =>
+            <a href={`#${page.path}`} aria-current={path() === page.path ? 'page' : undefined}>{page.title}</a>)}
+        </div>)}
+        {query().trim() && <p role="status">{results().length ? `${results().length} results` : 'No matching documentation.'}</p>}
       </nav>
-      <main id="content">
-        <section id="introduction" class="hero">
-          <h1>UI for SolidJS.</h1>
-          <p class="intro">Colors, typography, themes, and focus styles for Solid 2.</p>
-          <a class="primary-link" href="#getting-started">Get started <span aria-hidden="true">↗</span></a>
-          <div class="hero-meta"><span>Solid 2</span><span>TypeScript</span><span>vanilla-extract</span><span>ESM</span></div>
-        </section>
-
-        <section id="getting-started">
-          <p class="eyebrow">01 / GETTING STARTED</p>
-          <h2>Getting started</h2>
-          <p>Use <code>iu: workspace:*</code> in this workspace, or install a tarball in another project.</p>
-          <pre><code>{`pnpm --filter iu build
-pnpm --filter iu pack
-# Install the generated tarball in an external app
-pnpm add /path/to/iu-0.0.0.tgz`}</code></pre>
-          <p>Requires Solid 2: <code>solid-js</code> and <code>@solidjs/web</code>. Set <code>jsxImportSource: "@solidjs/web"</code> and import the CSS once.</p>
-          <pre><code>{setup}</code></pre>
-          <p><code>root</code> sets tokens, typography, and a subtree reset. <code>unroot</code> clears those defaults; a nested <code>root</code> resumes them. Requires CSS <code>@scope</code> support.</p>
-        </section>
-
-        <section id="colors">
-          <p class="eyebrow">02 / COLORS</p>
-          <h2>Colors</h2>
-          <p>Open Color 1.9.1. Access shades with <code>colors.blue[7]</code>.</p>
-          <div class="palette">{palette.map(([name, shades]) => <div class="palette-row">
-            <span class="palette-name">{name}</span>
-            <div class="swatches">{shades.map((color, index) => <div class="swatch" style={{ 'background-color': color, color: index < 5 ? colors.gray[9] : colors.white }} title={`${name}[${index}] ${color}`}>
-              <span>{index}</span><small>{color}</small>
-            </div>)}</div>
-          </div>)}</div>
-        </section>
-
-        <section id="typography">
-          <p class="eyebrow">03 / TYPOGRAPHY</p>
-          <h2>Typography</h2>
-          <div class="type-specimen"><p>Aa</p><span>The quick brown fox jumps over the lazy dog.</span></div>
-          <dl class="specs"><div><dt>Font family</dt><dd>{typography.fontFamily}</dd></div><div><dt>Size / Line height</dt><dd>{typography.fontSize} / {typography.lineHeight}</dd></div><div><dt>Weight</dt><dd>{typography.fontWeight}</dd></div></dl>
-          <p>Load fonts in your app. This site uses system fonts.</p>
-        </section>
-
-        <section id="examples">
-          <p class="eyebrow">04 / EXPERIMENT</p>
-          <h2>Try it yourself</h2>
-          <p>Change the theme or press Tab to check keyboard focus.</p>
-          <div class={`${root} ${glass} demo`} data-theme={dark() ? 'dark' : 'light'}>
-            <span class="demo-label">LIVE EXAMPLE</span>
-            <h3 class="demo-title">Counter</h3>
-            <p>Click to increment.</p>
-            <div class="demo-actions">
-              <Button variant="primary" onClick={() => setCount(value => value + 1)}>Clicks <output aria-live="polite">{count()}</output></Button>
-              <Button aria-pressed={dark() ? 'true' : 'false'} onClick={() => setDark(value => !value)}>Dark theme {dark() ? 'on' : 'off'}</Button>
-              <Button variant="warning">Warning</Button>
-              <Button variant="danger">Danger</Button>
-              <Button variant="primary" color={colors.violet[6]}>Custom color</Button>
-            </div>
-          </div>
-          <div class={`${root} demo-actions`}>
-            <ButtonGroup aria-label="History"><Button>Undo</Button><Button>Redo</Button><Button disabled>Restore</Button></ButtonGroup>
-            <ButtonGroup orientation="vertical" aria-label="File actions"><Button>Save</Button><Button>Save as</Button></ButtonGroup>
-          </div>
-          <pre><code>{`<ButtonGroup aria-label="History">
-  <Button>Undo</Button>
-  <Button>Redo</Button>
-</ButtonGroup>`}</code></pre>
-          <pre><code>{`import { vars } from 'iu';
-
-// Override variables in your app's CSS or vanilla-extract styles
-// vars.color.surface → ${vars.color.surface}
-// vars.color.text    → ${vars.color.text}`}</code></pre>
-        </section>
-
-        <section id="api">
-          <p class="eyebrow">05 / REFERENCE</p>
-          <h2>API</h2>
-          <div class="table-scroll"><table><thead><tr><th>Export</th><th>Purpose</th></tr></thead><tbody>{[
-            ['root / unroot', 'Start or stop the scoped reset and inherited defaults'],
-            ['Button', 'Native button with variant and size options'],
-            ['ButtonGroup', 'Joined related actions in horizontal or vertical layout'],
-            ['glass', 'Translucent surface with blur, border, and shadow'],
-            ['colors', 'The original Open Color palette'], ['typography', 'Font stack, size, weight, and line height'],
-            ['vars', 'Typed CSS variables for theme overrides'], ['focusRing', ':focus-visible styles for keyboard focus'],
-            ['JSX', 'Type re-export from @solidjs/web'],
-          ].map(([name, description]) => <tr><td><code>{name}</code></td><td>{description}</td></tr>)}</tbody></table></div>
-          <p>Portals outside the root need their own <code>root</code> class. <code>unroot</code> does not disable explicit component classes or application styles.</p>
-        </section>
-        <footer>iu</footer>
+      <main id="content" ref={el => { main = el; }} tabindex={-1}>
+        <Loading fallback={<p role="status">Loading documentation…</p>}>{path() === '/components' ? <ComponentIndex /> : current() ? current()!.render() : <section><h1>Page not found</h1><p>This documentation page does not exist.</p><a href="#/components">Browse components</a></section>}</Loading>
+        {current()?.kind === 'component' && <div class="page-links"><a href="#/components">← All components</a>{neighbors().map(page => <a href={`#${page.path}`}>{page.title} →</a>)}</div>}
       </main>
     </div>
   </div>;

@@ -1,10 +1,16 @@
 # iu
 
-UI styles and tokens for Solid 2.
+UI components, styles, and tokens.
 
 ## Usage
 
-Requires `solid-js` and `@solidjs/web` 2.x. Set TypeScript's
+Install the package archive supplied with your release in your application:
+
+```sh
+pnpm add /path/to/iu-0.0.0.tgz
+```
+
+The current component implementation requires `solid-js` and `@solidjs/web` 2.x. Set TypeScript's
 `jsxImportSource` to `@solidjs/web`.
 
 ```tsx
