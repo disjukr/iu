@@ -28,7 +28,9 @@ Import CSS once. `root` sets tokens, typography, and a subtree reset.
 An inner `root` starts a new scope. Explicit component classes and application
 styles still apply inside `unroot`.
 Requires a browser with CSS `@scope` support. Load fonts in your app,
-or use the system fallback.
+or use the system fallback. The default font stack is `"Inter Variable", "Noto Sans KR", "Noto Sans", sans-serif`:
+Inter comes first, followed by Korean-first Noto Sans KR and broader Noto Sans
+character fallback. Load fonts with these CSS family names in your app.
 
 ## API
 

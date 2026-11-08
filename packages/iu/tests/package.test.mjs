@@ -8,7 +8,7 @@ import { createComponent } from 'solid-js';
 import { Button, ButtonGroup } from '../dist/index.js';
 test('palette is exactly Open Color; fonts remain app-owned', () => {
   assert.deepEqual(colors, openColor);
-  assert.equal(typography.fontFamily, '"Inter Variable", "Noto Sans Variable", sans-serif');
+  assert.equal(typography.fontFamily, '"Inter Variable", "Noto Sans KR", "Noto Sans", sans-serif');
   const css = readFileSync('dist/styles.css', 'utf8');
   assert.ok(root.length);
   assert.ok(!css.includes('@font-face'));

@@ -6,7 +6,7 @@ import 'iu/styles.css';
 import './reset.css';
 import { ButtonExamples } from './ButtonExamples';
 const content: JSX.Element = <><section class={root}>
-  <p id="text">Inter / Noto Sans fallback</p>
+  <p id="text">Inter / Noto Sans KR / Noto Sans fallback</p>
   <button id="focus" class={focusRing}>Focus test</button>
   <p id="app-style" class="app-style">Application styles</p>
   <output id="color">{colors.blue[7]}</output>

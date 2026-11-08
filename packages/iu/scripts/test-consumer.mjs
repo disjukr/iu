@@ -39,7 +39,7 @@ try {
     });
     const { default: assert } = await import('node:assert/strict');
     assert.deepEqual(style.slice(0, 7), ['border-box', '0px', '0px', '16px', 'normal', 'none', 'rgb(33, 37, 41)']);
-    assert.match(style[7], /Inter Variable.*Noto Sans Variable/);
+    assert.match(style[7], /Inter Variable.*Noto Sans KR.*Noto Sans/);
     assert.equal(await page.locator('#app-style').evaluate(el => getComputedStyle(el).marginTop), '31px');
     await page.keyboard.press('Tab');
     assert.equal(await page.locator('#focus').evaluate(el => getComputedStyle(el).outlineStyle), 'solid');
