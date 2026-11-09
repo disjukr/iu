@@ -87,12 +87,23 @@ test('docs support independent pages, search, history, and mobile navigation', a
     await copy.focus();
     await page.keyboard.press('Enter');
     await expect(copy).toHaveText('Copy');
-    await expect(page.getByRole('status')).toHaveText('Copied');
+    await expect(copy.locator('xpath=following-sibling::*[@role="status"][1]')).toHaveText('Copied');
     assert.equal(await page.evaluate(() => navigator.clipboard.readText()), 'pnpm install');
     const source = page.getByLabel('Button source code');
-    const lightColor = await source.evaluate(el => getComputedStyle(el).backgroundColor);
+    const copyCode = source.locator('..').getByRole('button', { name: 'Copy code', exact: true });
+    assert.ok(await copyCode.evaluate(button => {
+      const block = button.parentElement;
+      const bounds = block.getBoundingClientRect();
+      const control = button.getBoundingClientRect();
+      return parseFloat(getComputedStyle(block).borderRightWidth) > 0 &&
+        control.right < bounds.right && control.top >= bounds.top && control.bottom <= bounds.bottom;
+    }));
+    await copyCode.click();
+    await expect(copyCode.locator('xpath=following-sibling::*[@role="status"][1]')).toHaveText('Copied');
+    assert.equal(await page.evaluate(() => navigator.clipboard.readText()), await source.textContent());
+    const lightColor = await source.evaluate(el => getComputedStyle(el.parentElement).backgroundColor);
     await page.getByRole('button', { name: /Dark theme/ }).click();
-    await expect.poll(() => source.evaluate(el => getComputedStyle(el).backgroundColor)).not.toBe(lightColor);
+    await expect.poll(() => source.evaluate(el => getComputedStyle(el.parentElement).backgroundColor)).not.toBe(lightColor);
     const menu = page.getByRole('button', { name: 'Documentation', exact: true });
     await expect(page.getByRole('navigation')).toBeHidden();
     await menu.click();

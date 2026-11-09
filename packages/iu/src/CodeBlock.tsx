@@ -11,11 +11,13 @@ import css from 'shiki/langs/css.mjs';
 import html from 'shiki/langs/html.mjs';
 import githubLight from 'shiki/themes/github-light.mjs';
 import githubDark from 'shiki/themes/github-dark.mjs';
+import { CopyButton } from './CopyButton.js';
 import * as styles from './codeBlock.css.js';
 
 export type CodeBlockLanguage = 'text' | 'tsx' | 'shellscript' | 'javascript' | 'typescript' | 'json' | 'css' | 'html';
 export type CodeBlockProps = Omit<JSX.IntrinsicElements['pre'], 'children' | 'class'> & {
   code: string;
+  copyable?: boolean;
   language?: CodeBlockLanguage;
   theme?: 'auto' | 'light' | 'dark';
   padding?: 'fit' | 'normal' | 'custom';
@@ -34,15 +36,15 @@ function getHighlighter() {
 }
 
 export function CodeBlock(props: CodeBlockProps) {
-  const rest = omit(props, 'code', 'language', 'theme', 'padding', 'class', 'tabindex', 'aria-label');
+  const rest = omit(props, 'code', 'copyable', 'language', 'theme', 'padding', 'class', 'tabindex', 'aria-label');
   const highlighted = () => getHighlighter().codeToTokens(props.code, {
     lang: props.language ?? 'tsx',
     themes: { light: 'github-light', dark: 'github-dark' },
     defaultColor: 'light-dark()',
   });
-  return <pre
+  const block = () => <pre
     {...rest}
-    class={[styles.block, styles.paddings[props.padding ?? 'normal'], styles.themes[props.theme ?? 'auto'], 'shiki', props.class]}
+    class={[styles.block, styles.paddings[props.padding ?? 'normal'], styles.themes[props.theme ?? 'auto'], 'shiki', props.copyable && styles.embedded, props.class]}
     tabindex={props.tabindex ?? 0}
     aria-label={props['aria-label'] ?? `${props.language ?? 'tsx'} code example`}
   ><code class={styles.code}>{highlighted().tokens.map((line, index) => <>
@@ -54,4 +56,10 @@ export function CodeBlock(props: CodeBlockProps) {
       'text-decoration': token.fontStyle && token.fontStyle & 4 ? 'underline' : undefined,
     }}>{token.content}</span>)}</span>
   </>)}</code></pre>;
+
+  return props.copyable ? <div class={[styles.copyRow, styles.themes[props.theme ?? 'auto']]}>
+    {block()}
+    <CopyButton text={() => props.code} aria-label="Copy code" padding="fit" variant="ghost"
+      class={[styles.copyButton, props.padding === 'fit' && styles.compactCopyButton]} />
+  </div> : block();
 }

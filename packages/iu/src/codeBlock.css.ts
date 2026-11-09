@@ -1,16 +1,20 @@
 import { fallbackVar, style, styleVariants } from '@vanilla-extract/css';
 import { vars } from './root.css.js';
+import { colors } from './tokens.js';
 
-export const block = style({
+const surface = style({
+  border: `1px solid light-dark(${colors.gray[3]}, ${colors.gray[8]})`,
+  borderRadius: '0.625em',
+  backgroundColor: `light-dark(${colors.white}, ${colors.gray[9]})`,
+});
+
+export const block = style([surface, {
   display: 'block',
   boxSizing: 'border-box',
   maxWidth: '100%',
   minWidth: 0,
   margin: 0,
-  border: '1px solid light-dark(#d0d7de, #30363d)',
-  borderRadius: '0.625em',
-  backgroundColor: 'light-dark(#ffffff, #0d1117)',
-  color: 'light-dark(#24292e, #e1e4e8)',
+  color: fallbackVar(vars.color.text, `light-dark(${colors.gray[9]}, ${colors.gray[0]})`),
   fontFamily: 'ui-monospace, SFMono-Regular, Consolas, monospace',
   fontSize: 'inherit',
   fontWeight: 'inherit',
@@ -25,8 +29,8 @@ export const block = style({
   tabSize: 2,
   overflowX: 'auto',
   direction: 'ltr',
-  selectors: { '&:focus-visible': { outline: `2px solid ${fallbackVar(vars.color.focus, 'light-dark(#1971c2, #74c0fc)')}`, outlineOffset: '2px' } },
-});
+  selectors: { '&:focus-visible': { outline: `2px solid ${fallbackVar(vars.color.focus, `light-dark(${colors.blue[7]}, ${colors.blue[3]})`)}`, outlineOffset: '2px' } },
+}]);
 export const code = style({
   display: 'block',
   padding: 0,
@@ -57,4 +61,43 @@ export const paddings = styleVariants({
     padding: 'max(0px, calc((2.5em - 1lh) / 2 - 1px)) 1em',
   },
   custom: {},
+});
+
+
+export const copyRow = style([surface, {
+  boxSizing: 'border-box',
+  display: 'grid',
+  gridTemplateColumns: 'minmax(0, 1fr) auto',
+  alignItems: 'start',
+  gap: '0.25em',
+  minWidth: 0,
+}]);
+
+export const embedded = style({
+  border: 0,
+  backgroundColor: 'transparent',
+  minHeight: 0,
+  selectors: {
+    [`${copyRow} > &`]: { margin: 0, paddingRight: '0.125em' },
+  },
+});
+
+export const copyButton = style({
+  selectors: {
+    [`${copyRow} > &`]: {
+      marginBlockStart: 'calc(0.5em - 1px)',
+      marginInlineEnd: '0.25em',
+    },
+  },
+});
+
+export const compactCopyButton = style({
+  selectors: {
+    [`${copyRow} > &`]: {
+      minHeight: 0,
+      paddingBlock: 0,
+      paddingInline: '0.375em',
+      marginBlockStart: '0.125em',
+    },
+  },
 });

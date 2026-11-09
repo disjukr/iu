@@ -17,3 +17,8 @@ Use dimensions relative to surrounding typography (normally `1em`) and inherit
 `currentColor`. Hide decorative icons from assistive technology; give icon-only
 controls an accessible name on the control. Only render trusted package icon
 markup through an adapter's innerHTML.
+
+# Component colors
+
+Use the shared `vars.color` tokens for semantic colors. Use the Open Color
+palette from `tokens.ts` for palette values and theme fallbacks.

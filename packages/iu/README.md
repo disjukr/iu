@@ -114,6 +114,7 @@ import { CodeBlock } from 'iu';
 ```
 
 - `code`: Required source string. HTML and JSX are displayed as text.
+- `copyable`: Show a CopyButton inside the block to copy the original source. Defaults to false.
 - `language`: `tsx` (default), `javascript`, `typescript`, `json`, `css`, `html`, `shellscript`, or `text`.
 - `padding`: `fit`, `normal` (default), or `custom`. Fit uses compact spacing and a `1.5em` minimum height; normal matches a normal Button with a `2.5em` minimum height. Custom leaves padding and minimum height to your class or style.
 - `theme`: `auto` (default), `light`, or `dark`. Auto follows the inherited CSS color scheme, including iu roots with `data-theme`.

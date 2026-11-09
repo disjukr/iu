@@ -18,7 +18,20 @@ export function CodeBlockPage() {
     <h2>Examples</h2>
     <div class={`${root} ${glass} demo`} data-theme={dark() ? 'dark' : 'light'}>
       <Button aria-pressed={dark() ? 'true' : 'false'} onClick={() => setDark(value => !value)}>Dark theme {dark() ? 'on' : 'off'}</Button>
-      <CodeBlock code={sample} aria-label="Button source code" />
+      <div class="code-action-row">
+        <CodeBlock code={sample} copyable aria-label="Button source code" />
+      </div>
+    </div>
+    <h3>Single-line code with copy</h3>
+    <div class={`${root} code-action-row`}>
+      <div>
+        <p>Normal</p>
+        <CodeBlock code={command} language="shellscript" copyable aria-label="Normal single-line code" />
+      </div>
+      <div>
+        <p>Fit</p>
+        <CodeBlock code={command} language="shellscript" padding="fit" copyable aria-label="Fit single-line code" />
+      </div>
     </div>
     <h3>Alongside a button</h3>
     <p>A single line matches the height of a normal Button while keeping the surrounding typography.</p>
@@ -40,12 +53,13 @@ export function CodeBlockPage() {
     <CodeBlock code={`import 'iu/styles.css';
 import { CodeBlock } from 'iu';
 
-<CodeBlock code={'const answer = 42;'} language="typescript" />
+<CodeBlock code={'const answer = 42;'} language="typescript" copyable />
 <CodeBlock code={'pnpm install'} language="shellscript" />
 <CodeBlock code={'Plain text'} language="text" theme="dark" />`} />
     <h2>Props</h2>
     <dl class="specs">
       <div><dt>code</dt><dd>Required source string. Rendered as text, including HTML and JSX.</dd></div>
+      <div><dt>copyable</dt><dd>Show a copy button inside the block. It copies the original text, including indentation and line breaks.</dd></div>
       <div><dt>language</dt><dd>tsx (default), javascript, typescript, json, css, html, shellscript, or text</dd></div>
       <div><dt>padding</dt><dd>normal (default), fit for compact spacing, or custom for your own padding and minimum height. Fit has a 1.5em minimum height; normal has a 2.5em minimum height.</dd></div>
       <div><dt>theme</dt><dd>auto (default) follows the inherited color scheme, including iu roots with data-theme. Use light or dark for an explicit appearance.</dd></div>
