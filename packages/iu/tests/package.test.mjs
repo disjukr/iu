@@ -51,6 +51,17 @@ test('ButtonGroup renders labeled native groups without leaking layout props', (
   assert.doesNotMatch(html, / orientation=/);
 });
 
+test('Button with href renders an anchor, including an empty href', () => {
+  const html = renderToString(() => Button({
+    href: '', target: '_blank', rel: 'noopener', variant: 'primary', children: 'Docs',
+  }));
+  assert.match(html, /<a\b/);
+  assert.match(html, /\shref(?:="")?(?=\s|>)/);
+  assert.match(html, /target="_blank"/);
+  assert.match(html, /rel="noopener"/);
+  assert.doesNotMatch(html, /<button\b|\s(?:type|role|variant)=/);
+});
+
 test('CodeBlock renders escaped highlighted code and native pre attributes on the server', () => {
   const html = renderToString(() => createComponent(CodeBlock, {
     code: '<script>alert("<&")</script>\n  const value = 1;\n', language: 'tsx', theme: 'dark',

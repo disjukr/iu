@@ -64,6 +64,13 @@ Set `data-theme="dark"` on a root for the dark theme (`light` by default).
 
 ## Button
 
+Pass `href` to render a native link with the same button styles. Link props and
+refs follow the anchor element. Without `href`, props and refs follow the button element.
+
+```tsx
+<Button href="/docs" variant="primary">Read the docs</Button>
+```
+
 ```tsx
 <Button variant="primary" onClick={save}>Save</Button>
 <Button padding="fit">Cancel</Button>

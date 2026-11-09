@@ -14,7 +14,9 @@ test('docs support independent pages, search, history, and mobile navigation', a
     const url = server.resolvedUrls.local[0];
     await page.goto(url);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Build with iu.');
-    await page.getByRole('link', { name: 'Getting started', exact: true }).click();
+    const getStarted = page.getByRole('link', { name: 'Get started', exact: true });
+    await expect(getStarted.locator('svg')).toHaveAttribute('aria-hidden', 'true');
+    await getStarted.click();
     await expect(page.locator('#content')).toContainText('pnpm add');
     await expect(page.locator('#content')).not.toContainText('pnpm --filter');
     await expect(page.locator('#content')).toBeFocused();
@@ -107,6 +109,7 @@ test('docs support independent pages, search, history, and mobile navigation', a
     assert.equal(await page.evaluate(() => navigator.clipboard.readText()), 'A new value');
     await expect(iconCopy).toHaveAttribute('aria-label', 'Copy current text');
     await page.goto(`${url}#/components/tooltip`);
+    await expect(page.locator('main')).toBeFocused();
     const tooltipSave = page.getByRole('button', { name: 'Save', exact: true });
     await tooltipSave.focus();
     await expect(page.getByRole('tooltip', { name: 'Save your changes' })).toBeVisible();
@@ -133,7 +136,7 @@ test('docs support independent pages, search, history, and mobile navigation', a
     }));
     await copyCode.click();
     await expect(copyCode.locator('xpath=following-sibling::*[@role="status"][1]')).toHaveText('Copied');
-    assert.equal(await page.evaluate(() => navigator.clipboard.readText()), await source.textContent());
+    assert.equal((await page.evaluate(() => navigator.clipboard.readText())).replace(/\r\n/g, '\n'), await source.textContent());
     const lightColor = await source.evaluate(el => getComputedStyle(el.parentElement).backgroundColor);
     await page.getByRole('button', { name: /Dark theme/ }).click();
     await expect.poll(() => source.evaluate(el => getComputedStyle(el.parentElement).backgroundColor)).not.toBe(lightColor);

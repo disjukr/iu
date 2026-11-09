@@ -2,12 +2,21 @@ import { createSignal } from 'solid-js';
 import { Button, ButtonGroup, root } from 'iu';
 
 export function ButtonExamples() {
+  const linkProps = { href: '#button-sizing', target: '_self' };
   const [vertical, setVertical] = createSignal(false);
   const [active, setActive] = createSignal(false);
   const [disabled, setDisabled] = createSignal(true);
   const [submits, setSubmits] = createSignal(0);
   const [customColor, setCustomColor] = createSignal<string | undefined>();
   return <div class={root}>
+    <Button {...linkProps} id="button-link" variant="primary"
+      ref={el => {
+        const anchor: HTMLAnchorElement = el;
+        anchor.dataset.ref = anchor.tagName;
+      }}
+      onClick={event => { event.currentTarget.dataset.clicked = event.currentTarget.hash; }}>
+      Go to sizes
+    </Button>
     <Button id="reactive-button" variant={active() ? 'primary' : 'ghost'} padding={active() ? 'normal' : 'fit'}
       class={{ custom: active() }} style={{ 'padding-left': '23px' }}
       ref={el => { el.dataset.ref = 'ready'; }} onClick={() => setActive(value => !value)}>

@@ -97,6 +97,15 @@ try {
     await expect(page.locator('#submits')).toHaveText('1');
     assert.equal(await page.locator('#submit-action').getAttribute('name'), 'action');
     assert.equal(await button.getAttribute('variant'), null);
+    const link = page.getByRole('link', { name: 'Go to sizes' });
+    await expect(link).toHaveAttribute('href', '#button-sizing');
+    await expect(link).toHaveAttribute('target', '_self');
+    await expect(link).toHaveAttribute('data-ref', 'A');
+    assert.equal(await link.getAttribute('type'), null);
+    await link.focus();
+    await page.keyboard.press('Enter');
+    await expect(link).toHaveAttribute('data-clicked', '#button-sizing');
+    await expect(page).toHaveURL(/#button-sizing$/);
     assert.equal(await button.getAttribute('padding'), null);
     const measureButtons = () => page.locator('#button-sizing button').evaluateAll(buttons => buttons.map(button => {
       const s = getComputedStyle(button);
@@ -286,7 +295,7 @@ try {
     assert.ok((await copyButton.getAttribute('aria-describedby')).startsWith('existing-description '));
     await page.keyboard.press('Enter');
     await expect(page.locator('#copy-result')).toHaveText('First\nvalue');
-    assert.equal(await page.evaluate(() => navigator.clipboard.readText()), 'First\nvalue');
+    assert.equal((await page.evaluate(() => navigator.clipboard.readText())).replace(/\r\n/g, '\n'), 'First\nvalue');
     await expect(copyButton).toHaveText('Copy source');
     await expect(page.locator('#copy-button + [role="tooltip"] + [role="status"]')).toHaveText('Copied');
     await expect(copyButton).toBeFocused();
@@ -300,7 +309,7 @@ try {
     await page.locator('#lazy-copy').click();
     await expect(page.locator('#lazy-copy')).toHaveText('Source copied');
     await expect(page.locator('#lazy-copy-calls')).toHaveText('1');
-    assert.equal(await page.evaluate(() => navigator.clipboard.readText()), 'First\nvalue');
+    assert.equal((await page.evaluate(() => navigator.clipboard.readText())).replace(/\r\n/g, '\n'), 'First\nvalue');
     await page.locator('#rejected-source').click();
     await expect(page.locator('#rejected-source + [role="tooltip"] + [role="status"]')).toHaveText('Copy failed');
     await page.locator('#icon-copy').click();

@@ -2,12 +2,23 @@ import { omit } from 'solid-js';
 import type { JSX } from '@solidjs/web';
 import * as styles from './button.css.js';
 
-export type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'class' | 'color'> & {
+type ButtonStyleProps = {
   class?: JSX.ClassValue;
   color?: string;
   variant?: 'primary' | 'secondary' | 'ghost' | 'warning' | 'danger';
   padding?: 'fit' | 'normal' | 'custom';
 };
+
+export type NativeButtonProps = ButtonStyleProps &
+  Omit<JSX.IntrinsicElements['button'], keyof ButtonStyleProps | 'href'> & { href?: never };
+
+export type ButtonLinkProps = ButtonStyleProps &
+  Omit<JSX.IntrinsicElements['a'], keyof ButtonStyleProps | 'href' | 'disabled'> & {
+    href: string;
+    disabled?: never;
+  };
+
+export type ButtonProps = NativeButtonProps | ButtonLinkProps;
 
 const tintProperty = styles.tint.slice(4, -1);
 
@@ -17,18 +28,26 @@ function buttonStyle(color: ButtonProps['color'], style: ButtonProps['style']) {
   return { ...(typeof style === 'object' ? style : {}), [tintProperty]: color };
 }
 
-export function Button(props: ButtonProps) {
-  const rest = omit(props, 'class', 'type', 'variant', 'padding', 'color', 'style');
-  return <button
-    {...rest}
-    type={props.type ?? 'button'}
-    style={buttonStyle(props.color, props.style)}
-    class={[
-      styles.button,
-      styles.variants[props.variant ?? 'secondary'],
-      props.color && (props.variant === 'ghost' ? styles.customGhost : (props.variant ?? 'secondary') === 'secondary' ? styles.customSecondary : styles.customFilled),
-      styles.paddings[props.padding ?? 'normal'],
-      props.class,
-    ]}
-  />;
-}
+const styleKeys = ['class', 'variant', 'padding', 'color', 'style'] as const;
+
+type ButtonComponent = {
+  (props: ButtonLinkProps): JSX.Element;
+  (props: NativeButtonProps): JSX.Element;
+};
+
+export const Button: ButtonComponent = (props: ButtonProps) => {
+  const presentation = {
+    get style() { return buttonStyle(props.color, props.style); },
+    get class() {
+      const variant = props.variant ?? 'secondary';
+      const custom = variant === 'ghost' ? styles.customGhost
+        : variant === 'secondary' ? styles.customSecondary : styles.customFilled;
+      return [styles.button, styles.variants[variant], props.color && custom,
+        styles.paddings[props.padding ?? 'normal'], props.class];
+    },
+  };
+  return <>{typeof props.href === 'string'
+    ? <a {...omit(props, ...styleKeys, 'disabled')} {...presentation} />
+    : <button {...omit(props, ...styleKeys, 'href', 'type')} type={props.type ?? 'button'} {...presentation} />
+  }</>;
+};

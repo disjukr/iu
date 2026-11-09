@@ -22,7 +22,8 @@ for (const [tag, size] of Object.entries(headings)) {
 
 scoped(`:where(p:not(.${typographyElement}))`, { ...textPresets.md, ...paragraphMargins });
 scoped(`:where(p:not(.${typographyElement}):last-child)`, { marginBlockEnd: 0 });
-scoped(':where(a[href])', {
+const nativeLink = `a[href]:not(.${button})`;
+scoped(`:where(${nativeLink})`, {
   color: `light-dark(${colors.blue[8]}, ${colors.blue[3]})`,
   textDecoration: 'underline',
   textUnderlineOffset: '0.15em',
@@ -36,7 +37,7 @@ for (const [selector, rules] of Object.entries({ ...buttonStates, ...secondarySt
   scoped(selector.replace('&', nativeButton), rules);
 }
 
-scoped(`:where(a[href], button:not(.${button})):focus-visible`, {
+scoped(`:where(${nativeLink}, button:not(.${button})):focus-visible`, {
   outline: `2px solid ${vars.color.focus}`,
   outlineOffset: '2px',
 });

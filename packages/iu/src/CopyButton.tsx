@@ -3,7 +3,7 @@ import type { JSX } from '@solidjs/web';
 import contentCopy from '@iconify-icons/material-symbols/content-copy';
 import check from '@iconify-icons/material-symbols/check';
 import { Button } from './Button.js';
-import type { ButtonProps } from './Button.js';
+import type { NativeButtonProps } from './Button.js';
 import { Tooltip } from './Tooltip.js';
 import type { TooltipProps } from './Tooltip.js';
 import { Icon } from './Icon.js';
@@ -11,7 +11,7 @@ import * as styles from './copyButton.css.js';
 
 export type CopyButtonState = 'idle' | 'copying' | 'copied' | 'error';
 export type CopyButtonMessages = Record<Exclude<CopyButtonState, 'idle'>, string>;
-export type CopyButtonProps = Omit<ButtonProps, 'onCopy' | 'children'> & {
+export type CopyButtonProps = Omit<NativeButtonProps, 'onCopy' | 'children'> & {
   /** Resolve the source only when activated, optionally asynchronously. */
   text: string | (() => string | Promise<string>);
   children?: JSX.Element | ((state: CopyButtonState) => JSX.Element);

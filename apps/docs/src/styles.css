@@ -19,7 +19,7 @@ main > section > h1 { margin-block-start: 0; }
 main > section { padding: 64px 0; border-bottom: 1px solid #e9ecef; scroll-margin-top: 24px; }
 .hero { padding-top: 76px; }
 .intro { max-width: 540px; }
-.primary-link { margin: 24px 0 36px; display: inline-flex; align-items: center; gap: 48px; background: linear-gradient(145deg, #353f50, #1b2029); color: white; box-shadow: 0 4px 12px rgba(22, 32, 49, .12), inset 0 1px 0 rgba(255, 255, 255, .15); padding: 12px 20px; border-radius: 8px; font-size: 14px; }
+.primary-link { margin: 24px 0 36px; }
 .hero-meta { display: flex; flex-wrap: wrap; gap: 24px; color: #868e96; font: 11px ui-monospace, monospace; }
 .note { border-left: 2px solid #74c0fc; padding: 12px 18px; font-size: 13px; color: #6c757d; background: #f1f8fd; }
 .palette { margin-top: 30px; }

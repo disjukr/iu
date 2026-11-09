@@ -1,4 +1,5 @@
 export { CopyButton } from './CopyButton.js';
+export { Icon } from './Icon.js';
 export type { CopyButtonProps, CopyButtonState, CopyButtonMessages } from './CopyButton.js';
 export { Tooltip } from './Tooltip.js';
 export type { TooltipProps, TooltipTriggerProps } from './Tooltip.js';
@@ -7,7 +8,7 @@ export type { CodeBlockProps, CodeBlockLanguage } from './CodeBlock.js';
 export { ButtonGroup } from './ButtonGroup.js';
 export type { ButtonGroupProps } from './ButtonGroup.js';
 export { Button } from './Button.js';
-export type { ButtonProps } from './Button.js';
+export type { ButtonProps, ButtonLinkProps, NativeButtonProps } from './Button.js';
 export { colors, typography } from './tokens.js';
 export { root, unroot, vars, focusRing, glass } from './root.css.js';
 export type { JSX } from '@solidjs/web';
