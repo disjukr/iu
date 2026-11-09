@@ -13,6 +13,7 @@ export function Api() {
             ['Paragraph / Text', 'Body text with shared size presets and optional paragraph spacing'],
             ['Code', 'Inline source code'],
             ['Prose', 'Scoped styles for native HTML content'],
+            ['Switch', 'On or off setting with an optional label'],
             ['Checkbox', 'Native checkbox with an optional label and mixed state'],
             ['Radio', 'Native radio input with fit, normal, and custom padding'],
             ['RadioGroup', 'Fieldset with a shared name for native single-choice selection'],

@@ -21,10 +21,11 @@ export const checkbox = style({
   backgroundColor: secondaryRules.backgroundColor,
   border: `1px solid color-mix(in srgb, ${vars.color.text} 55%, ${vars.color.border})`,
   borderRadius: '0.25em',
+  transition: 'border-color 140ms ease-out',
   selectors: {
     '&:enabled': { cursor: 'pointer' },
     '&:enabled:hover, &:checked, &:indeterminate': { borderColor: vars.color.text },
-    '&:checked::before, &:indeterminate::before': {
+    '&::before': {
       content: '""',
       position: 'absolute',
       inset: 0,
@@ -33,11 +34,19 @@ export const checkbox = style({
       blockSize: '75%',
       backgroundColor: vars.color.text,
       mask: iconMask(check),
+      opacity: 0,
+      transform: 'scale(0.7)',
+      transition: 'opacity 140ms ease-out, transform 140ms ease-out',
     },
+    '&:checked::before, &:indeterminate::before': { opacity: 1, transform: 'scale(1)' },
     '&:indeterminate::before': { mask: iconMask(remove) },
     '&:disabled': { opacity: 0.55 },
   },
   '@media': {
+    '(prefers-reduced-motion: reduce)': {
+      transition: 'none',
+      selectors: { '&::before': { transition: 'none' } },
+    },
     '(forced-colors: active)': {
       appearance: 'auto',
       selectors: { '&::before': { display: 'none' } },

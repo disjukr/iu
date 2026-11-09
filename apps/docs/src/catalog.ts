@@ -8,6 +8,7 @@ const Api = lazy(() => import('./pages/Api'), { export: 'Api' });
 const ButtonPage = lazy(() => import('./pages/ButtonPage'), { export: 'ButtonPage' });
 const ButtonGroupPage = lazy(() => import('./pages/ButtonGroupPage'), { export: 'ButtonGroupPage' });
 
+const SwitchPage = lazy(() => import('./pages/SwitchPage'), { export: 'SwitchPage' });
 const CheckboxPage = lazy(() => import('./pages/CheckboxPage'), { export: 'CheckboxPage' });
 const RadioPage = lazy(() => import('./pages/RadioPage'), { export: 'RadioPage' });
 const CardPage = lazy(() => import('./pages/CardPage'), { export: 'CardPage' });
@@ -36,6 +37,7 @@ export const pages: DocPage[] = [
   { path: '/typography', title: 'Typography', description: 'Fonts, sizes, and line height.', group: 'Foundations', kind: 'guide', render: Typography },
   { path: '/api', title: 'API reference', description: 'Shared exports, tokens, and styling utilities.', group: 'Foundations', kind: 'guide', render: Api },
   { path: '/components/tooltip', title: 'Tooltip', description: 'Supplementary descriptions on hover and keyboard focus.', group: 'Overlays', kind: 'component', keywords: 'help hint description 툴팁', render: TooltipPage },
+  { path: '/components/switch', title: 'Switch', description: 'Toggle a setting that takes effect immediately.', group: 'Inputs', kind: 'component', keywords: 'switch toggle on off', render: SwitchPage },
   { path: '/components/checkbox', title: 'Checkbox', description: 'Toggle independent options and show mixed selection.', group: 'Inputs', kind: 'component', keywords: 'checkbox mixed indeterminate selection', render: CheckboxPage },
   { path: '/components/radio', title: 'Radio', description: 'Choose one option in a RadioGroup.', group: 'Inputs', kind: 'component', keywords: 'radio group selection padding', render: RadioPage },
   { path: '/components/card', title: 'Card', description: 'Group content, actions, or selection controls on a surface.', group: 'Content', kind: 'component', keywords: 'paper glass surface selection 카드', render: CardPage },

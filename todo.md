@@ -134,7 +134,7 @@ libraries are design references, not verified compatible dependencies.
 - [ ] **Stack** — Row/column layout with spacing; includes Flex and Group. [M][M], [AX][AX].
 - [ ] **Statistic** — Labeled metric with units and optional trend; includes countdown presentation. [AD][AD].
 - [ ] **Stepper** — Multi-step workflow status/navigation; includes Steps. [A][A], [M][M], [AX][AX].
-- [ ] **Switch** — Immediate on/off setting. [R][R], [K][K], [A][A], [AX][AX].
+- [x] **Switch** — Immediate on/off setting. [R][R], [K][K], [A][A], [AX][AX].
 - [ ] **Table** — Semantic tabular display, foundation for DataTable. [M][M], [RA][RA], [S][S], [AX][AX].
 - [ ] **TableOfContents** — Navigation derived from document headings; includes Outline. [A][A], [M][M], [AX][AX].
 - [ ] **Tabs** — Switch between associated content panels. [R][R], [K][K], [A][A], [AX][AX].

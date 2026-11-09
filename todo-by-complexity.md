@@ -95,7 +95,7 @@ Small state machines or native inputs, labels and validation associations. Loadi
 - [ ] **QRCode** — Pairing/share code display; optional encoding dependency. [A][A].
 - [ ] **SearchField** — Search input with clear and submission behavior. [K][K], [RA][RA].
 - [ ] **Statistic** — Labeled metric with units and optional trend; includes countdown presentation. [AD][AD].
-- [ ] **Switch** — Immediate on/off setting. [R][R], [K][K], [A][A], [AX][AX].
+- [x] **Switch** — Immediate on/off setting. [R][R], [K][K], [A][A], [AX][AX].
 - [ ] **TextField** — Single-line text input; includes Input and TextInput. [K][K], [M][M], [RA][RA], [AX][AX].
 - [ ] **Textarea** — Multiline text input and optional auto-resize. [M][M], [S][S], [AX][AX].
 - [ ] **Timer** — Elapsed-duration/stopwatch presentation with cleanup, background-tab accuracy and quiet screen-reader updates; distinct from calendar time and countdown metrics. [AXT][AXT].

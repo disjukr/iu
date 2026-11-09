@@ -3,7 +3,6 @@ import { secondaryRules } from './button.css.js';
 import { vars } from './root.css.js';
 
 const ring = createVar();
-const dot = createVar();
 const surface = createVar();
 
 export const radio = style({
@@ -18,20 +17,23 @@ export const radio = style({
   borderRadius: '0.375em',
   vars: {
     [ring]: `color-mix(in srgb, ${vars.color.text} 55%, ${vars.color.border})`,
-    [dot]: 'transparent',
     [surface]: vars.color.surface,
   },
-  backgroundImage: `radial-gradient(circle closest-side, ${dot} 0 40%, transparent 44%),
+  backgroundImage: `radial-gradient(circle closest-side, ${vars.color.text} 0 40%, transparent 44%),
     radial-gradient(circle closest-side, ${surface} 0 calc(100% - 1.5px), ${ring} calc(100% - 1.5px) calc(100% - 0.5px), transparent 100%)`,
   backgroundOrigin: 'padding-box',
+  backgroundPosition: 'center',
+  backgroundSize: '0 0, 100% 100%',
+  transition: 'background-size 140ms ease-out',
   backgroundRepeat: 'no-repeat',
   selectors: {
     '&:enabled': { cursor: 'pointer' },
     '&:enabled:hover': { vars: { [ring]: vars.color.text } },
-    '&:checked': { vars: { [ring]: vars.color.text, [dot]: vars.color.text } },
+    '&:checked': { backgroundSize: '100% 100%, 100% 100%', vars: { [ring]: vars.color.text } },
     '&:disabled': { opacity: 0.55 },
   },
   '@media': {
+    '(prefers-reduced-motion: reduce)': { transition: 'none' },
     '(forced-colors: active)': {
       appearance: 'auto',
       backgroundImage: 'none',
