@@ -1,6 +1,6 @@
 import { fallbackVar, style, styleVariants } from '@vanilla-extract/css';
 import { vars } from './root.css.js';
-import { colors } from './tokens.js';
+import { codeFontFamily, colors } from './tokens.js';
 
 const surface = style({
   border: `1px solid light-dark(${colors.gray[3]}, ${colors.gray[8]})`,
@@ -15,7 +15,7 @@ export const block = style([surface, {
   minWidth: 0,
   margin: 0,
   color: fallbackVar(vars.color.text, `light-dark(${colors.gray[9]}, ${colors.gray[0]})`),
-  fontFamily: 'ui-monospace, SFMono-Regular, Consolas, monospace',
+  fontFamily: codeFontFamily,
   fontSize: 'inherit',
   fontWeight: 'inherit',
   fontStyle: 'inherit',

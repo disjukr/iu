@@ -1,3 +1,4 @@
+import { Heading, Paragraph, Text, root } from 'iu';
 import { createSignal, onCleanup, Loading } from 'solid-js';
 import { render } from '@solidjs/web';
 import { components, matchesSearch, pages } from './catalog';
@@ -16,16 +17,16 @@ function ComponentIndex() {
   const [query, setQuery] = createSignal('');
   const filtered = () => components.filter(page => matchesSearch(page, query()));
   return <section>
-    <p class="eyebrow">COMPONENTS</p>
-    <h1>Components</h1>
-    <p>Find a component, explore its examples, and learn how to use it.</p>
+    <Text as="p" class="eyebrow">COMPONENTS</Text>
+    <Heading as="h1" size="xl">Components</Heading>
+    <Paragraph>Find a component, explore its examples, and learn how to use it.</Paragraph>
     <label class="search-label" for="component-search">Find a component</label>
     <input id="component-search" class="search" type="search" placeholder="Name, purpose, or keyword…" value={query()} onInput={event => setQuery(event.currentTarget.value)} />
-    <p role="status">{filtered().length} components</p>
+    <Text as="p" size="sm" role="status">{filtered().length} components</Text>
     <div class="component-grid">{filtered().map(page => <a class="component-card" href={`#${page.path}`}>
-      <span class="eyebrow">{page.group}</span><h2>{page.title}</h2><p>{page.description}</p>
+      <Text class="eyebrow">{page.group}</Text><Heading as="h2" size="sm">{page.title}</Heading><Paragraph>{page.description}</Paragraph>
     </a>)}</div>
-    {filtered().length === 0 && <p>No matching components. Try another name or keyword.</p>}
+    {filtered().length === 0 && <Paragraph>No matching components. Try another name or keyword.</Paragraph>}
   </section>;
 }
 
@@ -54,7 +55,7 @@ function App() {
   const groups = () => [...new Set(pages.map(page => page.group))];
   const results = () => pages.filter(page => matchesSearch(page, query()));
 
-  return <div class="site">
+  return <div class={['site', root]}>
     <a class="skip-link" href="#content" onClick={event => { event.preventDefault(); main?.focus(); }}>Skip to content</a>
     <header class="header">
       <a href="#/introduction" class="wordmark" aria-label="iu home">iu<span> / UI components</span></a>
@@ -67,14 +68,14 @@ function App() {
         <input id="docs-search" class="search" type="search" placeholder="Search documentation…" value={query()} onInput={event => setQuery(event.currentTarget.value)} />
         <a href="#/components" aria-current={path() === '/components' ? 'page' : undefined}>All components <span>{components.length}</span></a>
         {groups().map(group => <div class="nav-group" hidden={!results().some(page => page.group === group)}>
-          <h2 class="nav-label">{group}</h2>
+          <Heading as="h2" class="nav-label">{group}</Heading>
           {results().filter(page => page.group === group).sort((a, b) => a.kind === 'component' && b.kind === 'component' ? a.title.localeCompare(b.title) : 0).map(page =>
             <a href={`#${page.path}`} aria-current={path() === page.path ? 'page' : undefined}>{page.title}</a>)}
         </div>)}
-        {query().trim() && <p role="status">{results().length ? `${results().length} results` : 'No matching documentation.'}</p>}
+        {query().trim() && <Text as="p" size="sm" role="status">{results().length ? `${results().length} results` : 'No matching documentation.'}</Text>}
       </nav>
       <main id="content" ref={el => { main = el; }} tabindex={-1}>
-        <Loading fallback={<p role="status">Loading documentation…</p>}>{path() === '/components' ? <ComponentIndex /> : current() ? current()!.render() : <section><h1>Page not found</h1><p>This documentation page does not exist.</p><a href="#/components">Browse components</a></section>}</Loading>
+        <Loading fallback={<Text as="p" size="sm" role="status">Loading documentation…</Text>}>{path() === '/components' ? <ComponentIndex /> : current() ? current()!.render() : <section><Heading as="h1" size="xl">Page not found</Heading><Paragraph>This documentation page does not exist.</Paragraph><a href="#/components">Browse components</a></section>}</Loading>
         {current()?.kind === 'component' && <div class="page-links"><a href="#/components">← All components</a>{neighbors().map(page => <a href={`#${page.path}`}>{page.title} →</a>)}</div>}
       </main>
     </div>

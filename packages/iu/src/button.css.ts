@@ -1,9 +1,10 @@
+import type { StyleRule } from '@vanilla-extract/css';
 import { createVar, style, styleVariants } from '@vanilla-extract/css';
 import { focusRing, vars } from './root.css.js';
 import { colors } from './tokens.js';
 import { alpha } from './color.js';
 
-export const button = style([focusRing, {
+export const buttonRules = {
   appearance: 'none',
   display: 'inline-flex',
   alignItems: 'center',
@@ -25,7 +26,21 @@ export const button = style([focusRing, {
     '&:disabled': { opacity: 0.45, cursor: 'not-allowed', boxShadow: 'none' },
   },
   '@media': { '(prefers-reduced-motion: reduce)': { transition: 'none' } },
-}]);
+} satisfies StyleRule;
+
+export const button = style([focusRing, buttonRules]);
+
+export const secondaryRules = {
+  color: vars.color.text,
+  backgroundColor: alpha(colors.blue[2], 0.08),
+  borderColor: 'color-mix(in srgb, currentColor 18%, transparent)',
+  boxShadow: `inset 0 1px 0 ${alpha(colors.white, 0.15)}`,
+  WebkitBackdropFilter: `blur(${vars.glass.blur})`,
+  backdropFilter: `blur(${vars.glass.blur})`,
+  selectors: { '&:hover:not(:disabled)': { backgroundColor: alpha(colors.blue[3], 0.18) } },
+} satisfies StyleRule;
+
+export const normalPadding = { minHeight: '2.5em', padding: '0.5em 1em' };
 
 export const variants = styleVariants({
   primary: {
@@ -35,15 +50,7 @@ export const variants = styleVariants({
     boxShadow: `0 0.25em 0.75em ${alpha(colors.blue[9], 0.14)}, inset 0 1px 0 ${alpha(colors.white, 0.16)}`,
     selectors: { '&:hover:not(:disabled)': { background: `linear-gradient(145deg, light-dark(${colors.gray[7]}, ${colors.white}), light-dark(${colors.gray[8]}, ${colors.gray[0]}))` } },
   },
-  secondary: {
-    color: vars.color.text,
-    backgroundColor: alpha(colors.blue[2], 0.08),
-    borderColor: 'color-mix(in srgb, currentColor 18%, transparent)',
-    boxShadow: `inset 0 1px 0 ${alpha(colors.white, 0.15)}`,
-    WebkitBackdropFilter: `blur(${vars.glass.blur})`,
-    backdropFilter: `blur(${vars.glass.blur})`,
-    selectors: { '&:hover:not(:disabled)': { backgroundColor: alpha(colors.blue[3], 0.18) } },
-  },
+  secondary: secondaryRules,
   ghost: {
     color: vars.color.text,
     backgroundColor: 'transparent',
@@ -99,6 +106,6 @@ export const paddings = styleVariants({
     padding: 'calc(0.25em - 1px) 0.5em',
     verticalAlign: 'baseline',
   },
-  normal: { minHeight: '2.5em', padding: '0.5em 1em' },
+  normal: normalPadding,
   custom: {},
 });

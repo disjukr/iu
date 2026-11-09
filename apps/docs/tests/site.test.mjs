@@ -67,6 +67,27 @@ test('docs support independent pages, search, history, and mobile navigation', a
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `${route} overflows at ${width}`);
       }
     }
+    await page.goto(`${url}#/typography`);
+    const profile = page.getByRole('article', { name: 'Profile settings' });
+    await expect(profile.getByRole('heading', { name: 'Profile settings' })).toHaveCSS('font-size', '24px');
+    const sectionHeading = page.getByRole('heading', { name: 'Section heading', level: 2, exact: true });
+    const subsectionHeading = page.getByRole('heading', { name: 'Subsection heading', level: 3, exact: true });
+    for (const property of ['font-size', 'font-weight', 'line-height', 'letter-spacing']) {
+      await expect(subsectionHeading).toHaveCSS(property, await sectionHeading.evaluate((el, name) => getComputedStyle(el).getPropertyValue(name), property));
+    }
+    await expect(page.getByRole('heading', { name: 'Compact heading', level: 3 })).toHaveCSS('font-size', '20px');
+    await expect(page.getByText('Compact paragraph', { exact: true })).toHaveCSS('font-size', '14px');
+    await expect(sectionHeading).toHaveCSS('margin-block-end', '12px');
+    await expect(page.getByRole('heading', { name: 'Profile settings' })).toHaveCSS('margin-block-end', '12px');
+    await expect(page.getByText('Compact paragraph', { exact: true })).toHaveCSS('margin-block-end', '14px');
+    await expect(page.getByText('Update your profile or read the setup guide.', { exact: true })).toHaveCSS('margin-block-end', '16px');
+    const native = page.getByRole('button', { name: 'Native button', exact: true });
+    const component = page.getByRole('button', { name: 'iu Button', exact: true });
+    for (const property of ['padding-left', 'background-color', 'min-height']) {
+      await expect(native).toHaveCSS(property, await component.evaluate((el, name) => getComputedStyle(el).getPropertyValue(name), property));
+    }
+    await expect(page.getByRole('button', { name: 'Unstyled button' })).not.toHaveCSS('display', 'inline-flex');
+    await expect(page.getByRole('heading', { name: 'Outside the Prose scope' })).not.toHaveCSS('font-size', '24px');
     await page.goto(`${url}#/components/copy-button`);
     await page.getByLabel('Text to copy').fill('A new value');
     const iconCopy = page.getByRole('button', { name: 'Copy current text', exact: true });
@@ -84,8 +105,8 @@ test('docs support independent pages, search, history, and mobile navigation', a
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('CodeBlock');
     const copy = page.getByRole('button', { name: 'Copy command', exact: true });
     await expect(copy.locator('svg')).toHaveAttribute('aria-hidden', 'true');
-    await copy.focus();
-    await page.keyboard.press('Enter');
+    await expect(page.locator('main')).toBeFocused();
+    await copy.press('Enter');
     await expect(copy).toHaveText('Copy');
     await expect(copy.locator('xpath=following-sibling::*[@role="status"][1]')).toHaveText('Copied');
     assert.equal(await page.evaluate(() => navigator.clipboard.readText()), 'pnpm install');

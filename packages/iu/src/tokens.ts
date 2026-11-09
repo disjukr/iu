@@ -7,3 +7,5 @@ export const typography = {
   lineHeight: '1.5',
   fontWeight: '400',
 } as const;
+
+export const codeFontFamily = 'ui-monospace, SFMono-Regular, Consolas, monospace';

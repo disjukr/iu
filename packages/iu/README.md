@@ -103,6 +103,15 @@ import { Button, ButtonGroup } from 'iu';
 - Each button keeps native Tab, Enter, and Space behavior. No selection state or arrow-key navigation.
 - Native div attributes, events, `ref`, `class`, and `style` are forwarded.
 
+## Code
+
+Use `Code` for short commands, identifiers, and other inline code. It renders a
+native `code` element and inherits the surrounding font size and line height.
+
+```tsx
+<Text>Run <Code>pnpm dev</Code> to start the development server.</Text>
+```
+
 ## CodeBlock
 
 ```tsx
@@ -178,6 +187,44 @@ import { CopyButton } from 'iu';
 - A visually hidden status announces feedback. Icon-only buttons retain an accessible name. Timers and pending feedback are cleaned up on unmount.
 - Requires Clipboard API support, a secure context (HTTPS/localhost), and browser permission. Writes only on activation, never reads clipboard contents. Failed writes display feedback and may be retried.
 - Defaults to `type="button"`; uses Button's inherited typography, variants, color, padding, and focus styles. Import `iu/styles.css` and use within `root`.
+
+## Heading, Paragraph, and Text
+
+`Heading` defaults to `h2` and accepts `h1`–`h6`. `Text` defaults to `span`
+and accepts `p`, `span`, and `div`. The `as` prop selects the HTML tag.
+The `size` prop selects typography independently and defaults to `md`.
+`Paragraph` renders a `p` and shares the Text size scale. Heading and
+Paragraph include document margins. Text has zero margin. Prose applies the
+same margins to native headings and paragraphs within its scope.
+
+| Size | Heading | Text |
+| --- | --- | --- |
+| `xs` | 1rem | 0.75rem |
+| `sm` | 1.25rem | 0.875rem |
+| `md` | 1.5rem | 1rem |
+| `lg` | 2rem | 1.125rem |
+| `xl` | 2.5rem | 1.25rem |
+
+```tsx
+<Heading as="h1" size="xl">Settings</Heading>
+<Paragraph>Choose how the app looks.</Paragraph>
+<Text size="sm">Optional</Text>
+```
+
+## Prose
+
+Use `Prose` within `root` to style native `h1`–`h6`, `p`, links, and buttons.
+Heading presets use rem units, and native buttons share the default Button styles.
+Prose renders a `div` by default. Use `as="article"` or `as="section"` to choose a semantic container.
+The `unroot` class ends the Prose styling scope.
+
+```tsx
+<Prose as="section" aria-labelledby="profile-heading">
+  <h2 id="profile-heading">Profile settings</h2>
+  <p>Read the <a href="/guide">setup guide</a>.</p>
+  <button type="button">Save</button>
+</Prose>
+```
 
 ## Build
 

@@ -1,14 +1,14 @@
 import { createSignal } from 'solid-js';
-import { Button, CodeBlock, Tooltip, colors, root, glass } from 'iu';
+import { Button, CodeBlock, Heading, Paragraph, Text, Tooltip, colors, glass, root } from 'iu';
 
 export function TooltipPage() {
   const [dark, setDark] = createSignal(false);
   const [open, setOpen] = createSignal(false);
   return <section id="tooltip">
-    <p class="eyebrow">OVERLAYS</p>
-    <h1>Tooltip</h1>
-    <p>Add a short, non-interactive description to a control. Hover over a trigger or focus it with Tab. Press Escape to dismiss the description without moving focus.</p>
-    <h2>Examples</h2>
+    <Text as="p" class="eyebrow">OVERLAYS</Text>
+    <Heading as="h1" size="xl">Tooltip</Heading>
+    <Paragraph>Add a short, non-interactive description to a control. Hover over a trigger or focus it with Tab. Press Escape to dismiss the description without moving focus.</Paragraph>
+    <Heading as="h2">Examples</Heading>
     <div class={`${root} ${glass} demo demo-actions`} data-theme={dark() ? 'dark' : 'light'}>
       <Tooltip content="Save your changes">
         {trigger => <Button {...trigger}>Save</Button>}
@@ -20,27 +20,27 @@ export function TooltipPage() {
         {trigger => <Button {...trigger}>Bottom start</Button>}
       </Tooltip>
     </div>
-    <h3>Color and theme</h3>
+    <Heading as="h3" size="sm">Color and theme</Heading>
     <div class={`${root} ${glass} demo demo-actions`} data-theme={dark() ? 'dark' : 'light'}>
       <Tooltip content="A custom violet tint" color={colors.violet[6]}>
         {trigger => <Button {...trigger} color={colors.violet[6]}>Custom color</Button>}
       </Tooltip>
       <Button aria-pressed={dark() ? 'true' : 'false'} onClick={() => setDark(value => !value)}>Dark theme {dark() ? 'on' : 'off'}</Button>
     </div>
-    <h3>Controlled visibility</h3>
+    <Heading as="h3" size="sm">Controlled visibility</Heading>
     <div class={`${root} ${glass} demo demo-actions`}>
       <Tooltip content="Visibility managed by your application" open={open()} onOpenChange={setOpen}>
         {trigger => <Button {...trigger}>Controlled tooltip</Button>}
       </Tooltip>
       <Button aria-pressed={open() ? 'true' : 'false'} onClick={() => setOpen(value => !value)}>Toggle tooltip</Button>
     </div>
-    <h2>Usage</h2>
+    <Heading as="h2">Usage</Heading>
     <CodeBlock code={`import { Button, Tooltip } from 'iu';
 
 <Tooltip content="Save your changes" placement="top">
   {trigger => <Button {...trigger} onClick={save}>Save</Button>}
 </Tooltip>`} />
-    <h2>Props</h2>
+    <Heading as="h2">Props</Heading>
     <dl class="specs">
       <div><dt>content</dt><dd>Required plain text description. An empty string suppresses the tooltip.</dd></div>
       <div><dt>children</dt><dd>Render function receiving trigger props. Spread them onto one focusable native element or a component that forwards native events and ref.</dd></div>
@@ -53,10 +53,10 @@ export function TooltipPage() {
       <div><dt>describedBy</dt><dd>Existing description IDs to preserve alongside the tooltip.</dd></div>
       <div><dt>id / class / style</dt><dd>Customize the tooltip surface. Its generated ID is stable across server rendering and hydration.</dd></div>
     </dl>
-    <h2>Accessibility and behavior</h2>
-    <p>The trigger uses aria-describedby and the surface uses role="tooltip". Focus stays on the trigger. The tooltip stays visible while the pointer is over the trigger or description, and Escape cancels pending display or dismisses an open tooltip.</p>
-    <p>Keep the trigger’s accessible name independent of the tooltip. Tooltip text is supplementary; essential instructions should remain visible. Use a focusable trigger and avoid native disabled buttons, which cannot receive keyboard focus.</p>
-    <p>Spread the trigger props without replacing their ref, description, or event handlers. Use describedBy to retain existing descriptions. Content is plain text; links, buttons, and other interactive content belong in a popover or dialog.</p>
-    <p>The native Popover API places the description above clipping and stacking containers while preserving inherited fonts, direction, and theme. Positioning updates on scroll and resize. A browser supporting the Popover API is required. Touch hover does not open the tooltip.</p>
+    <Heading as="h2">Accessibility and behavior</Heading>
+    <Paragraph>The trigger uses aria-describedby and the surface uses role="tooltip". Focus stays on the trigger. The tooltip stays visible while the pointer is over the trigger or description, and Escape cancels pending display or dismisses an open tooltip.</Paragraph>
+    <Paragraph>Keep the trigger’s accessible name independent of the tooltip. Tooltip text is supplementary; essential instructions should remain visible. Use a focusable trigger and avoid native disabled buttons, which cannot receive keyboard focus.</Paragraph>
+    <Paragraph>Spread the trigger props without replacing their ref, description, or event handlers. Use describedBy to retain existing descriptions. Content is plain text; links, buttons, and other interactive content belong in a popover or dialog.</Paragraph>
+    <Paragraph>The native Popover API places the description above clipping and stacking containers while preserving inherited fonts, direction, and theme. Positioning updates on scroll and resize. A browser supporting the Popover API is required. Touch hover does not open the tooltip.</Paragraph>
   </section>;
 }
