@@ -14,10 +14,14 @@ function scoped(selector: string, rules: GlobalStyleRule) {
 
 const headings = { h1: 'xl', h2: 'lg', h3: 'md', h4: 'sm', h5: 'xs', h6: 'xs' } as const;
 for (const [tag, size] of Object.entries(headings)) {
-  scoped(`:where(${tag}:not(.${typographyElement}))`, { ...headingPresets[size], ...headingMargins });
+  const heading = `${tag}:not(.${typographyElement})`;
+  scoped(`:where(${heading})`, { ...headingPresets[size], ...headingMargins });
+  scoped(`:where(${heading}:first-child)`, { marginBlockStart: 0 });
+  scoped(`:where(${heading}:last-child)`, { marginBlockEnd: 0 });
 }
 
 scoped(`:where(p:not(.${typographyElement}))`, { ...textPresets.md, ...paragraphMargins });
+scoped(`:where(p:not(.${typographyElement}):last-child)`, { marginBlockEnd: 0 });
 scoped(':where(a[href])', {
   color: `light-dark(${colors.blue[8]}, ${colors.blue[3]})`,
   textDecoration: 'underline',

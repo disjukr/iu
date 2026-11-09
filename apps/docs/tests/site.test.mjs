@@ -87,10 +87,12 @@ test('docs support independent pages, search, history, and mobile navigation', a
     }
     await expect(page.getByRole('heading', { name: 'Compact heading', level: 3 })).toHaveCSS('font-size', '20px');
     await expect(page.getByText('Compact paragraph', { exact: true })).toHaveCSS('font-size', '14px');
+    await expect(sectionHeading).toHaveCSS('margin-block-start', '0px');
+    await expect(profile.getByRole('heading', { name: 'Profile settings' })).toHaveCSS('margin-block-start', '0px');
     await expect(sectionHeading).toHaveCSS('margin-block-end', '12px');
     await expect(page.getByRole('heading', { name: 'Profile settings' })).toHaveCSS('margin-block-end', '12px');
-    await expect(page.getByText('Compact paragraph', { exact: true })).toHaveCSS('margin-block-end', '14px');
-    await expect(page.getByText('Update your profile or read the setup guide.', { exact: true })).toHaveCSS('margin-block-end', '16px');
+    await expect(page.getByText('Compact paragraph', { exact: true })).toHaveCSS('margin-block-end', '7px');
+    await expect(page.getByText('Update your profile or read the setup guide.', { exact: true })).toHaveCSS('margin-block-end', '8px');
     const native = page.getByRole('button', { name: 'Native button', exact: true });
     const component = page.getByRole('button', { name: 'iu Button', exact: true });
     for (const property of ['padding-left', 'background-color', 'min-height']) {

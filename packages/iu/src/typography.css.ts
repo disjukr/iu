@@ -4,9 +4,18 @@ import { typography } from './tokens.js';
 export const typographyElement = style({ margin: 0 });
 
 export const headingMargins = { marginBlockStart: '1em', marginBlockEnd: '0.5em' };
-export const paragraphMargins = { marginBlockStart: 0, marginBlockEnd: '1em' };
-export const headingSpacing = style(headingMargins);
-export const paragraphSpacing = style(paragraphMargins);
+export const paragraphMargins = { marginBlockStart: 0, marginBlockEnd: '0.5em' };
+export const headingSpacing = style({
+  ...headingMargins,
+  selectors: {
+    '&:first-child': { marginBlockStart: 0 },
+    '&:last-child': { marginBlockEnd: 0 },
+  },
+});
+export const paragraphSpacing = style({
+  ...paragraphMargins,
+  selectors: { '&:last-child': { marginBlockEnd: 0 } },
+});
 
 export const headingPresets = {
   xs: { fontSize: '1rem', lineHeight: 1.4, letterSpacing: 'normal', fontWeight: 600 },

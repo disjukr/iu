@@ -82,3 +82,7 @@ pre.shiki { margin: 24px 0; }
 
 .code-action-row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin: 24px 0; }
 .code-action-row pre.shiki { margin: 0; }
+
+.type-specimens { display: grid; gap: 1rem; }
+.type-margin-preview { display: grid; margin-block-start: 0.25rem; background: #ffecda; }
+.type-margin-preview > :is(h3, p) { background: #e3edff; overflow-wrap: anywhere; }

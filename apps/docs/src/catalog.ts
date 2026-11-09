@@ -4,6 +4,7 @@ const Introduction = lazy(() => import('./pages/Introduction'), { export: 'Intro
 const GettingStarted = lazy(() => import('./pages/GettingStarted'), { export: 'GettingStarted' });
 const Colors = lazy(() => import('./pages/Colors'), { export: 'Colors' });
 const Typography = lazy(() => import('./pages/Typography'), { export: 'Typography' });
+const TypographyComponentPage = lazy(() => import('./pages/TypographyComponents'), { export: 'TypographyComponentPage' });
 const Api = lazy(() => import('./pages/Api'), { export: 'Api' });
 const ButtonPage = lazy(() => import('./pages/ButtonPage'), { export: 'ButtonPage' });
 const ButtonGroupPage = lazy(() => import('./pages/ButtonGroupPage'), { export: 'ButtonGroupPage' });
@@ -36,6 +37,11 @@ export const pages: DocPage[] = [
   { path: '/colors', title: 'Colors', description: 'Open Color palette and shades.', group: 'Foundations', kind: 'guide', render: Colors },
   { path: '/typography', title: 'Typography', description: 'Fonts, sizes, and line height.', group: 'Foundations', kind: 'guide', render: Typography },
   { path: '/api', title: 'API reference', description: 'Shared exports, tokens, and styling utilities.', group: 'Foundations', kind: 'guide', render: Api },
+  { path: '/components/code', title: 'Code', description: 'Mark up inline commands and identifiers.', group: 'Typography', kind: 'component', render: () => TypographyComponentPage({ name: 'Code' }) },
+  { path: '/components/heading', title: 'Heading', description: 'Style semantic section headings.', group: 'Typography', kind: 'component', render: () => TypographyComponentPage({ name: 'Heading' }) },
+  { path: '/components/paragraph', title: 'Paragraph', description: 'Set body text with paragraph spacing.', group: 'Typography', kind: 'component', render: () => TypographyComponentPage({ name: 'Paragraph' }) },
+  { path: '/components/prose', title: 'Prose', description: 'Style native HTML within a scoped container.', group: 'Typography', kind: 'component', render: () => TypographyComponentPage({ name: 'Prose' }) },
+  { path: '/components/text', title: 'Text', description: 'Apply shared styles to inline text.', group: 'Typography', kind: 'component', render: () => TypographyComponentPage({ name: 'Text' }) },
   { path: '/components/tooltip', title: 'Tooltip', description: 'Supplementary descriptions on hover and keyboard focus.', group: 'Overlays', kind: 'component', keywords: 'help hint description 툴팁', render: TooltipPage },
   { path: '/components/switch', title: 'Switch', description: 'Toggle a setting that takes effect immediately.', group: 'Inputs', kind: 'component', keywords: 'switch toggle on off', render: SwitchPage },
   { path: '/components/checkbox', title: 'Checkbox', description: 'Toggle independent options and show mixed selection.', group: 'Inputs', kind: 'component', keywords: 'checkbox mixed indeterminate selection', render: CheckboxPage },
