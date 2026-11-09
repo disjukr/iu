@@ -20,7 +20,7 @@ export const radio = style({
     [surface]: vars.color.surface,
   },
   backgroundImage: `radial-gradient(circle closest-side, ${vars.color.text} 0 40%, transparent 44%),
-    radial-gradient(circle closest-side, ${surface} 0 calc(100% - 1.5px), ${ring} calc(100% - 1.5px) calc(100% - 0.5px), transparent 100%)`,
+    radial-gradient(circle closest-side, ${surface} 0 calc(100% - 2px), ${ring} calc(100% - 1.25px) calc(100% - 0.75px), transparent 100%)`,
   backgroundOrigin: 'padding-box',
   backgroundPosition: 'center',
   backgroundSize: '0 0, 100% 100%',
