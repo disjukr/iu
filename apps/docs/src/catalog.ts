@@ -8,6 +8,9 @@ const Api = lazy(() => import('./pages/Api'), { export: 'Api' });
 const ButtonPage = lazy(() => import('./pages/ButtonPage'), { export: 'ButtonPage' });
 const ButtonGroupPage = lazy(() => import('./pages/ButtonGroupPage'), { export: 'ButtonGroupPage' });
 
+const CheckboxPage = lazy(() => import('./pages/CheckboxPage'), { export: 'CheckboxPage' });
+const RadioPage = lazy(() => import('./pages/RadioPage'), { export: 'RadioPage' });
+const CardPage = lazy(() => import('./pages/CardPage'), { export: 'CardPage' });
 const CodeBlockPage = lazy(() => import('./pages/CodeBlockPage'), { export: 'CodeBlockPage' });
 
 const TooltipPage = lazy(() => import('./pages/TooltipPage'), { export: 'TooltipPage' });
@@ -33,6 +36,9 @@ export const pages: DocPage[] = [
   { path: '/typography', title: 'Typography', description: 'Fonts, sizes, and line height.', group: 'Foundations', kind: 'guide', render: Typography },
   { path: '/api', title: 'API reference', description: 'Shared exports, tokens, and styling utilities.', group: 'Foundations', kind: 'guide', render: Api },
   { path: '/components/tooltip', title: 'Tooltip', description: 'Supplementary descriptions on hover and keyboard focus.', group: 'Overlays', kind: 'component', keywords: 'help hint description 툴팁', render: TooltipPage },
+  { path: '/components/checkbox', title: 'Checkbox', description: 'Toggle independent options and show mixed selection.', group: 'Inputs', kind: 'component', keywords: 'checkbox mixed indeterminate selection', render: CheckboxPage },
+  { path: '/components/radio', title: 'Radio', description: 'Choose one option in a RadioGroup.', group: 'Inputs', kind: 'component', keywords: 'radio group selection padding', render: RadioPage },
+  { path: '/components/card', title: 'Card', description: 'Group content, actions, or selection controls on a surface.', group: 'Content', kind: 'component', keywords: 'paper glass surface selection 카드', render: CardPage },
   { path: '/components/code-block', title: 'CodeBlock', description: 'Display source code with syntax highlighting.', group: 'Content', kind: 'component', keywords: 'shiki syntax code snippet shell', render: CodeBlockPage },
   { path: '/components/copy-button', title: 'CopyButton', description: 'Copy text with progress, success, and error feedback.', group: 'Actions', kind: 'component', keywords: 'clipboard copy 복사', render: CopyButtonPage },
   { path: '/components/button', title: 'Button', description: 'Trigger an action with a native button.', group: 'Actions', kind: 'component', keywords: 'click submit action 버튼', render: ButtonPage },

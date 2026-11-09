@@ -59,7 +59,7 @@ test('docs support independent pages, search, history, and mobile navigation', a
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('ButtonGroup');
     await page.goForward();
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Button');
-    for (const route of ['/colors', '/typography', '/api', '/components', '/components/button', '/components/button-group', '/components/code-block', '/components/tooltip', '/components/copy-button']) {
+    for (const route of ['/colors', '/typography', '/api', '/components', '/components/button', '/components/button-group', '/components/code-block', '/components/tooltip', '/components/copy-button', '/components/card']) {
       await page.goto(`${url}#${route}`);
       await page.locator('main h1').waitFor();
       for (const width of [1280, 375]) {
@@ -67,7 +67,17 @@ test('docs support independent pages, search, history, and mobile navigation', a
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `${route} overflows at ${width}`);
       }
     }
-    await page.goto(`${url}#/typography`);
+    await page.goto(`${url}#/components/card`);
+    await expect(page.locator('main')).toBeFocused();
+    await page.getByRole('button', { name: 'Archive an item' }).press('Enter');
+    await expect(page.getByRole('status')).toHaveText('1 archived');
+    const standard = page.getByRole('radio', { name: 'Standard delivery' });
+    const express = page.getByRole('radio', { name: 'Express delivery' });
+    await expect(standard).toBeChecked();
+    await standard.press('ArrowRight');
+    await expect(express).toBeChecked();
+    await expect(standard).not.toBeChecked();
+    await page.getByRole('link', { name: 'Read the typography guide' }).click();
     const profile = page.getByRole('article', { name: 'Profile settings' });
     await expect(profile.getByRole('heading', { name: 'Profile settings' })).toHaveCSS('font-size', '24px');
     const sectionHeading = page.getByRole('heading', { name: 'Section heading', level: 2, exact: true });

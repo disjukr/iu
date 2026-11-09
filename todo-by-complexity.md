@@ -49,7 +49,7 @@ Mostly semantic markup and explicit styles, with little persistent state. Still 
 - [ ] **Badge** — Compact status or count. [K][K], [M][M], [S][S], [AX][AX].
 - [ ] **Breadcrumbs** — Hierarchical navigation trail. [K][K], [M][M], [S][S], [AX][AX].
 - [x] **ButtonGroup** — Related actions sharing a visual boundary. [S][S], [AX][AX].
-- [ ] **Code** — Inline code and block presentation. CodeBlock implemented; inline code pending. [M][M], [S][S], [AX][AX].
+- [x] **Code** — Inline Code and syntax-highlighted CodeBlock. [M][M], [S][S], [AX][AX].
 - [ ] **ColorSwatch** — Color sample with accessible labeling. [K][K], [M][M], [RA][RA].
 - [ ] **DataList** — Label/value details; includes MetadataList. [M][M], [AX][AX].
 - [ ] **EmptyState** — Empty results and recovery action; includes Empty. [M][M], [S][S], [AX][AX].
@@ -68,7 +68,7 @@ Mostly semantic markup and explicit styles, with little persistent state. Still 
 - [ ] **Stack** — Row/column layout with spacing; includes Flex and Group. [M][M], [AX][AX].
 - [ ] **Table** — Semantic tabular display, foundation for DataTable. [M][M], [RA][RA], [S][S], [AX][AX].
 - [ ] **Timeline** — Chronological event presentation. [M][M].
-- [ ] **Typography** — Text, headings, quotes and highlighted text presets. [M][M], [S][S], [AX][AX].
+- [ ] **Typography** — Heading, Paragraph, Text and Prose are implemented. Quote and highlighted text presets are pending. [M][M], [S][S], [AX][AX].
 - [ ] **VisuallyHidden** — Screen-reader-only content utility. [R][R], [M][M], [AX][AX].
 
 ## 2 — Moderate: bounded state and native controls
@@ -81,7 +81,7 @@ Small state machines or native inputs, labels and validation associations. Loadi
 - [ ] **BottomNavigation** — Compact navigation among top-level destinations on small screens. [MU][MU].
 - [x] **Button** — Actions, including icon-only, close and loading variants. [K][K], [M][M], [S][S], [AX][AX].
 - [ ] **ChatSystemMessage** — In-transcript event/status notices and date/unread separators with wrapping and appropriate announcement behavior; distinct from participant messages and transient Toast. [AX][AX], [AXC][AXC].
-- [ ] **Checkbox** — Boolean and indeterminate input, including groups. [R][R], [K][K], [RA][RA], [AX][AX].
+- [x] **Checkbox** — Boolean and indeterminate input, including groups. [R][R], [K][K], [RA][RA], [AX][AX].
 - [x] **Clipboard** — Copy action and success/failure feedback; includes CopyButton. [A][A], [M][M].
 - [ ] **Collapsible** — Single disclosure; includes Collapse and Disclosure. [R][R], [K][K], [RA][RA], [AX][AX].
 - [ ] **Editable** — Inline text editing with commit/cancel. [A][A].
@@ -110,7 +110,7 @@ Coordinated focus/selection, keyboard navigation, pointer input, responsive meas
 - [ ] **Accordion** — Expandable sections; includes DisclosureGroup. [R][R], [K][K], [A][A].
 - [ ] **AppShell** — Application header, navigation and content layout. [M][M], [AX][AX].
 - [ ] **Avatar** — User image with initials fallback; includes grouped avatars and overflow count. [R][R], [A][A], [M][M], [AX][AX].
-- [ ] **Card** — Grouped content surface; includes Paper and clickable/selectable variants with native action/selection semantics. [M][M], [S][S], [AX][AX].
+- [x] **Card** — Grouped content surface; includes Paper and clickable/selectable variants with native action/selection semantics. [M][M], [S][S], [AX][AX].
 - [ ] **ChatMessage** — Participant message presentation with body slots, author/avatar, timestamp and delivery metadata, attachments and copy/retry/feedback actions; reuse Markdown, Citation and existing controls; includes ChatMessageMetadata. [AX][AX], [AXC][AXC].
 - [ ] **Citation** — Source-reference link/marker with an optional accessible detail preview; compose Link and Popover rather than a chat-only block. [AX][AX].
 - [ ] **ColorField** — Editable color value and channel fields. [K][K], [RA][RA].
@@ -119,7 +119,7 @@ Coordinated focus/selection, keyboard navigation, pointer input, responsive meas
 - [ ] **Masonry** — Variable-height items arranged in columns; distinct from aligned Grid. [MU][MU], [AD][AD].
 - [ ] **NumberField** — Numeric entry with optional stepping; includes NumberInput. [K][K], [A][A], [RA][RA], [AX][AX].
 - [ ] **OverflowList** — Collapse excess items into an overflow affordance. [M][M], [AX][AX].
-- [ ] **RadioGroup** — Single choice from a visible set. [R][R], [K][K], [A][A], [AX][AX].
+- [x] **RadioGroup** — Native single choice from a visible set, with Radio and optional labels. [R][R], [K][K], [A][A], [AX][AX].
 - [ ] **Rating** — Rating input/display; includes RatingGroup. [K][K], [A][A], [M][M].
 - [ ] **ScrollArea** — Scrollable region and scrollbar presentation. [R][R], [K][K], [A][A], [AX][AX].
 - [ ] **SegmentedControl** — Compact single-choice control; includes SegmentGroup. [K][K], [A][A], [M][M], [AX][AX].

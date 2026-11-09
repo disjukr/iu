@@ -45,7 +45,7 @@ libraries are design references, not verified compatible dependencies.
 - [x] **Button** — Actions, including icon-only, close and loading variants. [K][K], [M][M], [S][S], [AX][AX].
 - [x] **ButtonGroup** — Related actions sharing a visual boundary. [S][S], [AX][AX].
 - [ ] **Calendar** — Date selection surface; includes range selection. [RA][RA], [S][S], [AX][AX].
-- [ ] **Card** — Grouped content surface; includes Paper and clickable/selectable variants with native action/selection semantics. [M][M], [S][S], [AX][AX].
+- [x] **Card** — Grouped content surface; includes Paper and clickable/selectable variants with native action/selection semantics. [M][M], [S][S], [AX][AX].
 - [ ] **Carousel** — Navigable sequence of slides. [A][A], [S][S], [AX][AX].
 - [ ] **Cascader** — Selection through dependent hierarchical options. [M][M].
 - [ ] **Chart** — Optional visualization adapters; assess bundle cost first. [S][S].
@@ -54,10 +54,10 @@ libraries are design references, not verified compatible dependencies.
 - [ ] **ChatMessage** — Participant message presentation with body slots, author/avatar, timestamp and delivery metadata, attachments and copy/retry/feedback actions; reuse Markdown, Citation and existing controls; includes ChatMessageMetadata. [AX][AX], [AXC][AXC].
 - [ ] **ChatSystemMessage** — In-transcript event/status notices and date/unread separators with wrapping and appropriate announcement behavior; distinct from participant messages and transient Toast. [AX][AX], [AXC][AXC].
 - [ ] **ChatToolCalls** — Expandable individual/grouped AI tool-call presentation with pending/running/success/error/cancelled states, input/output slots and optional approval/retry/cancel controls; execution, authorization and sensitive-data filtering remain app-owned. [AX][AX], [AXC][AXC].
-- [ ] **Checkbox** — Boolean and indeterminate input, including groups. [R][R], [K][K], [RA][RA], [AX][AX].
+- [x] **Checkbox** — Boolean and indeterminate input, including groups. [R][R], [K][K], [RA][RA], [AX][AX].
 - [ ] **Citation** — Source-reference link/marker with an optional accessible detail preview; compose Link and Popover rather than a chat-only block. [AX][AX].
 - [x] **Clipboard** — Copy action and success/failure feedback; includes CopyButton. [A][A], [M][M].
-- [ ] **Code** — Inline code and block presentation. CodeBlock implemented; inline code pending. [M][M], [S][S], [AX][AX].
+- [x] **Code** — Inline Code and syntax-highlighted CodeBlock. [M][M], [S][S], [AX][AX].
 - [ ] **Collapsible** — Single disclosure; includes Collapse and Disclosure. [R][R], [K][K], [RA][RA], [AX][AX].
 - [ ] **ColorArea** — Two-dimensional color adjustment. [K][K], [RA][RA].
 - [ ] **ColorField** — Editable color value and channel fields. [K][K], [RA][RA].
@@ -115,7 +115,7 @@ libraries are design references, not verified compatible dependencies.
 - [ ] **PowerSearch** — Structured filter builder with field/operator/value tokens, suggestions and editing; app owns query execution; distinct from SearchField and CommandPalette. [AXC][AXC].
 - [ ] **Progress** — Determinate/indeterminate progress, linear and circular. [R][R], [A][A], [M][M], [AX][AX].
 - [ ] **QRCode** — Pairing/share code display; optional encoding dependency. [A][A].
-- [ ] **RadioGroup** — Single choice from a visible set. [R][R], [K][K], [A][A], [AX][AX].
+- [x] **RadioGroup** — Native single choice from a visible set, with Radio and optional labels. [R][R], [K][K], [A][A], [AX][AX].
 - [ ] **Rating** — Rating input/display; includes RatingGroup. [K][K], [A][A], [M][M].
 - [ ] **Result** — Page-level success/error outcome with recovery actions, distinct from empty data. [AD][AD].
 - [ ] **RichTextEditor** — Optional editor adapter and formatting toolbar; assess Solid 2, IME, document safety and bundle cost. [MRT][MRT], [AXR][AXR].
@@ -156,7 +156,7 @@ libraries are design references, not verified compatible dependencies.
 - [ ] **TransferList** — Move selected options between available/chosen lists; includes Transfer. [MU][MU], [AD][AD].
 - [ ] **TreeSelect** — Searchable hierarchical picker in a popup, including multiple/checkable selection. [ADT][ADT].
 - [ ] **TreeView** — Visible hierarchical navigation/selection; includes Tree, TreeList and NavigationTree, not TreeSelect. [A][A], [M][M], [RA][RA], [AX][AX].
-- [ ] **Typography** — Text, headings, quotes and highlighted text presets. [M][M], [S][S], [AX][AX].
+- [ ] **Typography** — Heading, Paragraph, Text and Prose are implemented. Quote and highlighted text presets are pending. [M][M], [S][S], [AX][AX].
 - [ ] **Virtualizer** — Window large collections; compose with lists/tables/trees. [RA][RA].
 - [ ] **VisuallyHidden** — Screen-reader-only content utility. [R][R], [M][M], [AX][AX].
 
