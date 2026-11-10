@@ -32,3 +32,5 @@ export { Checkbox } from './Checkbox.js';
 export type { CheckboxProps } from './Checkbox.js';
 export { Switch } from './Switch.js';
 export type { SwitchProps } from './Switch.js';
+export { Input } from './Input.js';
+export type { InputProps } from './Input.js';

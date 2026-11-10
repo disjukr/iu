@@ -125,6 +125,34 @@ test('docs support independent pages, search, history, and mobile navigation', a
     await expect(copy).toHaveText('Copy');
     await expect(copy.locator('xpath=following-sibling::*[@role="status"][1]')).toHaveText('Copied');
     assert.equal(await page.evaluate(() => navigator.clipboard.readText()), 'pnpm install');
+    await page.goto(`${url}#/components/input`);
+    await expect(page.locator('main')).toBeFocused();
+    const email = page.getByRole('textbox', { name: 'Email', exact: true });
+    await email.fill('invalid');
+    await email.press('Enter');
+    assert.equal(await email.evaluate(el => el.validity.typeMismatch), true);
+    await email.fill('name@example.com');
+    await email.press('Enter');
+    await expect(page.getByRole('status')).toHaveText('Submitted: name@example.com');
+    await expect(page.getByRole('textbox', { name: 'Disabled', exact: true })).toBeDisabled();
+    await expect(page.getByRole('textbox', { name: 'Read only', exact: true })).not.toBeEditable();
+    const inline = await page.getByRole('textbox', { name: 'Recipient' }).evaluate(input => {
+      const paragraph = input.parentElement;
+      const reference = paragraph.cloneNode(true);
+      reference.querySelector('input').replaceWith('a recipient');
+      paragraph.after(reference);
+      const heights = {
+        input: input.getBoundingClientRect().height,
+        lineHeight: parseFloat(getComputedStyle(paragraph).lineHeight),
+        line: paragraph.getBoundingClientRect().height,
+        reference: reference.getBoundingClientRect().height,
+      };
+      reference.remove();
+      return heights;
+    });
+    assert.equal(inline.line, inline.reference);
+    assert.equal(inline.input, inline.lineHeight);
+    await page.goto(`${url}#/components/code-block`);
     const source = page.getByLabel('Button source code');
     const copyCode = source.locator('..').getByRole('button', { name: 'Copy code', exact: true });
     assert.ok(await copyCode.evaluate(button => {

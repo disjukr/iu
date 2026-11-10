@@ -12,6 +12,7 @@ const ButtonGroupPage = lazy(() => import('./pages/ButtonGroupPage'), { export: 
 const SwitchPage = lazy(() => import('./pages/SwitchPage'), { export: 'SwitchPage' });
 const CheckboxPage = lazy(() => import('./pages/CheckboxPage'), { export: 'CheckboxPage' });
 const RadioPage = lazy(() => import('./pages/RadioPage'), { export: 'RadioPage' });
+const InputPage = lazy(() => import('./pages/InputPage'), { export: 'InputPage' });
 const CardPage = lazy(() => import('./pages/CardPage'), { export: 'CardPage' });
 const CodeBlockPage = lazy(() => import('./pages/CodeBlockPage'), { export: 'CodeBlockPage' });
 
@@ -45,6 +46,7 @@ export const pages: DocPage[] = [
   { path: '/components/tooltip', title: 'Tooltip', description: 'Supplementary descriptions on hover and keyboard focus.', group: 'Overlays', kind: 'component', keywords: 'help hint description 툴팁', render: TooltipPage },
   { path: '/components/switch', title: 'Switch', description: 'Toggle a setting that takes effect immediately.', group: 'Inputs', kind: 'component', keywords: 'switch toggle on off', render: SwitchPage },
   { path: '/components/checkbox', title: 'Checkbox', description: 'Toggle independent options and show mixed selection.', group: 'Inputs', kind: 'component', keywords: 'checkbox mixed indeterminate selection', render: CheckboxPage },
+  { path: '/components/input', title: 'Input', description: 'Enter text in a native form field.', group: 'Inputs', kind: 'component', keywords: 'textfield email search password 입력', render: InputPage },
   { path: '/components/radio', title: 'Radio', description: 'Choose one option in a RadioGroup.', group: 'Inputs', kind: 'component', keywords: 'radio group selection padding', render: RadioPage },
   { path: '/components/card', title: 'Card', description: 'Group content, actions, or selection controls on a surface.', group: 'Content', kind: 'component', keywords: 'paper glass surface selection 카드', render: CardPage },
   { path: '/components/code-block', title: 'CodeBlock', description: 'Display source code with syntax highlighting.', group: 'Content', kind: 'component', keywords: 'shiki syntax code snippet shell', render: CodeBlockPage },
